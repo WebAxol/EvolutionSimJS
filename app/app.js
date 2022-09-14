@@ -29,6 +29,9 @@ app.set('view engine','ejstrings');
 
 app.use(pageRoutes);
 
+// public
+
+app.use(express.static(join(__dirname,'public')));
 
 /* --- Server connection --- */
 
