@@ -6,22 +6,34 @@ class AgentBehaviour extends Service{
 
     execute(){
 
-        /*agents.forEach((agent) => {
+        var agents = this.world.getCollection('Agents');
 
-        })
-
-        switch(agent.state){
+        agents.forEach((agent) => {
             
-            case 'SeekFood' : this.SeekFood(agent)
-            break;
-            case 'Hunt'     : this.Hunt(agent);
-            break;
+            switch(agent.state){
+                case 'SeekFood' : this.SeekFood(agent);
+                break; 
+            }
 
-        }
-        */
+        });
+
     }
 
     SeekFood(agent){
+
+        var centre        = { x : canvas.width / 2, y : canvas.height / 2 };
+        var agentToCentre = Vector2D.sub(centre,agent.pos);
+        var normalized    = Vector2D.normalize(agentToCentre);
+
+
+        if(Vector2D.magSq(Vector2D.add(agent.vel,normalized)) > agent.maxSpeed  * agent.maxSpeed){
+            return;
+        }
+
+        agent.vel.x += normalized.x;
+        agent.vel.y += normalized.y;
+
+        //agent.vel.limit(agent.maxSpeed);
 
     }
 

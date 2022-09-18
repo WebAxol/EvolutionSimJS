@@ -12,8 +12,22 @@ class Renderer extends Service{
     }
 
     execute(){
-        this.context.fillStyle = 'rgba(0,0,0,0.1)';
+        this.context.fillStyle = 'rgba(0,0,0,0.5)';
         this.context.fillRect(0,0,canvas.width,canvas.height);
+
+        var renderables = this.world.getCollection('Renderables');
+
+        renderables.forEach(element => {
+            
+            switch(element.shape){
+                case 'Circle' : this.renderCircle(element);
+                break;
+                case 'Box' : this.renderBox(element);
+                break;
+            }
+
+        });
+
     }
 
     renderCircle(circle){
