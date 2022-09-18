@@ -1,13 +1,19 @@
 
 //TODO : Unit Test 
 
-class Renderer {
+class Renderer extends Service{
 
     constructor(context){
 
-        if(!context) throw Error('No context given to Renderer contructor');
+        super();
 
+        if(!context) throw Error('No context given to Renderer contructor');
         this.context = context;
+    }
+
+    execute(){
+        this.context.fillStyle = 'rgba(0,0,0,0.1)';
+        this.context.fillRect(0,0,canvas.width,canvas.height);
     }
 
     renderCircle(circle){

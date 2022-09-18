@@ -1,9 +1,12 @@
 class World {
 
+    #services;
+    #collections;
+
     constructor(){
 
-        this.services = {};
-        this.collections = {};
+        this.#services = {};
+        this.#collections = {};
 
         //Iteration
 
@@ -14,9 +17,9 @@ class World {
 
     registerService(name,service){
 
-        if(this.services[name]){
+        if(this.#services[name]){
             console.warn(`Service named '${name}' already registered`);
-            return;
+            return false;
         }
 
         if(!service || service == null){
@@ -24,31 +27,68 @@ class World {
         }
 
         service.world = this;
-        this.services[name] = service;
+        this.#services[name] = service;
 
+    }
+
+    getService(serviceName){
+
+        if(this.#services[serviceName]){
+            return this.#services[serviceName];
+        }
+
+        console.warn(`Cannot get unregistered service '${serviceName}'`)
+        return false;
     }
 
     registerCollection(name){
 
-        if(this.collections[name]){
+        if(this.#collections[name]){
             console.warn(`Collection named '${name}' already registered`);
-            return;
+            return false;
         }
 
-        this.collections[name] = [];
+        this.#collections[name] = [];
         return this;
     }
 
+    getCollection(collectionName){
+
+        if(this.#collections[collectionName]){
+            return this.#collections[collectionName];
+        }
+
+        console.warn(`Cannot get unregistered collection '${collectionName}'`)
+        return false;
+    }
+
+
     addToCollection(collectionName,object){
-        this.collections[collectionName].push(object);
+
+        if(!this.#collections[collectionName]){
+            console.warn(`collection named '${collectionName} is not registered'`);
+            return false;
+        }
+
+        this.#collections[collectionName].push(object);
     }
 
     execute(){
-        requestAnimationFrame(() => { this.execute() });
+        try{
+            requestAnimationFrame(() => { this.execute() });
 
-        if(!this.pause){
-            this.frame++;
-            this.routine(this);
+            Object.keys(this.#services).forEach((service) => {
+                service,this.#services[service].execute();
+             });
+
+            if(!this.pause){
+                this.frame++;
+                this.routine(this);
+            }
+        }catch(err){
+            this.stop();
+            return;
+            throw Error(err);
         }
     }
 
