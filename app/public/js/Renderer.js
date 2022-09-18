@@ -16,7 +16,7 @@ class Renderer {
             throw Error('Invalid position vector given to the circle');
         }
 
-        this.context.strokeStyle = 'white';
+        this.context.lineWidth = circle.lineWidth | 1;
         this.context.fillStyle = circle.background;
 
         this.context.beginPath();
@@ -28,7 +28,11 @@ class Renderer {
             0, 2 * Math.PI
         );
 
-        this.context.stroke();
+        if(circle.stroke){
+            this.context.strokeStyle = circle.stroke;
+            this.context.stroke();
+        }
+
         this.context.fill();
         //this.context.closePath(); 
     }

@@ -1,19 +1,26 @@
 'use strict'
 
-var renderer = new Renderer(c);
-var mainLoop = new MainLoop();
-/*
-renderer.renderBox({
-    pos : { x  : 100, y : 100},
-    width  : 100,
-    height : 100,
-    background : 'green'
-})
-*/
-for(let i = 0; i < 300; i++){
-    renderer.renderCircle({
-        pos : { x : Math.random() * 3000, y : Math.random() * 1500},
-        radius  : Math.random() * 100,
-        background: 'rgba(255,0,0,0.5)'
-    })
-}
+const WORLD = new World();
+
+/* --- Init world --- */
+
+// Register services
+
+WORLD.registerService('Renderer', new Renderer(c));
+
+//Register Collections
+
+WORLD.registerCollection('circles');
+
+// Establish routine
+
+WORLD.routine = (world) => {
+
+   WORLD.collections['circles'].forEach(circle => {
+        WORLD.services['Renderer'].renderCircle(circle);
+   });
+
+};
+
+
+WORLD.execute();
