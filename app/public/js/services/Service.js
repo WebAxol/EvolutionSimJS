@@ -7,4 +7,8 @@ class Service{
     execute(){
         return false;
     }
+
+    init(){
+        return false;
+    }
 }

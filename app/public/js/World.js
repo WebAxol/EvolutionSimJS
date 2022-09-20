@@ -28,6 +28,7 @@ class World {
 
         service.world = this;
         this.#services[name] = service;
+        this.#services[name].init();
 
     }
 
