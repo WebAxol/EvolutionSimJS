@@ -1,21 +1,88 @@
 class AgentBehaviour extends Service{
 
-    constructor(){
+    constructor(foodWeb){
         super();
+        this.foodWeb = foodWeb;
+    }
+
+    init(){
+        this.checkFoodWeb(this.foodWeb);
+    }
+
+    // Check that all elechons in web are registered collections inside this.world
+
+    checkFoodWeb(foodWeb){
+
+        Object.keys(foodWeb).forEach( (consumer) => {
+
+            if(!this.world.getCollection(consumer)){
+                throw Error `Cannot create foodweb with consumer type '${consumer}' because it is not registered as a collection `
+            } 
+
+            if(this.foodWeb[consumer]){
+        
+                Object.keys(foodWeb[consumer]).forEach((prey) => {
+
+                    if(!this.world.getCollection(prey)){
+                        throw Error `Cannot create foodweb with prey type '${consumer}' because it is not registered as a collection `
+                    }
+                })
+            }
+        });
+
+        console.log('All right', this.foodWeb);
     }
 
     execute(){
 
-        var agents = this.world.getCollection('Agents');
-
-        agents.forEach((agent) => {
+        Object.keys(this.foodWeb).forEach( (predatorSpecie) => {
             
-            switch(agent.state){
-                case 'SeekFood' : this.SeekFood(agent);
-                break; 
+            this.world.getCollection(predatorSpecie).forEach((predator) => {
+
+                //this.SeekFood(predator);
+            
+                var preySpecies = Object.keys(this.foodWeb[predatorSpecie]);
+
+                preySpecies.forEach((specie) => {
+
+                    this.world.getCollection(specie).forEach((prey) => {
+
+                        this.distanceFromPrey(predator,prey);
+    
+                    });
+                });
+            });
+        });
+    }
+
+    distanceFromPrey(predator,prey){
+
+        var predatorToPrey = Vector2D.sub(prey.pos,predator.pos);
+        var squareDistance = Vector2D.magSq(predatorToPrey);
+        var normalized = Vector2D.normalize(predatorToPrey);
+
+        if(squareDistance <= predator.sensitivity * predator.sensitivity){
+
+            if(Vector2D.magSq(Vector2D.add(predator.vel,normalized)) > (predator.maxSpeed  * predator.maxSpeed)){
+                return;
             }
 
-        });
+            predator.vel.x += normalized.x; 
+            predator.vel.y += normalized.y; 
+
+        }
+
+        if(squareDistance <= prey.sensitivity * prey.sensitivity){
+
+            if(Vector2D.magSq(Vector2D.sub(prey.vel,normalized)) > (prey.maxSpeed  * prey.maxSpeed)){
+                return;
+            }
+
+            prey.vel.x += normalized.x; 
+            prey.vel.y += normalized.y; 
+
+        }
+
 
     }
 
