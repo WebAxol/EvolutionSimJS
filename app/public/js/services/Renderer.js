@@ -12,7 +12,7 @@ class Renderer extends Service{
     }
 
     execute(){
-        this.context.fillStyle = 'rgba(0,0,0,0.5)';
+        this.context.fillStyle = 'rgba(0,0,0,0.3)';
         this.context.fillRect(0,0,canvas.width,canvas.height);
 
         var renderables = this.world.getCollection('Renderables');

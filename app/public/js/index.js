@@ -25,86 +25,79 @@ WORLD.registerService('AgentBehaviour', new AgentBehaviour({
 
    'PrimaryConsumers' : { 'StaticFood' : 1 },
    'SecondaryConsumers' : { 'PrimaryConsumers' : 1 },
-   'TertiaryConsumers' :  { 'SecondaryConsumers' : 1 }
+   'TertiaryConsumers' :  { 'SecondaryConsumers' : 1 , 'PrimaryConsumers' : 1 }
 
 }));
 WORLD.registerService('Motion', new Motion());
 
+for(let i = 0; i < 100; i++){
+
+   var agent = new Agent({
+      pos : new Vector2D(Math.random() * canvas.width, Math.random() * canvas.height),
+      sensitivity : 130
+   });
+
+   var circle1 = {
+      shape : 'Circle',
+      pos : agent.pos,
+      radius : 10,
+      background : 'lawngreen'
+   }
+
+
+   var circle2 = {
+      shape : 'Circle',
+      pos : agent.pos,
+      radius : agent.sensitivity,
+      background : 'rgba(0,255,0,0.03)'
+   }
+
+   agent.addChild(circle1);
+   agent.addChild(circle2);
+
+
+   WORLD.addToCollection('PrimaryConsumers', agent);
+   WORLD.addToCollection('Kinetics', agent);
+
+   WORLD.addToCollection('Renderables', circle1);
+   WORLD.addToCollection('Renderables', circle2);
+}
 
 
 for(let i = 0; i < 100; i++){
 
    var agent = new Agent({
-      pos : new Vector2D(Math.random() * 3000, Math.random() * 1500)
+      pos : new Vector2D(Math.random() * canvas.width, Math.random() * canvas.height),
+      sensitivity : 100
    });
 
-   WORLD.addToCollection('PrimaryConsumers', agent);
-   WORLD.addToCollection('Kinetics', agent);
-
-   WORLD.addToCollection('Renderables', {
-         shape : 'Circle',
-         pos : agent.pos,
-         radius : 10,
-         background : 'lawngreen'
-   });
-
-   WORLD.addToCollection('Renderables', {
+   var circle1 = {
       shape : 'Circle',
       pos : agent.pos,
-      radius : Math.random() * 120 + 20,
-      background : 'rgba(0,255,0,0.03)'
-});
-}
+      radius : 10,
+      background : 'skyblue'
+   }
 
+   var circle2 = {
+      shape : 'Circle',
+      pos : agent.pos,
+      radius : agent.sensitivity,
+      background : 'rgba(0,0,255,0.03)'
+   }
 
-for(let i = 0; i < 20; i++){
+   agent.addChild(circle1);
+   agent.addChild(circle2);
 
-   var agent = new Agent({
-      pos : new Vector2D(Math.random() * 3000, Math.random() * 1500)
-   });
 
    WORLD.addToCollection('TertiaryConsumers', agent);
    WORLD.addToCollection('Kinetics', agent);
-
-   WORLD.addToCollection('Renderables', {
-         shape : 'Circle',
-         pos : agent.pos,
-         radius : 10,
-         background : 'skyblue'
-   });
-
-   WORLD.addToCollection('Renderables', {
-      shape : 'Circle',
-      pos : agent.pos,
-      radius : Math.random() * 120 + 20,
-      background : 'rgba(0,0,255,0.03)'
-});
+   
+   WORLD.addToCollection('Renderables', circle1);
+   WORLD.addToCollection('Renderables', circle2);
 }
 
 
-for(let i = 0; i < 50; i++){
 
-   var agent = new Agent({
-      pos : new Vector2D(Math.random() * 3000, Math.random() * 1500)
-   });
-
-   WORLD.addToCollection('SecondaryConsumers', agent);
-   WORLD.addToCollection('Kinetics', agent);
-
-   WORLD.addToCollection('Renderables', {
-         shape : 'Circle',
-         pos : agent.pos,
-         radius : 10,
-         background : 'orange'
-   });
-
-   WORLD.addToCollection('Renderables', {
-      shape : 'Circle',
-      pos : agent.pos,
-      radius : Math.random() * 120 + 20,
-      background : 'rgba(255,255,0,0.03)'
-});
-}
 
 
 WORLD.execute();
