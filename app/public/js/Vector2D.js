@@ -71,6 +71,12 @@ class Vector2D {
         return Math.sqrt(Vector2D.magSq(v));
     }
 
+    scale(s){
+        this.x *= s;
+        this.y *= s;
+        return this;
+    }
+
     static scale(v,s){
         return { x : v.x * s , y : v.y * s }
     }

@@ -74,6 +74,11 @@ class World {
         this.#collections[collectionName].push(object);
     }
 
+    removeFromCollection(collectionName,object){
+        let index = this.#collections[collectionName].indexOf(object);
+        this.#collections[collectionName].splice(index,1);
+    }
+
     execute(){
         try{
             requestAnimationFrame(() => { this.execute() });

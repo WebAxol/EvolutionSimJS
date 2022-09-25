@@ -63,28 +63,39 @@ class AgentBehaviour extends Service{
 
         if(squareDistance <= predator.sensitivity * predator.sensitivity){
 
-            if(Vector2D.magSq(Vector2D.add(predator.vel,normalized)) > (predator.maxSpeed  * predator.maxSpeed)){
-                return;
-            }
-
             predator.vel.x += normalized.x; 
             predator.vel.y += normalized.y; 
 
+            if(Vector2D.magSq(predator.vel) > (predator.maxSpeed  * predator.maxSpeed)){        
+                predator.vel.x *= 0.9; 
+                predator.vel.y *= 0.9; 
+            }
         }
 
         if(squareDistance <= prey.sensitivity * prey.sensitivity){
 
-            if(Vector2D.magSq(Vector2D.sub(prey.vel,normalized)) > (prey.maxSpeed  * prey.maxSpeed)){
-                return;
-            }
-
             prey.vel.x += normalized.x; 
             prey.vel.y += normalized.y; 
 
+            if(Vector2D.magSq(prey.vel) > (prey.maxSpeed  * prey.maxSpeed)){
+                prey.vel.x *= 0.9; 
+                prey.vel.y *= 0.9; 
+            }
         }
 
-
+        if(squareDistance <= 50 * 50){
+            this.hunt(predator,prey);
+        }
     }
+
+    hunt(predator, prey){
+
+        
+        prey.maxSpeed = 0;
+        prey.vel.x = 0;
+        prey.vel.y = 0;
+    }
+
 
     SeekFood(agent){
 
