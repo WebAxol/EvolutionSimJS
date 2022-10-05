@@ -7,10 +7,23 @@ const WORLD = new World();
 
 //Register Collections
 
+WORLD.registerCollection('toBeRemoved');
+
 WORLD.registerCollection('StaticFood');
+WORLD.registerCollection('ActiveStaticFood');
+
+
+//Primary Consumer
 WORLD.registerCollection('PrimaryConsumers');
+WORLD.registerCollection('ActivePrimaryConsumers');
+
+//Secondary Consumer
 WORLD.registerCollection('SecondaryConsumers');
+WORLD.registerCollection('ActiveSecondaryConsumers');
+
+//Tertiary Consumer
 WORLD.registerCollection('TertiaryConsumers');
+WORLD.registerCollection('ActiveTertiaryConsumers');
 
 
 WORLD.registerCollection('Renderables');
@@ -23,77 +36,69 @@ WORLD.registerCollection('Kinetics');
 WORLD.registerService('Renderer', new Renderer(c));
 WORLD.registerService('AgentBehaviour', new AgentBehaviour({
 
-   'PrimaryConsumers' : { 'StaticFood' : 1 },
    'SecondaryConsumers' : { 'PrimaryConsumers' : 1 },
-   'TertiaryConsumers' :  { 'SecondaryConsumers' : 1 , 'PrimaryConsumers' : 1 }
+   'TertiaryConsumers' :  { 'SecondaryConsumers' : 1}
 
 }));
 WORLD.registerService('Motion', new Motion());
 
-for(let i = 0; i < 100; i++){
 
-   var agent = new Agent({
+for(let i = 0; i < 500; i++){
+
+   var agent = buildAgent({
       pos : new Vector2D(Math.random() * canvas.width, Math.random() * canvas.height),
-      sensitivity : 130
+      //pos : new Vector2D(500, 500),
+      sensitivity : 0,
+      aspectColor : 'lawngreen',
+      sensitivityFieldColor : 'rgba(0,255,0,0.03)'
    });
-
-   var circle1 = {
-      shape : 'Circle',
-      pos : agent.pos,
-      radius : 10,
-      background : 'lawngreen'
-   }
-
-
-   var circle2 = {
-      shape : 'Circle',
-      pos : agent.pos,
-      radius : agent.sensitivity,
-      background : 'rgba(0,255,0,0.03)'
-   }
-
-   agent.addChild(circle1);
-   agent.addChild(circle2);
 
 
    WORLD.addToCollection('PrimaryConsumers', agent);
+   WORLD.addToCollection('ActivePrimaryConsumers', agent);
    WORLD.addToCollection('Kinetics', agent);
 
-   WORLD.addToCollection('Renderables', circle1);
-   WORLD.addToCollection('Renderables', circle2);
+   
+
 }
 
 
-for(let i = 0; i < 100; i++){
+for(let i = 0; i < 1; i++){
 
-   var agent = new Agent({
+   var agent = buildAgent({
       pos : new Vector2D(Math.random() * canvas.width, Math.random() * canvas.height),
-      sensitivity : 100
+      //pos : new Vector2D(200, 500),
+      sensitivity : 100,
+      maxSpeed    : 5,
+      aspectColor : 'skyblue',
+      sensitivityFieldColor : 'rgba(0,0,255,0.03)'
    });
 
-   var circle1 = {
-      shape : 'Circle',
-      pos : agent.pos,
-      radius : 10,
-      background : 'skyblue'
-   }
 
-   var circle2 = {
-      shape : 'Circle',
-      pos : agent.pos,
-      radius : agent.sensitivity,
-      background : 'rgba(0,0,255,0.03)'
-   }
+   WORLD.addToCollection('SecondaryConsumers', agent);
+   WORLD.addToCollection('ActiveSecondaryConsumers', agent);
+   WORLD.addToCollection('Kinetics', agent);
 
-   agent.addChild(circle1);
-   agent.addChild(circle2);
+}
+
+
+
+for(let i = 0; i < 0; i++){
+
+   var agent = buildAgent({
+      pos : new Vector2D(Math.random() * canvas.width, Math.random() * canvas.height),
+      //pos : new Vector2D(200, 500),
+      sensitivity : 100,
+      maxSpeed    : 5,
+      aspectColor : 'red',
+      sensitivityFieldColor : 'rgba(255,0,0,0.03)'
+   });
 
 
    WORLD.addToCollection('TertiaryConsumers', agent);
+   WORLD.addToCollection('ActiveTertiaryConsumers', agent);
    WORLD.addToCollection('Kinetics', agent);
-   
-   WORLD.addToCollection('Renderables', circle1);
-   WORLD.addToCollection('Renderables', circle2);
+
 }
 
 

@@ -9,6 +9,7 @@ class Motion extends Service{
 
         kinetic.forEach( object => {
             object.pos.add(object.vel);
+
         });
     }
 

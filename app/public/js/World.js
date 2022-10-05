@@ -80,21 +80,15 @@ class World {
     }
 
     execute(){
-        try{
-            requestAnimationFrame(() => { this.execute() });
+        requestAnimationFrame(() => { this.execute() });
 
-            Object.keys(this.#services).forEach((service) => {
-                service,this.#services[service].execute();
-             });
+        Object.keys(this.#services).forEach((service) => {
+            service,this.#services[service].execute();
+         });
 
-            if(!this.pause){
-                this.frame++;
-                this.routine(this);
-            }
-        }catch(err){
-            this.stop();
-            return;
-            throw Error(err);
+        if(!this.pause){
+            this.frame++;
+            this.routine(this);
         }
     }
 

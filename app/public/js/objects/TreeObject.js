@@ -8,6 +8,9 @@ class TreeObject{
 
     addChild(name,node){
 
+        if(!name || !node) return;
+        
+
         if(this.#children[name]){
             console.warn(`Cannot register child with name '${name} : it is already registered'`);
             return;
@@ -20,6 +23,8 @@ class TreeObject{
 
     removeChild(name){
 
+        if(!name) return;
+
         if(this.#children[name]){
             console.warn(`Cannot remove child with name '${name}', as it does not exist`);
             return; 
@@ -30,7 +35,10 @@ class TreeObject{
     }
 
     getChild(name){
-        if(this.#children[name]){
+
+        if(!name) return;
+
+        if(!this.#children[name]){
             console.warn(`Cannot get child with name '${name} : it does not exist'`);
             return;
         }

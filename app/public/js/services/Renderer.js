@@ -32,7 +32,7 @@ class Renderer extends Service{
 
     renderCircle(circle){
 
-        if(!(circle.pos.x && circle.pos.y)){
+        if((circle.pos.x && circle.pos.y) === undefined){
             throw Error('Invalid position vector given to the circle');
         }
 
@@ -61,7 +61,7 @@ class Renderer extends Service{
 
         this.context.fillStyle = box.background || 'white';
 
-        if(!(box.pos.x && box.pos.y)){
+        if((box.pos.x && box.pos.y) === undefined){
             throw Error('Invalid position vector given to box', box);
         }
 
