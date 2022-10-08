@@ -149,10 +149,10 @@ class AgentBehaviour extends Service{
 
         WORLD.removeFromCollection(specie,organism);
         WORLD.removeFromCollection(`Active${specie}`,organism);
-        WORLD.removeFromCollection('Renderables',organism.getChild('aspect'));
+        WORLD.removeFromCollection('Renderables',TreeObject.getChild(organism,'aspect'));
 
         if(organism.sensitivity > 0){
-            WORLD.removeFromCollection('Renderables',organism.getChild('sensitivityField'));
+            WORLD.removeFromCollection('Renderables',TreeObject.getChild(organism,'sensitivityField'));
         }
     }
 
