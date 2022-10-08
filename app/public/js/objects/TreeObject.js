@@ -1,41 +1,43 @@
 class TreeObject{
 
-    #children;
+    static addChild(tree,name,node){
 
-    constructor(){
-        this.#children = {};
-    }
+        if(!name || !node) return;
+        
 
-    addChild(name,node){
-
-        if(this.#children[name]){
+        if(tree._children[name]){
             console.warn(`Cannot register child with name '${name} : it is already registered'`);
             return;
         }
 
-        let childNode = this.#children[name] = node;
+        let childNode = tree._children[name] = node;
         return childNode;
 
     }
 
-    removeChild(name){
+    static removeChild(tree,name){
 
-        if(this.#children[name]){
+        if(!name) return;
+
+        if(tree._children[name]){
             console.warn(`Cannot remove child with name '${name}', as it does not exist`);
             return; 
         }
 
-        delete this.#children[name];
+        delete tree._children[name];
 
     }
 
-    getChild(name){
-        if(this.#children[name]){
+    static getChild(tree,name){
+
+        if(!name) return;
+
+        if(!tree._children[name]){
             console.warn(`Cannot get child with name '${name} : it does not exist'`);
             return;
         }
 
-        return this.#children[name];
+        return tree._children[name];
 
     }
 

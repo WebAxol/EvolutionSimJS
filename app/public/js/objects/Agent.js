@@ -1,19 +1,45 @@
-class Agent extends TreeObject{
 
-    constructor(details){
+function buildAgent(details){
 
-        super();
+    var agent = {
 
+        _children   : {},
 
-        this.pos   = details.pos
-        this.vel   = {x : 0, y : 0 } 
+        pos         : details.pos,
+        vel         : {x : 0, y : 0 }, 
+        wander      :  true,
+        foodCount   : 0,
 
-
-        // Evolutive attributes
-
-        this.energy = 100;
-        this.maxSpeed = 5;
-        this.sensitivity = details.sensitivity | 50; 
-        this.state  = 'SeekFood';
+        energy      : 30000,
+        maxSpeed    :  details.maxSpeed | 0,
+        sensitivity : details.sensitivity | 0
     }
+
+    var circle1 = {
+        shape : 'Circle',
+        pos : agent.pos,
+        radius : 10,
+        background : details.aspectColor
+     }
+  
+     TreeObject.addChild(agent,'aspect' , circle1);
+     WORLD.addToCollection('Renderables', circle1);
+
+     if(agent.sensitivity > 0){
+
+        var circle2 = {
+            shape : 'Circle',
+            pos : agent.pos,
+            radius : agent.sensitivity,
+            background : details.sensitivityFieldColor 
+         }
+
+         TreeObject.addChild(agent,'sensitivityField' , circle2);
+         WORLD.addToCollection('Renderables', circle2);
+
+     }
+
+
+     return agent;
+
 }
