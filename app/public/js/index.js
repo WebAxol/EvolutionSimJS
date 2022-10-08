@@ -7,8 +7,6 @@ const WORLD = new World();
 
 //Register Collections
 
-WORLD.registerCollection('toBeRemoved');
-
 WORLD.registerCollection('StaticFood');
 WORLD.registerCollection('ActiveStaticFood');
 
@@ -63,7 +61,7 @@ for(let i = 0; i < 500; i++){
 }
 
 
-for(let i = 0; i < 1; i++){
+for(let i = 0; i < 100; i++){
 
    var agent = buildAgent({
       pos : new Vector2D(Math.random() * canvas.width, Math.random() * canvas.height),

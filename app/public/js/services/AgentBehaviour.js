@@ -39,51 +39,69 @@ class AgentBehaviour extends Service{
 
     execute(){
 
+        var notLeft = true;
+
         Object.keys(this.foodWeb).forEach( (predatorSpecie) => {
             
-            
-            this.world.getCollection(`Active${predatorSpecie}`).forEach((predator) => {
+            let activePredators = this.world.getCollection(`Active${predatorSpecie}`);
 
-                predator.wander = true;
+            for(let i = 0; i < activePredators.length; i++){
+
+                notLeft = false;
+
+                let predator = activePredators[i];
+                    predator.energy -= Vector2D.magSq(predator.vel) + predator.sensitivity;
+                    predator.wander = true;
                 
                 if(predator.foodCount < 5){
                     
                     var preySpecies = Object.keys(this.foodWeb[predatorSpecie]);
                     
-                    preySpecies.forEach((specie) => {
-                        this.world.getCollection(`Active${specie}`).forEach((prey) => {
+                    preySpecies.forEach((preySpecie) => {
 
-                            this.distanceFromPrey(predator,prey, specie);
-                        });
+                        let activePreys =  this.world.getCollection(`Active${preySpecie}`);
+
+                        for(let j = 0; j < activePreys.length; j++){
+                            let prey = activePreys[j];
+                            let caught = this.chaseAndFlee(predator,prey);
+
+                            if(caught){
+                                this.Hunt(predator);
+                                this.Eliminate(preySpecie,prey);
+                                j--;
+                            }
+                        }
                         
                     });
                 }
-                
-                predator.energy -= Vector2D.magSq(predator.vel) + predator.sensitivity;
-                /*
+            
                 if(predator.foodCount < 2 && predator.wander){
-                    //this.SeekFood(predator);
+                    this.SeekFood(predator);
                 }
                 
                 else{
                     this.Retreat(predatorSpecie,predator);
                 }
 
-
                 if(predator.energy <= 0){
                     this.Eliminate(predatorSpecie,predator);
+                    i--;
                 }
-                */
-            
-            });
-            
+            }    
         });
+
+        // No more organisms participating
+
+        if(notLeft){
+            //Next Generation
+        }
+
     }
 
-    distanceFromPrey(predator,prey, preySpecie){
+    chaseAndFlee(predator,prey){
 
         let predatorToPrey = Vector2D.sub(prey.pos,predator.pos);
-        let squareDistance = Vector2D.magSq(predatorToPrey);
+        let squareDistance = Vector2D.magSq(predatorToPrey)
         let normalized = Vector2D.normalize(predatorToPrey);
 
         if(predator.maxSpeed > 0 && squareDistance <= predator.sensitivity * predator.sensitivity){
@@ -108,18 +126,29 @@ class AgentBehaviour extends Service{
             if(Vector2D.magSq(prey.vel) > (prey.maxSpeed  * prey.maxSpeed)){
                 prey.vel.x *= 0.9; 
                 prey.vel.y *= 0.9; 
-            }b  
+            }
         }
 
-        if(squareDistance <= 20 * 20){
-            this.Hunt(predator,prey, preySpecie);
+        // Has prey been caught?
+
+        if(squareDistance < 20 * 20){
+            return true;
         }
+
+        return false;
+    }
+
+
+    Hunt(predator){
+        predator.foodCount++;
+        predator.energy += 30000;
     }
 
 
     Eliminate(specie,organism){
 
         WORLD.removeFromCollection(specie,organism);
+        WORLD.removeFromCollection(`Active${specie}`,organism);
         WORLD.removeFromCollection('Renderables',organism.getChild('aspect'));
 
         if(organism.sensitivity > 0){
@@ -158,20 +187,11 @@ class AgentBehaviour extends Service{
 
     Save(specie,organism){
 
-        //WORLD.removeFromCollection(`Active${specie}`, organism);
+        WORLD.removeFromCollection(`Active${specie}`, organism);
 
         organism.vel.x = 0;
         organism.vel.y = 0;
     }
-
-    Hunt(predator, prey, preySpecie){
-
-        this.world.addToCollection('toBeRemoved', prey);
-
-        predator.foodCount++;
-        predator.energy += 30000;
-    }
-
 
     SeekFood(agent){
 
