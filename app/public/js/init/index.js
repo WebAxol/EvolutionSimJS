@@ -1,45 +1,5 @@
 'use strict'
 
-const WORLD = new World();
-
-/* --- Init world --- */
-
-
-//Register Collections
-
-WORLD.registerCollection('StaticFood');
-WORLD.registerCollection('ActiveStaticFood');
-
-
-//Primary Consumer
-WORLD.registerCollection('PrimaryConsumers');
-WORLD.registerCollection('ActivePrimaryConsumers');
-
-//Secondary Consumer
-WORLD.registerCollection('SecondaryConsumers');
-WORLD.registerCollection('ActiveSecondaryConsumers');
-
-//Tertiary Consumer
-WORLD.registerCollection('TertiaryConsumers');
-WORLD.registerCollection('ActiveTertiaryConsumers');
-
-
-WORLD.registerCollection('Renderables');
-WORLD.registerCollection('Kinetics');
-
-
-
-// Register services
-
-WORLD.registerService('Renderer', new Renderer(c));
-WORLD.registerService('AgentBehaviour', new AgentBehaviour({
-
-   'SecondaryConsumers' : { 'PrimaryConsumers' : 1 },
-   'TertiaryConsumers' :  { 'SecondaryConsumers' : 1}
-
-}));
-WORLD.registerService('Motion', new Motion());
-
 
 for(let i = 0; i < 500; i++){
 
@@ -55,9 +15,6 @@ for(let i = 0; i < 500; i++){
    WORLD.addToCollection('PrimaryConsumers', agent);
    WORLD.addToCollection('ActivePrimaryConsumers', agent);
    WORLD.addToCollection('Kinetics', agent);
-
-   
-
 }
 
 

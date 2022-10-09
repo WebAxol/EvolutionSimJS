@@ -9,14 +9,10 @@
 </head>
 <body>
     <canvas width="3000px" height="1500px"></canvas>
-
-    <!-- Variables and setup -->
-
-    <script src="/js/canvas.js"></script>
     
     <!-- Modules -->
 
-    <script src="/js/Vector2D.js"></script>
+    <script src="/js/libraries/Vector2D.js"></script>
     <script src="/js/services/Service.js"></script>
     <script src="/js/services/Renderer.js"></script>
     <script src="/js/services/Motion.js"></script>
@@ -24,13 +20,21 @@
 
     <!--Elements-->
 
-    <script src="/js/objects/TreeObject.js"></script>
-    <script src="/js/objects/Agent.js"></script>
+    <script src="/js/libraries/TreeObject.js"></script>
+    <script src="/js/Agent.js"></script>
 
     <!-- Integration -->
 
+    <script src="/js/AgentPool.js"></script>
     <script src="/js/World.js"></script>
-    <script src="/js/index.js"></script>
+
+    <!--Init World-->
+
+    <script src="/js/init/initConstants.js"></script>
+    <script src="/js/init/initCollections.js"></script>
+    <script src="/js/init/initAgentTypes.js"></script>
+    <script src="/js/init/initServices.js"></script>
+    <script src="/js/init/index.js"></script>
 
 </body>
 </html>
