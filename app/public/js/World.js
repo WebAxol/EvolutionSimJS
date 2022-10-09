@@ -2,11 +2,13 @@ class World {
 
     #services;
     #collections;
+    #agentPool;
 
     constructor(){
 
         this.#services = {};
         this.#collections = {};
+        this.#agentPool = new AgentPool(this);
 
         //Iteration
 
@@ -91,6 +93,20 @@ class World {
             this.routine(this);
         }
     }
+
+    registerAgentType(typeName,prototype){
+        this.#agentPool.registerType(typeName,prototype);
+    }
+
+    createAgent(type){
+
+        let agent = this.#agentPool.createAgent(type);
+        
+        agent.getCollection().forEach((collection) => {
+            this.addToCollection(collection, agent);
+        });
+    }
+
 
     stop(){
         this.pause = true;
