@@ -98,15 +98,20 @@ class World {
         this.#agentPool.registerType(typeName,prototype);
     }
 
-    createAgent(type){
+    createAgent(type,details){
 
-        let agent = this.#agentPool.createAgent(type);
-        
-        agent.getCollection().forEach((collection) => {
+        let agent = this.#agentPool.createAgent(type,details);
+
+        agent.getCollections().forEach((collection) => {
             this.addToCollection(collection, agent);
         });
+
+        return agent;
     }
 
+    removeAgent(agent){
+        this.#agentPool.removeAgent(agent);
+    }
 
     stop(){
         this.pause = true;

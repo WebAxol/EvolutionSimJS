@@ -8,11 +8,14 @@ WORLD.registerAgentType('Organism', {
         energy      : 30000,
         maxSpeed    : 0,
         sensitivity : 0
-    }
+    },
+
+    collections : ['Kinetics']
 })
 
 WORLD.registerAgentType('Circle', {
     info: {
+        shape : 'Circle',
         pos : {x : 0, y : 0},
         radius : 10,
         background : 'red'
