@@ -147,13 +147,11 @@ class AgentBehaviour extends Service{
 
     Eliminate(specie,organism){
 
+        //console.log(organism.getType());
+
+        WORLD.removeAgent(organism);
         WORLD.removeFromCollection(specie,organism);
         WORLD.removeFromCollection(`Active${specie}`,organism);
-        WORLD.removeFromCollection('Renderables',TreeObject.getChild(organism,'aspect'));
-
-        if(organism.sensitivity > 0){
-            WORLD.removeFromCollection('Renderables',TreeObject.getChild(organism,'sensitivityField'));
-        }
     }
 
     Retreat(specie,object){
@@ -166,7 +164,7 @@ class AgentBehaviour extends Service{
         }
 
         else if(object.pos.y > canvas.height){
-            outOfCanvas = true;
+            outOfCanvas = true;//console.log(agent);
             object.pos.y = 0;
         }
 

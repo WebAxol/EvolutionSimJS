@@ -1,63 +1,70 @@
 'use strict'
 
 
-for(let i = 0; i < 500; i++){
-
-   var agent = buildAgent({
-      pos : new Vector2D(Math.random() * canvas.width, Math.random() * canvas.height),
-      //pos : new Vector2D(500, 500),
-      sensitivity : 0,
-      aspectColor : 'lawngreen',
-      sensitivityFieldColor : 'rgba(0,255,0,0.03)'
-   });
-
-
-   WORLD.addToCollection('PrimaryConsumers', agent);
-   WORLD.addToCollection('ActivePrimaryConsumers', agent);
-   WORLD.addToCollection('Kinetics', agent);
-}
-
-
 for(let i = 0; i < 100; i++){
 
-   var agent = buildAgent({
-      pos : new Vector2D(Math.random() * canvas.width, Math.random() * canvas.height),
-      //pos : new Vector2D(200, 500),
-      sensitivity : 100,
-      maxSpeed    : 5,
-      aspectColor : 'skyblue',
-      sensitivityFieldColor : 'rgba(0,0,255,0.03)'
+   var position = new Vector2D(Math.random() * canvas.width, Math.random() * canvas.height);
+   
+   //console.log(position);
+
+   var organism = WORLD.createAgent('Organism', 
+   {
+      'info' :{
+         pos: position,
+         sensitivity : 0
+      }
+   })
+   
+   let aspect = WORLD.createAgent('Circle', {
+      'info' : {
+         pos: organism.pos,
+         background : 'lawngreen'
+      }
    });
 
-
-   WORLD.addToCollection('SecondaryConsumers', agent);
-   WORLD.addToCollection('ActiveSecondaryConsumers', agent);
-   WORLD.addToCollection('Kinetics', agent);
+   TreeObject.addChild(organism,'aspect',aspect);
+   WORLD.addToCollection('PrimaryConsumers',organism);
+   WORLD.addToCollection('ActivePrimaryConsumers',organism);
 
 }
+ 
+for(let i = 0; i < 10; i++){
 
+   var position = new Vector2D(Math.random() * canvas.width, Math.random() * canvas.height);
+   
+   //console.log(position);
 
-
-for(let i = 0; i < 0; i++){
-
-   var agent = buildAgent({
-      pos : new Vector2D(Math.random() * canvas.width, Math.random() * canvas.height),
-      //pos : new Vector2D(200, 500),
-      sensitivity : 100,
-      maxSpeed    : 5,
-      aspectColor : 'red',
-      sensitivityFieldColor : 'rgba(255,0,0,0.03)'
+   var organism = WORLD.createAgent('Organism', 
+   {
+      'info' :{
+         pos: position,
+         maxSpeed : 5,
+         sensitivity : 100
+      }
+   })
+   
+   let aspect = WORLD.createAgent('Circle', {
+      'info' : {
+         pos: organism.pos,
+         background : 'skyblue'
+      }
    });
 
+   let sensitivityRange = WORLD.createAgent('Circle', {
+      'info' : {
+         pos: organism.pos,
+         background : 'rgba(0,0,255,0.1)',
+         radius: organism.sensitivity
+      }
+   });
 
-   WORLD.addToCollection('TertiaryConsumers', agent);
-   WORLD.addToCollection('ActiveTertiaryConsumers', agent);
-   WORLD.addToCollection('Kinetics', agent);
+   TreeObject.addChild(organism,'aspect',aspect);
+   TreeObject.addChild(organism,'sensitivityRange',sensitivityRange);
+
+   WORLD.addToCollection('SecondaryConsumers',organism);
+   WORLD.addToCollection('ActiveSecondaryConsumers',organism);
 
 }
-
-
-
 
 
 WORLD.execute();
