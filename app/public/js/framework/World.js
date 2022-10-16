@@ -3,12 +3,14 @@ class World {
     #services;
     #collections;
     #agentPool;
+    #eventManager;
 
     constructor(){
 
         this.#services = {};
         this.#collections = {};
-        this.#agentPool = new AgentPool(this);
+        this.#agentPool    = new AgentPool(this);
+        this.#eventManager = new EventManager(this);
 
         //Iteration
 
@@ -81,19 +83,6 @@ class World {
         this.#collections[collectionName].splice(index,1);
     }
 
-    execute(){
-        requestAnimationFrame(() => { this.execute() });
-
-        Object.keys(this.#services).forEach((service) => {
-            service,this.#services[service].execute();
-         });
-
-        if(!this.pause){
-            this.frame++;
-            this.routine(this);
-        }
-    }
-
     registerAgentType(typeName,prototype){
         this.#agentPool.registerType(typeName,prototype);
     }
@@ -113,12 +102,26 @@ class World {
         this.#agentPool.removeAgent(agent);
     }
 
-    stop(){
-        this.pause = true;
+    registerEvent(eventName){
+        this.#eventManager.registerEvent(eventName);
     }
 
-    resume(){
-        this.pause = false;
+    registerServiceToEvent(serviceName,eventName){
+        this.#eventManager.registerServiceToEvent(serviceName,eventName);
+    }
+
+
+    execute(){
+        requestAnimationFrame(() => { this.execute() });
+
+        Object.keys(this.#services).forEach((service) => {
+            service,this.#services[service].execute();
+         });
+
+        if(!this.pause){
+            this.frame++;
+            this.routine(this);
+        }
     }
 
 
