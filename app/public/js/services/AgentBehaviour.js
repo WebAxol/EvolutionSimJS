@@ -4,44 +4,16 @@
 
 class AgentBehaviour extends Service{
 
-    constructor(foodWeb){
+    constructor(){
         super();
-        this.foodWeb = foodWeb;
-    }
-
-    init(){
-        this.checkFoodWeb(this.foodWeb);
-    }
-
-    // Check that all elechons in web are registered collections inside this.world
-
-    checkFoodWeb(foodWeb){
-
-        Object.keys(foodWeb).forEach( (consumer) => {
-
-            if(!this.world.getCollection(consumer) && !this.world.getCollection(`Active${prey}`)){
-                throw Error `Cannot create foodweb with consumer type '${consumer}' because collections for it are not registered `
-            } 
-
-            if(this.foodWeb[consumer]){
-        
-                Object.keys(foodWeb[consumer]).forEach((prey) => {
-
-                    if(!this.world.getCollection(prey) && !this.world.getCollection(`Active${prey}`)){
-                        throw Error `Cannot create foodweb with prey type '${consumer}' because it collections for it are not registered `
-                    }
-                })
-            }
-        });
-
-        console.log('All right', this.foodWeb);
     }
 
     execute(){
 
-        var notLeft = true;
+        var notLeft = true, 
+            foodWeb = ECOSYSTEM.foodWeb;
 
-        Object.keys(this.foodWeb).forEach( (predatorSpecie) => {
+        Object.keys(foodWeb).forEach( (predatorSpecie) => {
             
             let activePredators = this.world.getCollection(`Active${predatorSpecie}`);
 
@@ -55,7 +27,7 @@ class AgentBehaviour extends Service{
                 
                 if(predator.foodCount < 5){
                     
-                    var preySpecies = Object.keys(this.foodWeb[predatorSpecie]);
+                    var preySpecies = Object.keys(foodWeb[predatorSpecie]);
                     
                     preySpecies.forEach((preySpecie) => {
 
@@ -95,7 +67,6 @@ class AgentBehaviour extends Service{
         if(notLeft){
             //Next Generation
         }
-
     }
 
     chaseAndFlee(predator,prey){

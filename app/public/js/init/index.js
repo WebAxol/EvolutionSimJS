@@ -67,4 +67,43 @@ for(let i = 0; i < 100; i++){
 }
 
 
+for(let i = 0; i < 10; i++){
+
+   var position = new Vector2D(Math.random() * canvas.width, Math.random() * canvas.height);
+   
+   //console.log(position);
+
+   var organism = WORLD.createAgent('Organism', 
+   {
+      'info' :{
+         pos: position,
+         maxSpeed : 5,
+         sensitivity : 100
+      }
+   })
+   
+   let aspect = WORLD.createAgent('Circle', {
+      'info' : {
+         pos: organism.pos,
+         background : 'red'
+      }
+   });
+
+   let sensitivityRange = WORLD.createAgent('Circle', {
+      'info' : {
+         pos: organism.pos,
+         background : 'rgba(255,0,0,0.1)',
+         radius: organism.sensitivity
+      }
+   });
+
+   TreeObject.addChild(organism,'aspect',aspect);
+   TreeObject.addChild(organism,'sensitivityRange',sensitivityRange);
+
+   WORLD.addToCollection('TertiaryConsumers',organism);
+   WORLD.addToCollection('ActiveTertiaryConsumers',organism);
+
+}
+
+
 WORLD.execute();
