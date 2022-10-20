@@ -6,7 +6,7 @@ class Generations extends Service{
     }
 
     nextGeneration(){
-
+        
     }
 
     generateOffspring(){

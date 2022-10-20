@@ -28,7 +28,7 @@ for(let i = 0; i < 100; i++){
 
 }
  
-for(let i = 0; i < 10; i++){
+for(let i = 0; i < 100; i++){
 
    var position = new Vector2D(Math.random() * canvas.width, Math.random() * canvas.height);
    
