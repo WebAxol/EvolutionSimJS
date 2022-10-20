@@ -140,14 +140,13 @@ class AgentBehaviour extends Service{
 
 
     Hunt(predator){
+        
         predator.foodCount++;
         predator.energy += 30000;
     }
 
 
     Eliminate(specie,organism){
-
-        //console.log(organism.getType());
 
         WORLD.removeAgent(organism);
         WORLD.removeFromCollection(specie,organism);

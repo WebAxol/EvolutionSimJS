@@ -6,6 +6,7 @@ class EventManager{
     }
 
     registerEvent(eventName){
+
         if(this.events[eventName]){
             console.warn(`Event named '${eventName} has already been registered'`);
             return false;
@@ -15,6 +16,7 @@ class EventManager{
     }
 
     registerServiceToEvent(serviceName,eventName){
+
         if(!this.events[eventName]){
             console.warn(`Cannot register service '${serviceName}' to unregistered event '${eventName}'`);
             return false;
@@ -27,11 +29,21 @@ class EventManager{
             return false;
         }
 
+        if(typeof service[eventName] != 'function'){
+            console.warn(`Cannot register service '${serviceName}' to event, because the service is not registered to the framework`);
+            return false;
+        }
+
         this.events[eventName][serviceName] = service;
     }
 
     notifyServices(eventName, details){
 
+        var services = Object.keys(this.events[eventName]);
+
+        services.forEach((service) => { 
+            service[eventName](details);
+        });
     }
 
 
