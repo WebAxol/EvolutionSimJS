@@ -28,7 +28,7 @@ for(let i = 0; i < 100; i++){
 
 }
  
-for(let i = 0; i < 100; i++){
+for(let i = 0; i < 10; i++){
 
    var position = new Vector2D(Math.random() * canvas.width, Math.random() * canvas.height);
    
@@ -38,8 +38,8 @@ for(let i = 0; i < 100; i++){
    {
       'info' :{
          pos: position,
-         maxSpeed : 5,
-         sensitivity : 100
+         maxSpeed : 2 + 5 * Math.random(),
+         sensitivity : 50 + 100 * Math.random ()
       }
    })
    
@@ -67,7 +67,7 @@ for(let i = 0; i < 100; i++){
 }
 
 
-for(let i = 0; i < 10; i++){
+for(let i = 0; i < 0; i++){
 
    var position = new Vector2D(Math.random() * canvas.width, Math.random() * canvas.height);
    

@@ -110,6 +110,10 @@ class World {
         this.#eventManager.registerServiceToEvent(serviceName,eventName);
     }
 
+    notifyEvent(eventName,details){
+        this.#eventManager.notifyToServices(eventName,details);
+    }
+
 
     execute(){
         requestAnimationFrame(() => { this.execute() });
