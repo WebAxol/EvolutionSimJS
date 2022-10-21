@@ -29,20 +29,25 @@ class EventManager{
             return false;
         }
 
-        if(typeof service[eventName] != 'function'){
-            console.warn(`Cannot register service '${serviceName}' to event, because the service is not registered to the framework`);
+        if(typeof service[`on${eventName}`] != 'function'){
+            console.warn(`Cannot register service '${serviceName}' to event, because the service does not have a method 'on${eventName}'`);
             return false;
         }
 
         this.events[eventName][serviceName] = service;
     }
 
-    notifyServices(eventName, details){
+    notifyToServices(eventName, details = undefined){
 
+        if(!this.events[eventName]){
+            console.warn(`Cannot notify event '${eventName}' because it does not exist`);
+            return false;
+        }
+        WORLD.getService('AgentBehaviour')
         var services = Object.keys(this.events[eventName]);
 
-        services.forEach((service) => { 
-            service[eventName](details);
+        services.forEach((serviceName) => { 
+            this.world.getService(serviceName)[`on${eventName}`](details);
         });
     }
 

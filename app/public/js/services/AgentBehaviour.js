@@ -6,9 +6,12 @@ class AgentBehaviour extends Service{
 
     constructor(){
         super();
+        this.isGenOver = false;
     }
 
     execute(){
+
+        if(this.isGenOver) return;
 
         var notLeft = true, 
             foodWeb = ECOSYSTEM.foodWeb;
@@ -43,7 +46,6 @@ class AgentBehaviour extends Service{
                                 j--;
                             }
                         }
-                        
                     });
                 }
             
@@ -51,10 +53,6 @@ class AgentBehaviour extends Service{
                     this.SeekFood(predator);
                 }
                 
-                else{
-                    this.Retreat(predatorSpecie,predator);
-                }
-
                 if(predator.energy <= 0){
                     this.Eliminate(predatorSpecie,predator);
                     i--;
@@ -65,7 +63,8 @@ class AgentBehaviour extends Service{
         // No more organisms participating
 
         if(notLeft){
-            //Next Generation
+            this.isGenOver = true;
+            this.world.notifyEvent('generationOver');
         }
     }
 
@@ -85,7 +84,6 @@ class AgentBehaviour extends Service{
                 predator.vel.x *= 0.9; 
                 predator.vel.y *= 0.9; 
             }
-
         }
 
         if(prey.maxSpeed > 0 && squareDistance <= prey.sensitivity * prey.sensitivity){
@@ -102,16 +100,13 @@ class AgentBehaviour extends Service{
 
         // Has prey been caught?
 
-        if(squareDistance < 20 * 20){
-            return true;
-        }
+        if(squareDistance < 20 * 20) return true;
 
         return false;
     }
 
 
     Hunt(predator){
-        
         predator.foodCount++;
         predator.energy += 30000;
     }
@@ -124,32 +119,10 @@ class AgentBehaviour extends Service{
         WORLD.removeFromCollection(`Active${specie}`,organism);
     }
 
-    Retreat(specie,object){
-
-        var outOfCanvas = false;
-
-        if(object.pos.y < 0){
-            outOfCanvas = true;
-            object.pos.y = canvas.height;
-        }
-
-        else if(object.pos.y > canvas.height){
-            outOfCanvas = true;//console.log(agent);
-            object.pos.y = 0;
-        }
-
-        if(object.pos.x < 0){
-            outOfCanvas = true;
-            object.pos.x = canvas.width;
-        }
-
-        else if(object.pos.x > canvas.width){
-            outOfCanvas = true;
-            object.pos.x= 0;
-        }
-
-        if(outOfCanvas && object.foodCount >= 2){
-            this.Save(specie,object);
+    onagentOutOfCanvas(details){
+        var agent = details.agent;
+        if(agent.foodCount >= 2){
+            this.Save('PrimaryConsumers',agent);
         }
     }
 
