@@ -5,6 +5,8 @@ class Generations extends Service{
         this.generation = 1;
     }
 
+    // Translate organism creation code elsewhere
+
     reproduceAsexually(organism){
 
         var position;
@@ -65,6 +67,9 @@ class Generations extends Service{
     }
 
     reactivateOrganisms(){
+
+        // Coupling warning : ECOSYSTEM is a hard-coded constant; it could be a dynamic reference
+
         var specieNames = Object.keys(ECOSYSTEM.species);
         
         specieNames.forEach(specieName => {
