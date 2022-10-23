@@ -1,7 +1,7 @@
 'use strict'
 
 
-for(let i = 0; i < 100; i++){
+for(let i = 0; i < 200; i++){
 
    var position = new Vector2D(Math.random() * canvas.width, Math.random() * canvas.height);
  
@@ -24,7 +24,7 @@ for(let i = 0; i < 100; i++){
    ECOSYSTEM.addOrganism(organism,'PrimaryConsumers');
 }
  
-for(let i = 0; i < 10; i++){
+for(let i = 0; i < 20; i++){
 
    var position;
 
@@ -62,6 +62,7 @@ for(let i = 0; i < 10; i++){
 
    TreeObject.addChild(organism,'aspect',aspect);
    TreeObject.addChild(organism,'sensitivityRange',sensitivityRange);
+   WORLD.addToCollection('Kinetics',organism);
    ECOSYSTEM.addOrganism(organism,'SecondaryConsumers');
 }
 

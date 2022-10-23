@@ -27,8 +27,8 @@ class AgentBehaviour extends Service{
                 let predator = activePredators[i];
                     predator.energy -= Vector2D.magSq(predator.vel) + predator.sensitivity;
                     predator.wander = true;
-                
-                if(predator.foodCount < predator.foodFee * 2 && predator.energy > predator.energy / 3){
+
+                if(predator.foodCount < predator.foodFee * 2 || predator.energy < 10000){
                     
                     var preySpecies = Object.keys(foodWeb[predatorSpecie]);
                     
@@ -43,7 +43,6 @@ class AgentBehaviour extends Service{
                             if(caught){
                                 this.Hunt(predator);
                                 this.Eliminate(preySpecie,prey);
-                                j--;
                             }
                         }
                     });
@@ -55,7 +54,6 @@ class AgentBehaviour extends Service{
                 
                 if(predator.energy <= 0){
                     this.Eliminate(predatorSpecie,predator);
-                    i--;
                 }
             }    
         });
@@ -77,8 +75,8 @@ class AgentBehaviour extends Service{
         if(predator.maxSpeed > 0 && squareDistance <= predator.sensitivity * predator.sensitivity){
             
             predator.wander = false;   
-            predator.vel.x += normalized.x; 
-            predator.vel.y += normalized.y; 
+            predator.vel.x = normalized.x * predator.maxSpeed
+            predator.vel.y =  normalized.y * predator.maxSpeed; 
 
             if(Vector2D.magSq(predator.vel) > (predator.maxSpeed  * predator.maxSpeed)){     
                 predator.vel.x *= 0.9; 
@@ -93,8 +91,8 @@ class AgentBehaviour extends Service{
             prey.vel.y += normalized.y; 
 
             if(Vector2D.magSq(prey.vel) > (prey.maxSpeed  * prey.maxSpeed)){
-                prey.vel.x *= 0.9; 
-                prey.vel.y *= 0.9; 
+                prey.vel.x *= 0.8; 
+                prey.vel.y *= 0.8; 
             }
         }
 
@@ -113,6 +111,8 @@ class AgentBehaviour extends Service{
 
 
     Eliminate(specie,organism){
+
+        console.log(specie,organism);
 
         WORLD.removeAgent(organism);
         WORLD.removeFromCollection(specie,organism);

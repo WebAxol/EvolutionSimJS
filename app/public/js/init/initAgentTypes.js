@@ -6,12 +6,11 @@ WORLD.registerAgentType('Organism', {
         foodFee   : 1,  
         foodCount : 0,
 
+        maxEnergy   : 30000,
         energy      : 30000,
         maxSpeed    : 0,
         sensitivity : 0
     },
-
-    collections : ['Kinetics']
 })
 
 WORLD.registerAgentType('Circle', {

@@ -22,7 +22,7 @@ class Ecosystem {
     setUpFoodWeb(foodWeb){
 
         Object.keys(foodWeb).forEach( (consumer) => {
-
+            collections : ['Kinetics']
             if(!this.world.getCollection(consumer) && !this.world.getCollection(`Active${prey}`)){
                 throw Error `Cannot create foodweb with consumer type '${consumer}' because collections for it are not registered `
             } 

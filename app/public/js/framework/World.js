@@ -45,7 +45,7 @@ class World {
     }
 
     removeFromCollection(collectionName,object){
-        return this.#collectionManager.removeFromCollection(collectionName,object);
+        return this.#collectionManager.cacheToBeRemoved(collectionName,object);
     }
 
     registerAgentType(typeName,prototype){
@@ -79,10 +79,15 @@ class World {
         this.#eventManager.notifyToServices(eventName,details);
     }
 
-
     execute(){
+        
+        if(this.pause){
+            return;
+        }
+
         requestAnimationFrame(() => { this.execute() });
 
+        this.#collectionManager.removeAgentsFromCollections();
         var services = this.getServices();
 
         Object.keys(services).forEach((service) => {
@@ -93,6 +98,10 @@ class World {
             this.frame++;
             this.routine(this);
         }
+    }
+
+    pauseExecution(){
+        this.pause = true;
     }
 
 

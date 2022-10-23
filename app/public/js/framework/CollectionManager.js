@@ -6,6 +6,7 @@ class CollectionManager {
         this.world = world;
         this.#collections = {};
         this.toBeRemoved  = [];
+        this._objectPool   = []; // Only for internal use
     }
 
     registerCollection(name){
@@ -29,7 +30,6 @@ class CollectionManager {
         return false;
     }
 
-
     addToCollection(collectionName,object){
 
         if(!this.#collections[collectionName]){
@@ -40,8 +40,41 @@ class CollectionManager {
         this.#collections[collectionName].push(object);
     }
 
+    cacheToBeRemoved(collectionName,agent){
+
+        var data;
+
+        if(this._objectPool.length > 0){
+            data = this._objectPool.pop();
+            data.collectionName = collectionName;
+            data.agent = agent;
+
+            this.toBeRemoved.push(data);
+        }
+        else{
+            this.toBeRemoved.push({
+                collectionName : collectionName,
+                agent : agent
+            });
+        }
+    }
+
     removeFromCollection(collectionName,object){
+
         let index = this.#collections[collectionName].indexOf(object);
         this.#collections[collectionName].splice(index,1);
+    }
+
+    removeAgentsFromCollections(){
+
+        while(this.toBeRemoved.length > 0){
+            let command = this.toBeRemoved.pop();
+            this.removeFromCollection(command.collectionName,command.agent);
+
+            command.collectionName = undefined;
+            command.agent = undefined;
+
+            this._objectPool.push(command);
+        }
     }
 }

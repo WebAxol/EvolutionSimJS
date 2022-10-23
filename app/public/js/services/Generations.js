@@ -44,6 +44,7 @@ class Generations extends Service{
      
         TreeObject.addChild(offspring,'aspect',aspect);
         TreeObject.addChild(offspring,'sensitivityRange',sensitivityRange);
+        this.world.addToCollection('Kinetics',offspring);
         ECOSYSTEM.addOrganism(offspring, organism.specie);
 
     }
@@ -53,8 +54,7 @@ class Generations extends Service{
         
         specieNames.forEach(specieName => {
 
-            var specie = this.world.getCollection(specieName),
-                father;
+            var specie = this.world.getCollection(specieName);
 
             for(let i = 0; i < specie.length; i++){
                 let organism = specie[i];
@@ -62,6 +62,8 @@ class Generations extends Service{
                 if(organism.foodCount >= organism.foodFee * 2){
                     this.reproduceAsexually(organism)
                 }
+
+                organism.foodCount = 0;
             }
         });
     }
@@ -77,14 +79,13 @@ class Generations extends Service{
             var specie = this.world.getCollection(specieName),
                 father;
 
-            for(let i = 0; i < specie.length; i++){
-                let organism = specie[i];
-                this.world.addToCollection(`Active${specieName}`,organism);
+            if(specieName != 'PrimaryConsumers'){
+                for(let i = 0; i < specie.length; i++){
+                    let organism = specie[i];
+                    this.world.addToCollection(`Active${specieName}`,organism);
+                }
             }
         });
-
-        this.world.notifyEvent('newGenerationReady');
-
     }
 
 
@@ -93,9 +94,9 @@ class Generations extends Service{
     ongenerationOver(details){
         console.log(`Generation ${this.generation} finished, starting generation ${this.generation + 1}`);
         this.generation++;
-
+        this.reactivateOrganisms();
         this.createOffspring();
-
+        this.world.notifyEvent('newGenerationReady');
     }
 
 }
