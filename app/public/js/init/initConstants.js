@@ -10,3 +10,5 @@ const ECOSYSTEM = new Ecosystem(WORLD,
         'TertiaryConsumers' :  { 'SecondaryConsumers' : 1}
     }
 );
+
+console.log(ECOSYSTEM);

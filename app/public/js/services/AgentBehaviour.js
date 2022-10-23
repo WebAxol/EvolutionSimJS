@@ -10,12 +10,12 @@ class AgentBehaviour extends Service{
     }
 
     execute(){
-
+        
         if(this.isGenOver) return;
-
+        
         var notLeft = true, 
             foodWeb = ECOSYSTEM.foodWeb;
-
+        
         Object.keys(foodWeb).forEach( (predatorSpecie) => {
             
             let activePredators = this.world.getCollection(`Active${predatorSpecie}`);
@@ -28,7 +28,7 @@ class AgentBehaviour extends Service{
                     predator.energy -= Vector2D.magSq(predator.vel) + predator.sensitivity;
                     predator.wander = true;
                 
-                if(predator.foodCount < 5){
+                if(predator.foodCount < predator.foodFee * 2 && predator.energy > predator.energy / 3){
                     
                     var preySpecies = Object.keys(foodWeb[predatorSpecie]);
                     
@@ -49,7 +49,7 @@ class AgentBehaviour extends Service{
                     });
                 }
             
-                if(predator.foodCount < 2 && predator.wander){
+                if(predator.foodCount < predator.foodFee * 2 && predator.wander){
                     this.SeekFood(predator);
                 }
                 
@@ -119,13 +119,6 @@ class AgentBehaviour extends Service{
         WORLD.removeFromCollection(`Active${specie}`,organism);
     }
 
-    onagentOutOfCanvas(details){
-        var agent = details.agent;
-        if(agent.foodCount >= 2){
-            this.Save('PrimaryConsumers',agent);
-        }
-    }
-
     Save(specie,organism){
 
         WORLD.removeFromCollection(`Active${specie}`, organism);
@@ -146,4 +139,24 @@ class AgentBehaviour extends Service{
         agent.vel.x += agentToCentre.x;
         agent.vel.y += agentToCentre.y;
     }
+
+    // Events
+
+
+    /* 
+        Temporal coupling warning : Calling the save method 'Save' in parallel to the method 'execute' can lead to array iteration problems 
+        when iterating the collections, as Agents are been removed from their collections while collections are been the iterated inside 'execute'
+    */
+
+    onagentOutOfCanvas(details){
+        var agent = details.agent;
+        if(agent.foodCount >= 2){
+            this.Save(agent.specie,agent);
+        }
+    }
+
+    onnewGenerationReady(){
+        this.isGenOver = false;
+    }
+
 }

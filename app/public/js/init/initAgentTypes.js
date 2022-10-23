@@ -1,8 +1,9 @@
 WORLD.registerAgentType('Organism', {
     info: {
         pos : {x : 0, y : 0},
-        vel : {x : 0, y : 0}, 
-        wander :  true,
+        vel : {x : 0, y : 0},
+        wander  :  true,
+        foodFee   : 1,  
         foodCount : 0,
 
         energy      : 30000,

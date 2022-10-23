@@ -40,4 +40,10 @@ class Ecosystem {
 
         return foodWeb;
     }
+
+    addOrganism(agent,specieName){
+        agent.specie = specieName;
+        this.world.addToCollection(specieName,agent);
+        this.world.addToCollection(`Active${specieName}`,agent);
+    }
 }
