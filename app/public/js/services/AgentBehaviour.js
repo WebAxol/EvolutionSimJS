@@ -1,5 +1,6 @@
 
 // TODO : optimize collision detection
+// TODO : Improve Organism moving algorithms
 // TODO : refactor code
 
 class AgentBehaviour extends Service{
@@ -62,6 +63,7 @@ class AgentBehaviour extends Service{
 
         if(notLeft){
             this.isGenOver = true;
+            console.log('Generation Over');
             this.world.notifyEvent('generationOver');
         }
     }
@@ -75,8 +77,8 @@ class AgentBehaviour extends Service{
         if(predator.maxSpeed > 0 && squareDistance <= predator.sensitivity * predator.sensitivity){
             
             predator.wander = false;   
-            predator.vel.x = normalized.x * predator.maxSpeed
-            predator.vel.y =  normalized.y * predator.maxSpeed; 
+            predator.vel.x += normalized.x;
+            predator.vel.y +=  normalized.y; 
 
             if(Vector2D.magSq(predator.vel) > (predator.maxSpeed  * predator.maxSpeed)){     
                 predator.vel.x *= 0.9; 
@@ -111,9 +113,6 @@ class AgentBehaviour extends Service{
 
 
     Eliminate(specie,organism){
-
-        console.log(specie,organism);
-
         WORLD.removeAgent(organism);
         WORLD.removeFromCollection(specie,organism);
         WORLD.removeFromCollection(`Active${specie}`,organism);
@@ -141,12 +140,6 @@ class AgentBehaviour extends Service{
     }
 
     // Events
-
-
-    /* 
-        Temporal coupling warning : Calling the save method 'Save' in parallel to the method 'execute' can lead to array iteration problems 
-        when iterating the collections, as Agents are been removed from their collections while collections are been the iterated inside 'execute'
-    */
 
     onagentOutOfCanvas(details){
         var agent = details.agent;

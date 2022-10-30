@@ -1,8 +1,9 @@
 class Ecosystem {
     constructor(world,species,foodweb){
-        this.world    = world;
-        this.species  = this.setUpSpecies(species);
-        this.foodWeb  = this.setUpFoodWeb(foodweb);
+        this.world      = world;
+        this.history    = [];
+        this.species    = this.setUpSpecies(species);
+        this.foodWeb    = this.setUpFoodWeb(foodweb);
     }
 
     setUpSpecies(species){

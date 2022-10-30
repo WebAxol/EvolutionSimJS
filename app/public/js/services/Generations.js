@@ -72,15 +72,16 @@ class Generations extends Service{
 
         // Coupling warning : ECOSYSTEM is a hard-coded constant; it could be a dynamic reference
 
-        var specieNames = Object.keys(ECOSYSTEM.species);
+        var specieNames = Object.keys(ECOSYSTEM.species),
+            empty = true;
         
         specieNames.forEach(specieName => {
 
-            var specie = this.world.getCollection(specieName),
-                father;
+            var specie = this.world.getCollection(specieName);
 
             if(specieName != 'PrimaryConsumers'){
                 for(let i = 0; i < specie.length; i++){
+                    empty = false;
                     let organism = specie[i];
                     this.world.addToCollection(`Active${specieName}`,organism);
                 }
@@ -91,7 +92,7 @@ class Generations extends Service{
 
     // EVENTS   
 
-    ongenerationOver(details){
+    onsummaryCreated(details){
         console.log(`Generation ${this.generation} finished, starting generation ${this.generation + 1}`);
         this.generation++;
         this.reactivateOrganisms();
