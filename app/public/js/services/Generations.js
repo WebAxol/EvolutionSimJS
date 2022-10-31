@@ -5,52 +5,10 @@ class Generations extends Service{
         this.generation = 1;
     }
 
-    // Translate organism creation code elsewhere
-
-    reproduceAsexually(organism){
-
-        var position;
-
-        if(Math.random() > 0.5){
-            position = new Vector2D(Math.random() * canvas.width, Math.random() > 0.5 ? canvas.height : 0);
-        }
-        else{
-            position = new Vector2D(Math.random() * canvas.height, Math.random() > 0.5 ? canvas.width : 0);
-        }
-
-        var offspring = WORLD.createAgent('Organism', 
-        {
-           'info' : {
-              pos: position,
-              maxSpeed : organism.maxSpeed,
-              sensitivity : organism.sensitivity
-           }
-        })
-        
-        let aspect = WORLD.createAgent('Circle', {
-           'info' : {
-              pos: offspring.pos,
-              background : TreeObject.getChild(organism,'aspect').background
-           }
-        });
-     
-        let sensitivityRange = WORLD.createAgent('Circle', {
-           'info' : {
-              pos: offspring.pos,
-              background : TreeObject.getChild(organism,'sensitivityRange').background,
-              radius: organism.sensitivity
-           }
-        });
-     
-        TreeObject.addChild(offspring,'aspect',aspect);
-        TreeObject.addChild(offspring,'sensitivityRange',sensitivityRange);
-        this.world.addToCollection('Kinetics',offspring);
-        ECOSYSTEM.addOrganism(offspring, organism.specie);
-
-    }
-
     createOffspring(){
+
         var specieNames = Object.keys(ECOSYSTEM.species);
+        var offspring = [];
         
         specieNames.forEach(specieName => {
 
@@ -60,11 +18,16 @@ class Generations extends Service{
                 let organism = specie[i];
 
                 if(organism.foodCount >= organism.foodFee * 2){
-                    this.reproduceAsexually(organism)
+
+                    offspring.push(ECOSYSTEM.cloneOrganism(organism));
                 }
 
                 organism.foodCount = 0;
             }
+        });
+
+        offspring.forEach(organism => {
+            ECOSYSTEM.addOrganism(organism);
         });
     }
 
@@ -79,7 +42,7 @@ class Generations extends Service{
 
             var specie = this.world.getCollection(specieName);
 
-            if(specieName != 'PrimaryConsumers'){
+            if(specieName != 'Producers'){
                 for(let i = 0; i < specie.length; i++){
                     empty = false;
                     let organism = specie[i];

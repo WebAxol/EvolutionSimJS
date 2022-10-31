@@ -39,6 +39,9 @@ class AgentBehaviour extends Service{
 
                         for(let j = 0; j < activePreys.length; j++){
                             let prey = activePreys[j];
+
+                            if(prey.dead) continue;
+
                             let caught = this.chaseAndFlee(predator,prey);
 
                             if(caught){
@@ -81,8 +84,8 @@ class AgentBehaviour extends Service{
             predator.vel.y +=  normalized.y; 
 
             if(Vector2D.magSq(predator.vel) > (predator.maxSpeed  * predator.maxSpeed)){     
-                predator.vel.x *= 0.9; 
-                predator.vel.y *= 0.9; 
+                predator.vel.x *= 0.8; 
+                predator.vel.y *= 0.8; 
             }
         }
 
@@ -100,7 +103,7 @@ class AgentBehaviour extends Service{
 
         // Has prey been caught?
 
-        if(squareDistance < 20 * 20) return true;
+        if(squareDistance < 30 * 30) return true;
 
         return false;
     }
@@ -108,11 +111,12 @@ class AgentBehaviour extends Service{
 
     Hunt(predator){
         predator.foodCount++;
-        predator.energy += 30000;
+        predator.energy += 10000;
     }
 
 
     Eliminate(specie,organism){
+        organism.dead = true;
         WORLD.removeAgent(organism);
         WORLD.removeFromCollection(specie,organism);
         WORLD.removeFromCollection(`Active${specie}`,organism);
@@ -143,7 +147,7 @@ class AgentBehaviour extends Service{
 
     onagentOutOfCanvas(details){
         var agent = details.agent;
-        if(agent.foodCount >= 2){
+        if(agent.foodCount >= agent.foodFee){
             this.Save(agent.specie,agent);
         }
     }
@@ -152,4 +156,18 @@ class AgentBehaviour extends Service{
         this.isGenOver = false;
     }
 
+    // Testing Events
+
+    onTest(){
+
+        console.log(WORLD.frame);
+
+        var producers = this.world.getCollection(`ActiveProducers`);
+        for(let i = 0; i < 200; i++){
+            this.Eliminate('Producers',producers[i]);
+        }
+
+        console.log(WORLD.frame);
+
+    }
 }

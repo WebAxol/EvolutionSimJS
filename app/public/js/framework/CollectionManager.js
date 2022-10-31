@@ -42,6 +42,8 @@ class CollectionManager {
 
     cacheToBeRemoved(collectionName,agent){
 
+        //console.log('xxx');
+
         var data;
 
         if(this._objectPool.length > 0){
@@ -66,6 +68,8 @@ class CollectionManager {
     }
 
     removeAgentsFromCollections(){
+
+        //console.log(this.toBeRemoved);
 
         while(this.toBeRemoved.length > 0){
             let command = this.toBeRemoved.pop();

@@ -10,4 +10,10 @@ WORLD.registerServiceToEvent('Generations','summaryCreated');
 WORLD.registerEvent('newGenerationReady');
 WORLD.registerServiceToEvent('AgentBehaviour','newGenerationReady');
 
+
+
+WORLD.registerEvent('Test');
+WORLD.registerServiceToEvent('AgentBehaviour','Test');
+
+
 WORLD.registerEvent('simulationOver');

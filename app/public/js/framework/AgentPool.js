@@ -113,7 +113,9 @@ class AgentPool{
     }
 
     removeAgent(agent){
+
         try{
+
         let agentType = agent.getType();
         this.#pools[agentType].push(agent);
 

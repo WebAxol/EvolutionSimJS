@@ -81,6 +81,7 @@ class World {
 
     execute(){
         
+
         if(this.pause){
             return;
         }

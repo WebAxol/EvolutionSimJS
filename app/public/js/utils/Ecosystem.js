@@ -1,23 +1,22 @@
 class Ecosystem {
+    
     constructor(world,species,foodweb){
-        this.world      = world;
-        this.history    = [];
-        this.species    = this.setUpSpecies(species);
-        this.foodWeb    = this.setUpFoodWeb(foodweb);
+        
+        this.world   = world;
+        this.history = [];
+        this.species = this.setUpSpecies(species);
+        this.foodWeb = this.setUpFoodWeb(foodweb);
     }
 
     setUpSpecies(species){
 
-        var _species = {};
-
-        species.forEach(specieName => {
-            _species[specieName] = 1;
+        Object.keys(species).forEach(specieName => {
             this.world.registerCollection(specieName);
             this.world.registerCollection('Active' + specieName);
 
         });
 
-        return _species;
+        return species;
     }
 
     setUpFoodWeb(foodWeb){
@@ -42,9 +41,71 @@ class Ecosystem {
         return foodWeb;
     }
 
-    addOrganism(agent,specieName){
-        agent.specie = specieName;
-        this.world.addToCollection(specieName,agent);
-        this.world.addToCollection(`Active${specieName}`,agent);
+    // From Scratch
+
+    generateOrganism(specieName,attributes = null){
+
+        var position;
+        var specieAttributes = this.species[specieName];
+        var maxSpeed    =  attributes && attributes.maxSpeed    ? attributes.maxSpeed    :  specieAttributes.minSpeed + Math.random() * (specieAttributes.maxSpeed - specieAttributes.minSpeed);
+        var sensitivity =  attributes && attributes.sensitivity ? attributes.sensitivity :  specieAttributes.minSense + Math.random() * (specieAttributes.maxSense - specieAttributes.minSense);
+
+
+        if(specieName == 'Producers')   position = new Vector2D(Math.random() * canvas.width, Math.random() * canvas.height)
+        else if(Math.random() > 0.5)    position = new Vector2D(Math.random() * canvas.width, Math.random() > 0.5 ? canvas.height : 0);
+        else                            position = new Vector2D(Math.random() * canvas.height, Math.random() > 0.5 ? canvas.width : 0);
+        
+
+        var organism = this.world.createAgent('Organism', 
+        {
+           'info' :{
+              pos: position,
+              maxSpeed    : maxSpeed,
+              sensitivity : sensitivity,
+              foodFee : specieAttributes.foodFee
+           }
+        })
+
+        if(specieAttributes.minSense > 0){
+
+            let sensitivityRange = WORLD.createAgent('Circle', {
+                'info' : {
+                   pos: organism.pos,
+                   background : specieAttributes.colorB,
+                   radius: organism.sensitivity,
+                   opacity : 0.1
+                }
+             });
+
+             TreeObject.addChild(organism,'sensitivityRange',sensitivityRange);
+        }
+
+        let aspect = WORLD.createAgent('Circle', {
+            'info' : {
+               pos: organism.pos,
+               background : specieAttributes.colorA
+            }
+         });
+     
+        TreeObject.addChild(organism,'aspect',aspect);
+        organism.specie = specieName;
+
+        this.world.addToCollection('Kinetics',organism);
+
+        return organism;
+    }
+
+    cloneOrganism(organism){
+
+        return this.generateOrganism(organism.specie,{
+            maxSpeed : organism.maxSpeed,
+            maxSense : organism.maxSense
+        });
+    }
+
+    addOrganism(organism){
+
+        this.world.addToCollection(organism.specie,organism);
+        this.world.addToCollection(`Active${organism.specie}`,organism);
     }
 }
