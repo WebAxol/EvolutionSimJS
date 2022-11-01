@@ -21,7 +21,7 @@ class SummaryMaker extends Service{
 
     }
 
-
+    
 
     // EVENTS
 

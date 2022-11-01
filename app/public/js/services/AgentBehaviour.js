@@ -26,8 +26,13 @@ class AgentBehaviour extends Service{
                 notLeft = false;
 
                 let predator = activePredators[i];
-                    predator.energy -= Vector2D.magSq(predator.vel) + predator.sensitivity;
+                    predator.energy -= Vector2D.magSq(predator.vel) + (predator.sensitivity / 5);
                     predator.wander = true;
+
+                if(predator.vel.x == 0 && predator.vel.y == 0){
+                    this.SeekFood(predator);
+                }
+
 
                 if(predator.foodCount < predator.foodFee * 2 || predator.energy < 10000){
                     
@@ -50,10 +55,6 @@ class AgentBehaviour extends Service{
                             }
                         }
                     });
-                }
-            
-                if(predator.foodCount < predator.foodFee * 2 && predator.wander){
-                    this.SeekFood(predator);
                 }
                 
                 if(predator.energy <= 0){
@@ -80,11 +81,11 @@ class AgentBehaviour extends Service{
         if(predator.maxSpeed > 0 && squareDistance <= predator.sensitivity * predator.sensitivity){
             
             predator.wander = false;   
-            predator.vel.x += normalized.x;
-            predator.vel.y +=  normalized.y; 
+            predator.vel.x = normalized.x * predator.maxSpeed;
+            predator.vel.y = normalized.y * predator.maxSpeed; 
 
             if(Vector2D.magSq(predator.vel) > (predator.maxSpeed  * predator.maxSpeed)){     
-                predator.vel.x *= 0.8; 
+                predator.vel.x * 0.8; 
                 predator.vel.y *= 0.8; 
             }
         }
@@ -92,8 +93,8 @@ class AgentBehaviour extends Service{
         if(prey.maxSpeed > 0 && squareDistance <= prey.sensitivity * prey.sensitivity){
 
             prey.wander = false;   
-            prey.vel.x += normalized.x; 
-            prey.vel.y += normalized.y; 
+            prey.vel.x = normalized.x * prey.maxSpeed; 
+            prey.vel.y = normalized.y * prey.maxSpeed; 
 
             if(Vector2D.magSq(prey.vel) > (prey.maxSpeed  * prey.maxSpeed)){
                 prey.vel.x *= 0.8; 
@@ -111,15 +112,13 @@ class AgentBehaviour extends Service{
 
     Hunt(predator){
         predator.foodCount++;
-        predator.energy += 10000;
+        predator.energy += 20000;
     }
 
 
     Eliminate(specie,organism){
         organism.dead = true;
         WORLD.removeAgent(organism);
-        WORLD.removeFromCollection(specie,organism);
-        WORLD.removeFromCollection(`Active${specie}`,organism);
     }
 
     Save(specie,organism){
@@ -132,15 +131,13 @@ class AgentBehaviour extends Service{
 
     SeekFood(agent){
 
-        var centre        = { x : canvas.width / 2, y : canvas.height / 2 };
-        var agentToCentre = { x : Math.random() * 1, y : Math.random() * 1};
+        var randomDirection = Vector2D.normalize({ 
+            x : Math.random() * 1 * Math.random() > 0.5 ? 1 : -1,
+            y : Math.random() * 1 * Math.random() > 0.5 ? 1 : -1
+        });
 
-        if(Vector2D.magSq(Vector2D.add(agent.vel,agentToCentre)) > agent.maxSpeed  * agent.maxSpeed){
-            return;
-        }
-
-        agent.vel.x += agentToCentre.x;
-        agent.vel.y += agentToCentre.y;
+        agent.vel.x = randomDirection.x * agent.maxSpeed;
+        agent.vel.y = randomDirection.y * agent.maxSpeed;
     }
 
     // Events

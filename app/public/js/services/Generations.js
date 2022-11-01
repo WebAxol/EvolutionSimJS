@@ -23,6 +23,7 @@ class Generations extends Service{
                 }
 
                 organism.foodCount = 0;
+                organism.energy = organism.maxEnergy;
             }
         });
 
@@ -43,6 +44,9 @@ class Generations extends Service{
             var specie = this.world.getCollection(specieName);
 
             if(specieName != 'Producers'){
+
+                console.log(specie);
+
                 for(let i = 0; i < specie.length; i++){
                     empty = false;
                     let organism = specie[i];

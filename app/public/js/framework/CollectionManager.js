@@ -37,12 +37,16 @@ class CollectionManager {
             return false;
         }
 
+        if(object.isInCollection(collectionName)){
+            throw Error(`The agent is already registered to collection ${collectionName}`);
+            return false;
+        }
+
         this.#collections[collectionName].push(object);
+        object.addCollection(collectionName);
     }
 
     cacheToBeRemoved(collectionName,agent){
-
-        //console.log('xxx');
 
         var data;
 
@@ -65,6 +69,7 @@ class CollectionManager {
 
         let index = this.#collections[collectionName].indexOf(object);
         this.#collections[collectionName].splice(index,1);
+        object.removeCollection(collectionName);
     }
 
     removeAgentsFromCollections(){

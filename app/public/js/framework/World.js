@@ -52,11 +52,12 @@ class World {
         this.#agentPool.registerType(typeName,prototype);
     }
 
-    createAgent(type,details){
+    createAgent(typeName,details){
 
-        let agent = this.#agentPool.createAgent(type,details);
+        let agent = this.#agentPool.createAgent(typeName,details);
+        let collections = this.#agentPool.getCollectionsOfType(typeName);
 
-        agent.getCollections().forEach((collection) => {
+        collections.forEach((collection) => {
             this.addToCollection(collection, agent);
         });
 

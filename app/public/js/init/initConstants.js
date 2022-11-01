@@ -19,17 +19,17 @@ const ECOSYSTEM = new Ecosystem(WORLD,
             colorB : 'rgba(0,0,255,0.1)',
             maxSpeed : 5,
             minSpeed : 5,
-            maxSense : 150,
-            minSense : 50,
-            foodFee  : 2
+            maxSense : 100,
+            minSense : 100,
+            foodFee  : 1
         },
         'SpecieB': {
-            colorB : 'violet',
+            colorA : 'purple',
             colorB : 'rgba(255,0,255,0.1)',
-            maxSpeed : 15,
+            maxSpeed : 5,
             minSpeed : 5,
-            maxSense : 50,
-            minSense : 10,
+            maxSense : 100,
+            minSense : 100,
             foodFee  : 2
         }
     }, 

@@ -52,8 +52,8 @@ class Ecosystem {
 
 
         if(specieName == 'Producers')   position = new Vector2D(Math.random() * canvas.width, Math.random() * canvas.height)
-        else if(Math.random() > 0.5)    position = new Vector2D(Math.random() * canvas.width, Math.random() > 0.5 ? canvas.height : 0);
-        else                            position = new Vector2D(Math.random() * canvas.height, Math.random() > 0.5 ? canvas.width : 0);
+        else if(Math.random() > 0.5)    position = new Vector2D(Math.random() * canvas.width, Math.random() > 0.5 ? canvas.height - 10 : 10);
+        else                            position = new Vector2D(Math.random() > 0.5 ? canvas.width - 10 : 10, Math.random() * canvas.height);
         
 
         var organism = this.world.createAgent('Organism', 
@@ -80,6 +80,10 @@ class Ecosystem {
              TreeObject.addChild(organism,'sensitivityRange',sensitivityRange);
         }
 
+        if(organism.maxSpeed > 0){
+            this.world.addToCollection('Kinetics',organism);
+        }
+
         let aspect = WORLD.createAgent('Circle', {
             'info' : {
                pos: organism.pos,
@@ -89,8 +93,6 @@ class Ecosystem {
      
         TreeObject.addChild(organism,'aspect',aspect);
         organism.specie = specieName;
-
-        this.world.addToCollection('Kinetics',organism);
 
         return organism;
     }

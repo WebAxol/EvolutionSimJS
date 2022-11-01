@@ -23,6 +23,8 @@ class AgentPool{
 
     createAgent(typeName,details){
 
+        var world = this.world;
+
         // Agent class is within AgentPool class, so that only AgentPool can instantiate Agents
 
         class Agent{
@@ -49,21 +51,6 @@ class AgentPool{
                         }
                     });
                 }
-
-                if(prototype['collections']){
- 
-                    prototype['collections'].forEach((collection) => {
-
-                        // ! Warning : WORLD is hardcoded
-
-                       if(WORLD.getCollection(collection)){
-                            this.#collections[collection] = 1;
-                       }
-                       else{
-                            console.warn(`There is no collection named '${collection}' for agent type ${typeName}`);
-                       }
-                    });
-                }
             }
 
             getType(){
@@ -80,6 +67,9 @@ class AgentPool{
 
             addCollection(collectionName){
                 this.#collections[collectionName] = 1;
+            }
+            removeCollection(collectionName){
+                delete this.#collections[collectionName];
             }
             reset(prototype){
 
@@ -110,6 +100,18 @@ class AgentPool{
         })
 
         return agent;
+    }
+
+    getCollectionsOfType(typeName){
+
+        if(!this.#types[typeName]){
+            console.warn(`Cannot get collections from unexisting type '${typename}'`);
+            return false;
+        }
+
+        let collections = this.#types[typeName].collections || [];
+
+        return collections;
     }
 
     removeAgent(agent){
