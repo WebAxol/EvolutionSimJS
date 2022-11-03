@@ -7,6 +7,8 @@ class World {
 
     constructor(){
 
+         // subordinate modules
+
         this.#agentPool         = new AgentPool(this);
         this.#collectionManager = new CollectionManager(this);
         this.#eventManager      = new EventManager(this);
