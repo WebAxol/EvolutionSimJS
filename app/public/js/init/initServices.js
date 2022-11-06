@@ -1,6 +1,6 @@
 
 WORLD.registerService('Renderer', new Renderer(c));
-WORLD.registerService('AgentBehaviour', new AgentBehaviour());
 WORLD.registerService('Motion', new Motion());
-WORLD.registerService('Generations', new Generations());
-WORLD.registerService('SummaryMaker' , new SummaryMaker());
+WORLD.registerService('AgentBehaviour', new AgentBehaviour(ECOSYSTEM));
+WORLD.registerService('SummaryMaker' ,  new SummaryMaker(ECOSYSTEM));
+WORLD.registerService('Generations',    new Generations(ECOSYSTEM));

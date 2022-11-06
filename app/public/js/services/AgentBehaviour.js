@@ -5,9 +5,10 @@
 
 class AgentBehaviour extends Service{
 
-    constructor(){
+    constructor(ecosystem){
         super();
         this.isGenOver = false;
+        this.ecosystem = ecosystem;
     }
 
     execute(){
@@ -15,7 +16,7 @@ class AgentBehaviour extends Service{
         if(this.isGenOver) return;
         
         var notLeft = true, 
-            foodWeb = ECOSYSTEM.foodWeb;
+            foodWeb = this.ecosystem.foodWeb;
         
         Object.keys(foodWeb).forEach( (predatorSpecie) => {
             
@@ -23,11 +24,14 @@ class AgentBehaviour extends Service{
 
             for(let i = 0; i < activePredators.length; i++){
 
-                notLeft = false;
-
                 let predator = activePredators[i];
                     predator.energy -= Vector2D.magSq(predator.vel) + (predator.sensitivity / 5);
                     predator.wander = true;
+
+
+                notLeft = false;
+
+                if(!predator.active) continue;
 
                 if(predator.vel.x == 0 && predator.vel.y == 0){
                     this.SeekFood(predator);
@@ -45,7 +49,7 @@ class AgentBehaviour extends Service{
                         for(let j = 0; j < activePreys.length; j++){
                             let prey = activePreys[j];
 
-                            if(prey.dead) continue;
+                            if(!prey.active) continue;
 
                             let caught = this.chaseAndFlee(predator,prey);
 
@@ -67,7 +71,6 @@ class AgentBehaviour extends Service{
 
         if(notLeft){
             this.isGenOver = true;
-            console.log('Generation Over');
             this.world.notifyEvent('generationOver');
         }
     }
@@ -117,7 +120,7 @@ class AgentBehaviour extends Service{
 
 
     Eliminate(specie,organism){
-        organism.dead = true;
+        organism.active = false;
         WORLD.removeAgent(organism);
     }
 
@@ -125,6 +128,7 @@ class AgentBehaviour extends Service{
 
         WORLD.removeFromCollection(`Active${specie}`, organism);
 
+        organism.active = false;
         organism.vel.x = 0;
         organism.vel.y = 0;
     }

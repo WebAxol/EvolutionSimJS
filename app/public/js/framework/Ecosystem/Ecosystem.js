@@ -1,19 +1,20 @@
 class Ecosystem {
     
-    #mutator;
     #organismBuilder;
+    #mutator;
 
-    constructor(world,species,foodweb){
+    constructor(world, model){
         
         this.world   = world;
         this.history = [];
-        this.species = this.setUpSpecies(species);
-        this.foodWeb = this.setUpFoodWeb(foodweb);
+        this.species = this.setUpSpecies(model.species);
+        this.foodWeb = this.setUpFoodWeb(model.foodWeb);
 
         // subordinate modules
 
-        this.#mutator           = new Mutator(this);
         this.#organismBuilder   = new OrganismBuilder(this);
+        this.#mutator           = new Mutator(this);
+        this.#mutator.init();
     }
 
     setUpSpecies(species){
@@ -52,8 +53,10 @@ class Ecosystem {
         return this.#organismBuilder.generateOrganism(specieName,attributes);
     }
 
-    cloneOrganism(organism){
-        return this.#organismBuilder.cloneOrganism(organism);
+    generateOffSpring(organism){
+        let offspring = this.#organismBuilder.cloneOrganism(organism);
+        //this.#mutator.mutateOrganism(offspring);
+        return offspring;
     }
 
     addOrganism(organism){
@@ -61,5 +64,8 @@ class Ecosystem {
 
     }
 
+    mutateOrganism(organism){
+        this.#mutator.mutateOrganism(organism);
+    }
 
 }

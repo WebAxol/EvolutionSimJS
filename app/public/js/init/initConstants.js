@@ -3,39 +3,57 @@ const c = canvas.getContext('2d');
 
 const WORLD = new World();
 const ECOSYSTEM = new Ecosystem(WORLD, 
+    {
+        species :  {
+            'Producers': {
+                colorA : 'lawngreen',
+                colorB : 'rgba(0,255,0,0.1)',
+                maxSpeed : 0,
+                minSpeed : 0,
+                maxSense : 10,
+                minSense : 0,
+                foodFee  : 0
+            },
+            'SpecieA': {
+                colorA : 'skyblue',
+                colorB : 'rgba(0,0,255,0.1)',
+                maxSpeed : 5,
+                minSpeed : 5,
+                maxSense : 100,
+                minSense : 100,
+                foodFee  : 1
+            },
+            'SpecieB': {
+                colorA : 'purple',
+                colorB : 'rgba(255,0,255,0.1)',
+                maxSpeed : 5,
+                minSpeed : 5,
+                maxSense : 100,
+                minSense : 100,
+                foodFee  : 2
+            }
+        },
 
-    {
-        'Producers': {
-            colorA : 'lawngreen',
-            colorB : 'rgba(0,255,0,0.1)',
-            maxSpeed : 0,
-            minSpeed : 0,
-            maxSense : 10,
-            minSense : 0,
-            foodFee  : 0
-        },
-        'SpecieA': {
-            colorA : 'skyblue',
-            colorB : 'rgba(0,0,255,0.1)',
-            maxSpeed : 5,
-            minSpeed : 5,
-            maxSense : 100,
-            minSense : 100,
-            foodFee  : 1
-        },
-        'SpecieB': {
-            colorA : 'purple',
-            colorB : 'rgba(255,0,255,0.1)',
-            maxSpeed : 5,
-            minSpeed : 5,
-            maxSense : 100,
-            minSense : 100,
-            foodFee  : 2
+        mutations: {
+            'SpecieA' : {
+                sensitivity : {
+                    probability : 0.5,
+                    minChange : - 5,
+                    maxSense  : 10
+                },
+    
+                maxSpeed : {
+                    probability : 0.5,
+                    minChange   : - 1,
+                    maxSense    : 1
+                }
+            }
+        }, 
+
+        foodWeb :  {
+            'SpecieA' : { 'Producers' : 1 },
+            'SpecieB' : { 'Producers' : 1 }
         }
-    }, 
-    {
-        'SpecieA' :  { 'Producers' : 1},
-        'SpecieB' : { 'Producers' : 1 }
     }
 );
 

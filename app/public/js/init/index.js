@@ -7,7 +7,7 @@ for(let i = 0; i < 20; i++){
    ECOSYSTEM.addOrganism(organism);
 }
 
-for(let i = 0; i < 2; i++){
+for(let i = 0; i < 1; i++){
    let organism = ECOSYSTEM.generateOrganism('SpecieA');
    ECOSYSTEM.addOrganism(organism);
 }

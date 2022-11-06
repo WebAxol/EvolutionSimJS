@@ -1,13 +1,14 @@
 class Generations extends Service{
 
-    constructor(){
+    constructor(ecosystem){
         super();
         this.generation = 1;
+        this.ecosystem = ecosystem;
     }
 
     createOffspring(){
 
-        var specieNames = Object.keys(ECOSYSTEM.species);
+        var specieNames = Object.keys(this.ecosystem.species);
         var offspring = [];
         
         specieNames.forEach(specieName => {
@@ -19,7 +20,7 @@ class Generations extends Service{
 
                 if(organism.foodCount >= organism.foodFee * 2){
 
-                    offspring.push(ECOSYSTEM.cloneOrganism(organism));
+                    offspring.push(this.ecosystem.generateOffSpring(organism));
                 }
 
                 organism.foodCount = 0;
@@ -28,32 +29,37 @@ class Generations extends Service{
         });
 
         offspring.forEach(organism => {
-            ECOSYSTEM.addOrganism(organism);
+            this.ecosystem.addOrganism(organism);
         });
     }
 
     reactivateOrganisms(){
 
-        // Coupling warning : ECOSYSTEM is a hard-coded constant; it could be a dynamic reference
-
-        var specieNames = Object.keys(ECOSYSTEM.species),
+        var specieNames = Object.keys(this.ecosystem.species),
             empty = true;
         
         specieNames.forEach(specieName => {
 
             var specie = this.world.getCollection(specieName);
 
-            if(specieName != 'Producers'){
-
-                console.log(specie);
+            if(specieName.foodFee > 0){
 
                 for(let i = 0; i < specie.length; i++){
+                    
                     empty = false;
+
                     let organism = specie[i];
+
+                    organism.active = true;
                     this.world.addToCollection(`Active${specieName}`,organism);
                 }
             }
         });
+
+        if(empty){
+            // All consumers extinct
+        }
+
     }
 
 

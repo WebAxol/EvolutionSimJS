@@ -1,12 +1,14 @@
 class SummaryMaker extends Service{
-    constructor(){
+    
+    constructor(ecosystem){
         super();
+        this.ecosystem = ecosystem;
     }
 
     createSummary(){
         
         var summary  = {};
-        var specieNames = Object.keys(ECOSYSTEM.species); 
+        var specieNames = Object.keys(this.ecosystem.species); 
 
         specieNames.forEach(specieName => {
             let specie = this.world.getCollection(specieName);
@@ -21,13 +23,11 @@ class SummaryMaker extends Service{
 
     }
 
-    
-
     // EVENTS
 
     ongenerationOver(){
         let summary = this.createSummary();
-        ECOSYSTEM.history.push(summary);
+        this.ecosystem.history.push(summary);
         this.world.notifyEvent('summaryCreated');
     }
 
