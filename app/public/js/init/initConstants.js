@@ -37,15 +37,15 @@ const ECOSYSTEM = new Ecosystem(WORLD,
         mutations: {
             'SpecieA' : {
                 sensitivity : {
-                    probability : 0.5,
-                    minChange : - 5,
-                    maxSense  : 10
+                    probability : 1,
+                    minChange : - 20,
+                    maxChange :   20
                 },
     
                 maxSpeed : {
                     probability : 0.5,
-                    minChange   : - 1,
-                    maxSense    : 1
+                    minChange   : -1,
+                    maxChange   : 2
                 }
             }
         }, 

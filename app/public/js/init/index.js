@@ -1,13 +1,13 @@
 'use strict'
 
 
-for(let i = 0; i < 20; i++){
+for(let i = 0; i < 50; i++){
 
    let organism = ECOSYSTEM.generateOrganism('Producers');
    ECOSYSTEM.addOrganism(organism);
 }
 
-for(let i = 0; i < 1; i++){
+for(let i = 0; i < 5; i++){
    let organism = ECOSYSTEM.generateOrganism('SpecieA');
    ECOSYSTEM.addOrganism(organism);
 }

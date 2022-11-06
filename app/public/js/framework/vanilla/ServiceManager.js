@@ -34,7 +34,7 @@ class ServiceManager {
             return this.#services[serviceName];
         }
 
-        console.warn(`Cannot get unregistered service '${serviceName}'`)
+        throw Error(`Cannot get unregistered service '${serviceName}'`)
         return false;
     }
 

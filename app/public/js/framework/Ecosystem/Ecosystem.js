@@ -14,7 +14,8 @@ class Ecosystem {
 
         this.#organismBuilder   = new OrganismBuilder(this);
         this.#mutator           = new Mutator(this);
-        this.#mutator.init();
+
+        this.#mutator.init(model.mutations);
     }
 
     setUpSpecies(species){
@@ -55,7 +56,7 @@ class Ecosystem {
 
     generateOffSpring(organism){
         let offspring = this.#organismBuilder.cloneOrganism(organism);
-        //this.#mutator.mutateOrganism(offspring);
+        this.#mutator.mutateOrganism(offspring);
         return offspring;
     }
 

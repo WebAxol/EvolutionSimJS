@@ -6,11 +6,11 @@ class Mutator {
         this.mutations;
     }
 
-    init(){
-        this.mutations = this.setUpMutations();
+    init(mutationDetails){
+        this.mutations = this.setUpMutations(mutationDetails);
     }
 
-    setUpMutations(mutationDetails = false){
+    setUpMutations(mutationDetails){
 
         if(!mutationDetails){
             return; // No mutations
@@ -21,19 +21,22 @@ class Mutator {
 
         species.forEach(specieName => {
 
-            let sensitivity = mutationDetails[specieName] ? mutationDetails[specieName].sensitivity || undefined : undefined;
-            let maxSpeed    = mutationDetails[specieName] ? mutationDetails[specieName].maxSpeed    || undefined : undefined;
+            if(mutationDetails[specieName]){
 
-            mutations[specieName] = {
-                sensitivity : {
-                    probability : sensitivity.probability || 0,
-                    maxChange   : sensitivity.maxChange   || 0,
-                    minChange   : sensitivity.minChange   || 0
-                },
-                maxSpeed : {
-                    probability : maxSpeed.probability    || 0,
-                    maxChange   : maxSpeed.maxChange      || 0,
-                    minChange   : maxSpeed.minChange      || 0
+                let sensitivity = mutationDetails[specieName].sensitivity || {};
+                let maxSpeed    = mutationDetails[specieName].maxSpeed    || {};
+    
+                mutations[specieName] = {
+                    sensitivity : {
+                        probability : sensitivity.probability || 0,
+                        maxChange   : sensitivity.maxChange   || 0,
+                        minChange   : sensitivity.minChange   || 0
+                    },
+                    maxSpeed : {
+                        probability : maxSpeed.probability    || 0,
+                        maxChange   : maxSpeed.maxChange      || 0,
+                        minChange   : maxSpeed.minChange      || 0
+                    }
                 }
             }
         });
@@ -43,17 +46,28 @@ class Mutator {
 
     mutateOrganism(organism){
 
-        if(!this.mutations) return;
+        if(!this.mutations || !this.mutations[organism.specie]) return;
 
-        let sensitivityMutation = this.mutations[organism.specie].sensitivity;
-        let maxSpeedMutation    = this.mutations[organism.specie].maxSpeed;
+        let sensitivityMutation = this.mutations[organism.specie].sensitivity || undefined;
+        let maxSpeedMutation    = this.mutations[organism.specie].maxSpeed || undefined;
 
 
-        if(Math.random() < sensitivityMutation.probability){
-            organism.sensitivity += sensitivityMutation.minChange + Math.random() * (sensitivityMutation.maxChange - sensitivityMutation.minChange);
+        if(sensitivityMutation && sensitivityMutation.probability && Math.random() < sensitivityMutation.probability){
+
+            organism.sensitivity += Math.round(
+                (sensitivityMutation.minChange || 0) + Math.random() * ((sensitivityMutation.maxChange || 0) - (sensitivityMutation.minChange || 0))
+            );
+
+            TreeObject.getChild(organism,'sensitivityRange').radius = organism.sensitivity;
+            console.log('Sensitivy Mutation',organism.sensitivity);
+
         }
-        if(Math.random() < maxSpeedMutation.probability){
-            organism.sensitivity += maxSpeedMutation.minChange    + Math.random() * (maxSpeedMutation.maxChange - maxSpeedMutation.minChange);
+        if(maxSpeedMutation    && maxSpeedMutation.probability && Math.random() < maxSpeedMutation.probability){
+
+            organism.maxSpeed += Math.round((maxSpeedMutation.minChange || 0)    + Math.random() * ((maxSpeedMutation.maxChange || 0) - (maxSpeedMutation.minChange || 0)));
+
+            console.log('Speed Mutation',organism.maxSpeed);
+
         }
     }
 
