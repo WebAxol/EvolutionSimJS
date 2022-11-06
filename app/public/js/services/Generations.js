@@ -42,7 +42,7 @@ class Generations extends Service{
 
             var specie = this.world.getCollection(specieName);
 
-            if(specieName.foodFee > 0){
+            if(this.ecosystem.species[specieName].foodFee > 0){
 
                 for(let i = 0; i < specie.length; i++){
                     
