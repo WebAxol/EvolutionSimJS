@@ -10,11 +10,19 @@
 <body>
     <p class="generationCounter">Generation: 1</p>
     <canvas width="3000px" height="1500px"></canvas>
-    
+   <!--- 
+    <script src="js/framework/vanilla/Service.js"></script>
+    <script src="/js/framework/vanilla/AgentPool.js"></script>
+    <script src="/js/framework/vanilla/CollectionManager.js"></script>
+    <script src="/js/framework/vanilla/ServiceManager.js"></script>
+    <script src="/js/framework/vanilla/EventManager.js"></script>
+    <script src="/js/framework/vanilla/World.js"></script>
+   -->
+    <script src="/js/framework/vanilla/build/cases.min.js"></script>
+
     <!-- Modules -->
 
     <script src="/js/utils/Vector2D.js"></script>
-    <script src="/js/framework/Service.js"></script>
     <script src="/js/services/Renderer.js"></script>
     <script src="/js/services/Motion.js"></script>
     <script src="/js/services/AgentBehaviour.js"></script>
@@ -24,16 +32,15 @@
     <!--utils-->
 
     <script src="/js/utils/TreeObject.js"></script>
-    <script src="/js/utils/Ecosystem.js"></script>
+
+    <!--Framework upper layers-->
+
+    <script src="/js/framework/Ecosystem/Mutator.js"></script>
+    <script src="/js/framework/Ecosystem/OrganismBuilder.js"></script>
+    <script src="/js/framework/Ecosystem/Ecosystem.js"></script>
 
 
     <!-- Integration -->
-
-    <script src="/js/framework/AgentPool.js"></script>
-    <script src="/js/framework/CollectionManager.js"></script>
-    <script src="/js/framework/ServiceManager.js"></script>
-    <script src="/js/framework/EventManager.js"></script>
-    <script src="/js/framework/World.js"></script>
 
     <!--Init World-->
 

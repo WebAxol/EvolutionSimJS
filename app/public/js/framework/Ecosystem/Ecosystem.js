@@ -21,9 +21,8 @@ class Ecosystem {
         Object.keys(species).forEach(specieName => {
             this.world.registerCollection(specieName);
             this.world.registerCollection('Active' + specieName);
-
         });
-
+    
         return species;
     }
 
@@ -50,11 +49,11 @@ class Ecosystem {
     }
 
     generateOrganism(specieName,attributes = null){
-        this.#organismBuilder.generateOrganism(specieName,attributes);
+        return this.#organismBuilder.generateOrganism(specieName,attributes);
     }
 
     cloneOrganism(organism){
-        this.#organismBuilder.cloneOrganism(organism);
+        return this.#organismBuilder.cloneOrganism(organism);
     }
 
     addOrganism(organism){

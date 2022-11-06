@@ -8,7 +8,7 @@ class OrganismBuilder {
     generateOrganism(specieName,attributes = null){
 
         var position;
-        var specieAttributes = this.species[specieName];
+        var specieAttributes = this.ecosystem.species[specieName];
         var maxSpeed    =  attributes && attributes.maxSpeed    ? attributes.maxSpeed    :  specieAttributes.minSpeed + Math.random() * (specieAttributes.maxSpeed - specieAttributes.minSpeed);
         var sensitivity =  attributes && attributes.sensitivity ? attributes.sensitivity :  specieAttributes.minSense + Math.random() * (specieAttributes.maxSense - specieAttributes.minSense);
 
@@ -68,6 +68,10 @@ class OrganismBuilder {
     }
 
     addOrganism(organism){
+
+        if(!organism.specie){
+            throw Error(`Cannot add organism to ecosystem, because it doesn't have a specie assigned`);
+        }
 
         this.world.addToCollection(organism.specie,organism);
         this.world.addToCollection(`Active${organism.specie}`,organism);
