@@ -1,4 +1,4 @@
-class SummaryMaker extends Service{
+class Statistics extends Service{
     
     constructor(ecosystem){
         super();

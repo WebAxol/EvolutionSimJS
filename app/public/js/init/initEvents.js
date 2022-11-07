@@ -2,7 +2,7 @@ WORLD.registerEvent('agentOutOfCanvas');
 WORLD.registerServiceToEvent('AgentBehaviour','agentOutOfCanvas');
 
 WORLD.registerEvent('generationOver');
-WORLD.registerServiceToEvent('SummaryMaker','generationOver');
+WORLD.registerServiceToEvent('Statistics','generationOver');
 
 WORLD.registerEvent('summaryCreated');
 WORLD.registerServiceToEvent('Generations','summaryCreated');

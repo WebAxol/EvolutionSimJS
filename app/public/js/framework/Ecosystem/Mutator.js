@@ -1,3 +1,5 @@
+// TODO: Test and refactor code
+
 class Mutator {
 
     constructor(ecosystem){
@@ -59,16 +61,11 @@ class Mutator {
             );
 
             TreeObject.getChild(organism,'sensitivityRange').radius = organism.sensitivity;
-            console.log('Sensitivy Mutation',organism.sensitivity);
-
         }
+
         if(maxSpeedMutation    && maxSpeedMutation.probability && Math.random() < maxSpeedMutation.probability){
 
-            organism.maxSpeed += Math.round((maxSpeedMutation.minChange || 0)    + Math.random() * ((maxSpeedMutation.maxChange || 0) - (maxSpeedMutation.minChange || 0)));
-
-            console.log('Speed Mutation',organism.maxSpeed);
-
+            organism.maxSpeed += Math.round((maxSpeedMutation.minChange || 0) + Math.random() * ((maxSpeedMutation.maxChange || 0) - (maxSpeedMutation.minChange || 0)));
         }
     }
-
 }
