@@ -8,7 +8,7 @@ class Generations extends Service{
 
     createOffspring(){
 
-        var specieNames = Object.keys(this.ecosystem.species);
+        var specieNames = Object.keys(this.ecosystem.getAllSpecies());
         var offspring = [];
         
         specieNames.forEach(specieName => {
@@ -35,14 +35,14 @@ class Generations extends Service{
 
     reactivateOrganisms(){
 
-        var specieNames = Object.keys(this.ecosystem.species),
+        var specieNames = Object.keys(this.ecosystem.getAllSpecies()),
             empty = true;
         
         specieNames.forEach(specieName => {
 
             var specie = this.world.getCollection(specieName);
 
-            if(this.ecosystem.species[specieName].foodFee > 0){
+            if(this.ecosystem.getSpecie(specieName).foodFee > 0){
 
                 for(let i = 0; i < specie.length; i++){
                     
@@ -57,7 +57,7 @@ class Generations extends Service{
         });
 
         if(empty){
-            // All consumers extinct
+            // All consumers extinct - TODO : Trigger event onecosystemOver to stop simulation and send all data to server
         }
 
     }
@@ -68,8 +68,18 @@ class Generations extends Service{
     onsummaryCreated(details){
         console.log(`Generation ${this.generation} finished, starting generation ${this.generation + 1}`);
         this.generation++;
+
+        // Update generation counter
+
+        document.getElementById('generationCounter').innerHTML = `Generation: ${this.generation}`;
+
+        // Prepare for next generation
+
         this.reactivateOrganisms();
         this.createOffspring();
+
+        // Trigger next generation
+
         this.world.notifyEvent('newGenerationReady');
     }
 
