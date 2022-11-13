@@ -6,6 +6,7 @@ const ECOSYSTEM = new Ecosystem(WORLD,
     {
         species :  {
             'Producers': {
+                populationLimit : 500,
                 colorA : 'lawngreen',
                 colorB : 'rgba(0,255,0,0.1)',
                 maxSpeed : 0,
@@ -15,6 +16,7 @@ const ECOSYSTEM = new Ecosystem(WORLD,
                 foodFee  : 0
             },
             'SpecieA': {
+                populationLimit : 500,
                 colorA : 'skyblue',
                 colorB : 'rgba(0,0,255,0.1)',
                 maxSpeed : 5,
@@ -24,13 +26,14 @@ const ECOSYSTEM = new Ecosystem(WORLD,
                 foodFee  : 1
             },
             'SpecieB': {
-                colorA : 'purple',
-                colorB : 'rgba(255,0,255,0.1)',
-                maxSpeed : 5,
-                minSpeed : 5,
+                populationLimit : 500,
+                colorA : 'red',
+                colorB : 'rgba(255,0,0,0.1)',
+                maxSpeed : 8,
+                minSpeed : 7,
                 maxSense : 100,
                 minSense : 100,
-                foodFee  : 2
+                foodFee  : 1
             }
         },
 
@@ -52,7 +55,7 @@ const ECOSYSTEM = new Ecosystem(WORLD,
 
         foodWeb :  {
             'SpecieA' : { 'Producers' : 1 },
-            'SpecieB' : { 'Producers' : 1 }
+            'SpecieB' : { 'SpecieA' : 1 }
         }
     }
 );

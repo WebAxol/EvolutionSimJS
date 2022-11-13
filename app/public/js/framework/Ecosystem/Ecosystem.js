@@ -1,5 +1,7 @@
 class Ecosystem {
     
+    #species;
+    #foodWeb;
     #organismBuilder;
     #mutator;
 
@@ -7,8 +9,9 @@ class Ecosystem {
         
         this.world   = world;
         this.history = [];
-        this.species = this.setUpSpecies(model.species);
-        this.foodWeb = this.setUpFoodWeb(model.foodWeb);
+
+        this.#species = this.setUpSpecies(model.species);
+        this.#foodWeb = this.setUpFoodWeb(model.foodWeb);
 
         // subordinate modules
 
@@ -36,7 +39,7 @@ class Ecosystem {
                 throw Error `Cannot create foodweb with consumer type '${consumer}' because collections for it are not registered `
             } 
 
-            if(this.species[consumer]){
+            if(this.#species[consumer]){
         
                 Object.keys(foodWeb[consumer]).forEach((prey) => {
 
@@ -48,6 +51,38 @@ class Ecosystem {
         });
 
         return foodWeb;
+    }
+
+    getSpecie(specieName){
+
+        if(!this.#species[specieName]){
+            throw Error(`Cannot get specie named '${specieName}' because it is not registered inside Ecosystem`);
+        }
+
+        return this.#species[specieName];
+    }
+
+    getAllSpecies(){
+        return this.#species;
+    }
+
+    getFoodWeb(){
+        return this.#foodWeb;
+    }
+
+    getPopulationOf(specieName){
+
+        if(!this.#species[specieName]){
+            throw Error(`Specie named '${specieName}' is not registered`);
+        }
+
+        let specieCollection = this.world.getCollection(specieName);
+        if(!specieCollection){
+            throw Error(`System error, the specie named '${specieName}' is registered inside Ecosystem, but it's collections aren't present inside World`);
+        }
+
+        return specieCollection.length;
+
     }
 
     generateOrganism(specieName,attributes = null){

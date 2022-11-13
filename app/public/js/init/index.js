@@ -13,7 +13,7 @@ for(let i = 0; i < 5; i++){
 }
 
 
-for(let i = 0; i < 0; i++){
+for(let i = 0; i < 1; i++){
    let organism = ECOSYSTEM.generateOrganism('SpecieB');
    ECOSYSTEM.addOrganism(organism);
 }

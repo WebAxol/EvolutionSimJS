@@ -8,12 +8,12 @@ class Statistics extends Service{
     createSummary(){
         
         var summary  = {};
-        var specieNames = Object.keys(this.ecosystem.species); 
+        var specieNames = Object.keys(this.ecosystem.getAllSpecies()); 
 
         specieNames.forEach(specieName => {
-            let specie = this.world.getCollection(specieName);
+
             summary[specieName] = {
-                population : specie.length
+                population : this.ecosystem.getPopulationOf(specieName)
             }; 
         });
 

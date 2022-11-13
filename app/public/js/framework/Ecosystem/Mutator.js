@@ -18,7 +18,7 @@ class Mutator {
             return; // No mutations
         }
         
-        var species = Object.keys(this.ecosystem.species);
+        var species = Object.keys(this.ecosystem.getAllSpecies());
         var mutations = {};
 
         species.forEach(specieName => {

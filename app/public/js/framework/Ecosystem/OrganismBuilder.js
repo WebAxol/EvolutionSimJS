@@ -1,3 +1,5 @@
+// TODO : Refactor code to make it more understandable and ETC
+
 class OrganismBuilder {
 
     constructor(ecosystem){
@@ -8,10 +10,9 @@ class OrganismBuilder {
     generateOrganism(specieName,attributes = null){
 
         var position;
-        var specieAttributes = this.ecosystem.species[specieName];
+        var specieAttributes = this.ecosystem.getSpecie(specieName);
         var maxSpeed    =  attributes && attributes.maxSpeed    ? attributes.maxSpeed    :  specieAttributes.minSpeed + Math.random() * (specieAttributes.maxSpeed - specieAttributes.minSpeed);
         var sensitivity =  attributes && attributes.sensitivity ? attributes.sensitivity :  specieAttributes.minSense + Math.random() * (specieAttributes.maxSense - specieAttributes.minSense);
-
 
         if(specieName == 'Producers')   position = new Vector2D(Math.random() * canvas.width, Math.random() * canvas.height)
         else if(Math.random() > 0.5)    position = new Vector2D(Math.random() * canvas.width, Math.random() > 0.5 ? canvas.height - 10 : 10);

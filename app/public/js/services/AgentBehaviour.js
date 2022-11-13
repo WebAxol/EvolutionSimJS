@@ -16,7 +16,7 @@ class AgentBehaviour extends Service{
         if(this.isGenOver) return;
         
         var notLeft = true, 
-            foodWeb = this.ecosystem.foodWeb;
+            foodWeb = this.ecosystem.getFoodWeb();
         
         Object.keys(foodWeb).forEach( (predatorSpecie) => {
             
