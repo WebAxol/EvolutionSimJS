@@ -25,7 +25,7 @@ class AgentBehaviour extends Service{
             for(let i = 0; i < activePredators.length; i++){
 
                 let predator = activePredators[i];
-                    predator.energy -= Vector2D.magSq(predator.vel) + (predator.sensitivity / 5);
+                    predator.energy -= Vector2D.magSq(predator.vel) + (predator.sensitivity / 2);
                     predator.wander = true;
 
 

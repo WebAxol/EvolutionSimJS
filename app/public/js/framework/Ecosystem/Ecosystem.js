@@ -34,9 +34,9 @@ class Ecosystem {
     setUpFoodWeb(foodWeb){
 
         Object.keys(foodWeb).forEach( (consumer) => {
-            collections : ['Kinetics']
+        
             if(!this.world.getCollection(consumer) && !this.world.getCollection(`Active${prey}`)){
-                throw Error `Cannot create foodweb with consumer type '${consumer}' because collections for it are not registered `
+                throw Error (`Cannot create foodweb with consumer type '${consumer}' because collections for it are not registered`);
             } 
 
             if(this.#species[consumer]){
@@ -44,7 +44,7 @@ class Ecosystem {
                 Object.keys(foodWeb[consumer]).forEach((prey) => {
 
                     if(!this.world.getCollection(prey) && !this.world.getCollection(`Active${prey}`)){
-                        throw Error `Cannot create foodweb with prey type '${consumer}' because it collections for it are not registered `
+                        throw Error(`Cannot create foodweb with prey type '${consumer}' because it collections for it are not registered`);
                     }
                 })
             }
@@ -86,10 +86,32 @@ class Ecosystem {
     }
 
     generateOrganism(specieName,attributes = null){
+
+        if(!this.#species[specieName]){
+            throw Error(`Specie named '${specieName}' is not registered`);
+        }
+
+        if(this.getPopulationOf(specieName) >= (this.#species[specieName].populationLimit || Number.POSITIVE_INFINITY)){
+            console.log(`Specie named '${specieName}' has reached its population limit: `);
+            return false;
+        }
+        
         return this.#organismBuilder.generateOrganism(specieName,attributes);
     }
 
     generateOffSpring(organism){
+
+        let specieName = organism.specie;
+
+        if(!this.#species[specieName]){
+            throw Error(`Specie named '${specieName}' is not registered`);
+        }
+
+        if(this.getPopulationOf(specieName) >= (this.#species[specieName].populationLimit || Number.POSITIVE_INFINITY)){
+            console.log(`Specie named '${specieName}' has reached its population limit: `);
+            return false;
+        }
+
         let offspring = this.#organismBuilder.cloneOrganism(organism);
         this.#mutator.mutateOrganism(offspring);
         return offspring;

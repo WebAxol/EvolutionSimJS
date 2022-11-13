@@ -14,22 +14,34 @@ class Generations extends Service{
         specieNames.forEach(specieName => {
 
             var specie = this.world.getCollection(specieName);
+            var populationLimit  = this.ecosystem.getSpecie(specieName).populationLimit || Number.POSITIVE_INFINITY;
+            var actualPopulation = this.ecosystem.getPopulationOf(specieName);
 
             for(let i = 0; i < specie.length; i++){
                 let organism = specie[i];
 
                 if(organism.foodCount >= organism.foodFee * 2){
 
-                    offspring.push(this.ecosystem.generateOffSpring(organism));
+                    let _offspring = this.ecosystem.generateOffSpring(organism);
+
+                    if(_offspring === false) break;
+                    if( actualPopulation + offspring.length >= populationLimit){
+                        break;
+                    }
+
+                    offspring.push(_offspring);
                 }
 
                 organism.foodCount = 0;
                 organism.energy = organism.maxEnergy;
             }
-        });
 
-        offspring.forEach(organism => {
-            this.ecosystem.addOrganism(organism);
+            while(offspring.length){
+                this.ecosystem.addOrganism(offspring.pop());
+            }
+
+            console.log(offspring);
+
         });
     }
 

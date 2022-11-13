@@ -5,18 +5,26 @@ const WORLD = new World();
 const ECOSYSTEM = new Ecosystem(WORLD, 
     {
         species :  {
-            'Producers': {
-                populationLimit : 500,
+            'ProducerA': {
+                populationLimit : 300,
                 colorA : 'lawngreen',
-                colorB : 'rgba(0,255,0,0.1)',
                 maxSpeed : 0,
                 minSpeed : 0,
-                maxSense : 10,
+                maxSense : 0,
                 minSense : 0,
                 foodFee  : 0
             },
-            'SpecieA': {
-                populationLimit : 500,
+            'ProducerB': {
+                populationLimit : 300,
+                colorA : 'yellow',
+                maxSpeed : 0,
+                minSpeed : 0,
+                maxSense : 0,
+                minSense : 0,
+                foodFee  : 0
+            },
+            'PrimaryConsumerA': {
+                populationLimit : 100,
                 colorA : 'skyblue',
                 colorB : 'rgba(0,0,255,0.1)',
                 maxSpeed : 5,
@@ -25,37 +33,35 @@ const ECOSYSTEM = new Ecosystem(WORLD,
                 minSense : 100,
                 foodFee  : 1
             },
-            'SpecieB': {
-                populationLimit : 500,
-                colorA : 'red',
-                colorB : 'rgba(255,0,0,0.1)',
-                maxSpeed : 8,
-                minSpeed : 7,
+            'PrimaryConsumerB': {
+                populationLimit : 100,
+                colorA : 'violet',
+                colorB : 'rgba(255,0,255,0.1)',
+                maxSpeed : 5,
+                minSpeed : 5,
+                maxSense : 100,
+                minSense : 100,
+                foodFee  : 1
+            },
+            'PrimaryConsumerC': {
+                populationLimit : 100,
+                colorA : 'orange',
+                colorB : 'rgba(255,100,0,0.1)',
+                maxSpeed : 5,
+                minSpeed : 5,
                 maxSense : 100,
                 minSense : 100,
                 foodFee  : 1
             }
         },
 
-        mutations: {
-            'SpecieA' : {
-                sensitivity : {
-                    probability : 1,
-                    minChange : - 20,
-                    maxChange :   20
-                },
-    
-                maxSpeed : {
-                    probability : 0.5,
-                    minChange   : -1,
-                    maxChange   : 2
-                }
-            }
-        }, 
+        mutations: {}, 
 
         foodWeb :  {
-            'SpecieA' : { 'Producers' : 1 },
-            'SpecieB' : { 'SpecieA' : 1 }
+            'PrimaryConsumerA' : { 'ProducerA' : 1 },
+            'PrimaryConsumerB' : { 'ProducerB' : 1 },
+            'PrimaryConsumerC' : { 'ProducerB' : 1, 'ProducerA' : 1 },
+
         }
     }
 );
