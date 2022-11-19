@@ -6,7 +6,8 @@ const ECOSYSTEM = new Ecosystem(WORLD,
     {
         species :  {
             'ProducerA': {
-                populationLimit : 300,
+                populationLimit: 500,
+                lifespan: 3,
                 colorA : 'lawngreen',
                 maxSpeed : 0,
                 minSpeed : 0,
@@ -15,7 +16,8 @@ const ECOSYSTEM = new Ecosystem(WORLD,
                 foodFee  : 0
             },
             'ProducerB': {
-                populationLimit : 300,
+                populationLimit: 500,
+                lifespan: 3,
                 colorA : 'yellow',
                 maxSpeed : 0,
                 minSpeed : 0,
@@ -24,7 +26,7 @@ const ECOSYSTEM = new Ecosystem(WORLD,
                 foodFee  : 0
             },
             'PrimaryConsumerA': {
-                populationLimit : 100,
+                lifespan : 3,
                 colorA : 'skyblue',
                 colorB : 'rgba(0,0,255,0.1)',
                 maxSpeed : 5,
@@ -34,7 +36,7 @@ const ECOSYSTEM = new Ecosystem(WORLD,
                 foodFee  : 1
             },
             'PrimaryConsumerB': {
-                populationLimit : 100,
+                lifespan : 3,
                 colorA : 'violet',
                 colorB : 'rgba(255,0,255,0.1)',
                 maxSpeed : 5,
@@ -44,7 +46,7 @@ const ECOSYSTEM = new Ecosystem(WORLD,
                 foodFee  : 1
             },
             'PrimaryConsumerC': {
-                populationLimit : 100,
+                lifespan : 3,
                 colorA : 'orange',
                 colorB : 'rgba(255,100,0,0.1)',
                 maxSpeed : 5,
@@ -62,7 +64,8 @@ const ECOSYSTEM = new Ecosystem(WORLD,
             'PrimaryConsumerB' : { 'ProducerB' : 1 },
             'PrimaryConsumerC' : { 'ProducerB' : 1, 'ProducerA' : 1 },
 
-        }
+        },
+
     }
 );
 

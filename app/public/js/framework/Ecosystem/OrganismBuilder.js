@@ -25,9 +25,12 @@ class OrganismBuilder {
               pos: position,
               maxSpeed    : maxSpeed,
               sensitivity : sensitivity,
-              foodFee : specieAttributes.foodFee
+              foodFee     : specieAttributes.foodFee,
+              lifespan    : specieAttributes.lifespan
            }
         })
+
+        // Has sensitive field ?
 
         if(specieAttributes.minSense > 0){
 
@@ -43,9 +46,13 @@ class OrganismBuilder {
              TreeObject.addChild(organism,'sensitivityRange',sensitivityRange);
         }
 
+        // Has movement ?
+
         if(organism.maxSpeed > 0){
             this.world.addToCollection('Kinetics',organism);
         }
+
+        // Organism aspect
 
         let aspect = WORLD.createAgent('Circle', {
             'info' : {
@@ -55,8 +62,10 @@ class OrganismBuilder {
          });
      
         TreeObject.addChild(organism,'aspect',aspect);
-        organism.specie = specieName;
 
+
+
+        organism.specie = specieName;
         return organism;
     }
 

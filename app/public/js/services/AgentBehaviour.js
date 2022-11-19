@@ -25,7 +25,7 @@ class AgentBehaviour extends Service{
             for(let i = 0; i < activePredators.length; i++){
 
                 let predator = activePredators[i];
-                    predator.energy -= Vector2D.magSq(predator.vel) + (predator.sensitivity / 2);
+                    predator.energy -= (Vector2D.magSq(predator.vel) + predator.sensitivity) * 1.5;
                     predator.wander = true;
 
 
@@ -38,7 +38,7 @@ class AgentBehaviour extends Service{
                 }
 
 
-                if(predator.foodCount < predator.foodFee * 2 || predator.energy < 10000){
+                if(predator.foodCount < predator.foodFee * 2 || predator.energy < 1000){
                     
                     var preySpecies = Object.keys(foodWeb[predatorSpecie]);
                     
@@ -115,18 +115,18 @@ class AgentBehaviour extends Service{
 
     Hunt(predator){
         predator.foodCount++;
-        predator.energy += 20000;
+        predator.energy += 30000;
     }
 
 
     Eliminate(specie,organism){
         organism.active = false;
-        WORLD.removeAgent(organism);
+        this.world.removeAgent(organism);
     }
 
     Save(specie,organism){
 
-        WORLD.removeFromCollection(`Active${specie}`, organism);
+        this.world.removeFromCollection(`Active${specie}`, organism);
 
         organism.active = false;
         organism.vel.x = 0;

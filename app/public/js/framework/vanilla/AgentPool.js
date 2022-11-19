@@ -7,6 +7,7 @@ class AgentPool{
         this.world = world;
         this.#types = {} // Type Object Pattern
         this.#pools = {} // Object Pool Pattern
+        this.toBeRemoved = [];
     }
 
     registerType(typeName,prototype){
@@ -96,7 +97,10 @@ class AgentPool{
         }
         
         Object.keys(details['info']).forEach((detail) => {
-            agent[detail] = details['info'][detail];
+
+            if(details['info'][detail] != undefined){
+                agent[detail] = details['info'][detail];
+            }
         })
 
         return agent;
@@ -114,30 +118,40 @@ class AgentPool{
         return collections;
     }
 
-    removeAgent(agent){
+    storeToBeRemoved(agent){
+        this.toBeRemoved.push(agent);
+    }
 
+    removeAgent(agent){
         try{
 
-        let agentType = agent.getType();
-        this.#pools[agentType].push(agent);
+            let agentType = agent.getType();
+            let agentCollections = agent.getCollections();
+            
+            agentCollections.forEach((collectionName) => {
+                this.world.removeFromCollection(collectionName,agent);
+            });
+            
+            let agentChildren = Object.keys(agent._children);
+            
+            while(agentChildren.length){
+                this.removeAgent(agent._children[agentChildren[0]]);
+                delete agent._children[agentChildren[0]];
+                agentChildren.shift();
+            }
 
-        let agentCollections = agent.getCollections();
-
-        agentCollections.forEach((collectionName) => {
-            WORLD.removeFromCollection(collectionName,agent);
-        });
-
-        let agentChildren = Object.keys(agent._children);
-        
-        while(agentChildren.length){
-            this.removeAgent(agent._children[agentChildren[0]]);
-            delete agent._children[agentChildren[0]];
-            agentChildren.shift();
-        }
+            this.#pools[agentType].push(agent);
 
         }catch(err){
-            console.warn(`Error, agent ${agent}`);
-            console.log(agent);
+            throw Error(`Error, agent ${agent}`);
+        }
+    }
+
+    removeAgents(){
+
+        while(this.toBeRemoved.length){
+            let agent = this.toBeRemoved.pop();
+            this.removeAgent(agent);
         }
     }
 

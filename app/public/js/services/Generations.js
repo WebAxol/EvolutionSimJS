@@ -6,6 +6,8 @@ class Generations extends Service{
         this.ecosystem = ecosystem;
     }
 
+    // Note - the code could be refactored in such a way that there is only one foreach loop
+
     createOffspring(){
 
         var specieNames = Object.keys(this.ecosystem.getAllSpecies());
@@ -13,7 +15,7 @@ class Generations extends Service{
         
         specieNames.forEach(specieName => {
 
-            var specie = this.world.getCollection(specieName);
+            var specie          = this.world.getCollection('Active' + specieName);            
             var populationLimit  = this.ecosystem.getSpecie(specieName).populationLimit || Number.POSITIVE_INFINITY;
             var actualPopulation = this.ecosystem.getPopulationOf(specieName);
 
@@ -22,14 +24,11 @@ class Generations extends Service{
 
                 if(organism.foodCount >= organism.foodFee * 2){
 
-                    let _offspring = this.ecosystem.generateOffSpring(organism);
-
-                    if(_offspring === false) break;
                     if( actualPopulation + offspring.length >= populationLimit){
                         break;
                     }
 
-                    offspring.push(_offspring);
+                    offspring.push(this.ecosystem.generateOffSpring(organism));
                 }
 
                 organism.foodCount = 0;
@@ -39,9 +38,6 @@ class Generations extends Service{
             while(offspring.length){
                 this.ecosystem.addOrganism(offspring.pop());
             }
-
-            console.log(offspring);
-
         });
     }
 
@@ -54,17 +50,32 @@ class Generations extends Service{
 
             var specie = this.world.getCollection(specieName);
 
-            if(this.ecosystem.getSpecie(specieName).foodFee > 0){
+            empty = specie.length <= 0;
 
-                for(let i = 0; i < specie.length; i++){
-                    
-                    empty = false;
+            for(let i = 0; i < specie.length; i++){
 
-                    let organism = specie[i];
+                let organism = specie[i];
+
+                // Is organism too old ?
+
+                if(organism.age >= organism.lifespan){
+
+                    // Yes - Remove organism
+
+                    this.world.removeAgent(organism);
+                }
+
+                // In case that specie is not a producer
+
+                else if(this.ecosystem.getSpecie(specieName).foodFee > 0){ 
+
+                    // Reactivate organism
 
                     organism.active = true;
-                    this.world.addToCollection(`Active${specieName}`,organism);
+                    this.world.addToCollection(`Active${specieName}`,organism);   
                 }
+
+                organism.age++;
             }
         });
 
