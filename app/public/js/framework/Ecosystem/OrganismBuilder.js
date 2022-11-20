@@ -14,9 +14,9 @@ class OrganismBuilder {
         var maxSpeed    =  attributes && attributes.maxSpeed    ? attributes.maxSpeed    :  specieAttributes.minSpeed + Math.random() * (specieAttributes.maxSpeed - specieAttributes.minSpeed);
         var sensitivity =  attributes && attributes.sensitivity ? attributes.sensitivity :  specieAttributes.minSense + Math.random() * (specieAttributes.maxSense - specieAttributes.minSense);
 
-        if(specieName == 'Producers')   position = new Vector2D(Math.random() * canvas.width, Math.random() * canvas.height)
-        else if(Math.random() > 0.5)    position = new Vector2D(Math.random() * canvas.width, Math.random() > 0.5 ? canvas.height - 10 : 10);
-        else                            position = new Vector2D(Math.random() > 0.5 ? canvas.width - 10 : 10, Math.random() * canvas.height);
+        if(specieAttributes.foodFee <= 0)   position = new Vector2D(Math.random() * canvas.width, Math.random() * canvas.height)
+        else if(Math.random() > 0.5)        position = new Vector2D(Math.random() * canvas.width, Math.random() > 0.5 ? canvas.height - 10 : 10);
+        else                                position = new Vector2D(Math.random() > 0.5 ? canvas.width - 10 : 10, Math.random() * canvas.height);
         
 
         var organism = this.world.createAgent('Organism', 
@@ -25,9 +25,12 @@ class OrganismBuilder {
               pos: position,
               maxSpeed    : maxSpeed,
               sensitivity : sensitivity,
-              foodFee : specieAttributes.foodFee
+              foodFee     : specieAttributes.foodFee,
+              lifespan    : specieAttributes.lifespan
            }
         })
+
+        // Has sensitive field ?
 
         if(specieAttributes.minSense > 0){
 
@@ -43,9 +46,13 @@ class OrganismBuilder {
              TreeObject.addChild(organism,'sensitivityRange',sensitivityRange);
         }
 
+        // Has movement ?
+
         if(organism.maxSpeed > 0){
             this.world.addToCollection('Kinetics',organism);
         }
+
+        // Organism aspect
 
         let aspect = WORLD.createAgent('Circle', {
             'info' : {
@@ -55,8 +62,10 @@ class OrganismBuilder {
          });
      
         TreeObject.addChild(organism,'aspect',aspect);
-        organism.specie = specieName;
 
+
+
+        organism.specie = specieName;
         return organism;
     }
 

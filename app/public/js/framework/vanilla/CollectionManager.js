@@ -74,8 +74,6 @@ class CollectionManager {
 
     removeAgentsFromCollections(){
 
-        //console.log(this.toBeRemoved);
-
         while(this.toBeRemoved.length > 0){
             let command = this.toBeRemoved.pop();
             this.removeFromCollection(command.collectionName,command.agent);

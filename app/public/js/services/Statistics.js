@@ -12,9 +12,7 @@ class Statistics extends Service{
 
         specieNames.forEach(specieName => {
 
-            summary[specieName] = {
-                population : this.ecosystem.getPopulationOf(specieName)
-            }; 
+            summary[specieName] = this.ecosystem.getPopulationOf(specieName);
         });
 
         console.log('%c Summary Created ','background: #222; color: #bada55');

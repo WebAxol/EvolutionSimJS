@@ -1,20 +1,31 @@
 'use strict'
 
 
-for(let i = 0; i < 50; i++){
+for(let i = 0; i < 100; i++){
 
-   let organism = ECOSYSTEM.generateOrganism('Producers');
+   let organism = ECOSYSTEM.generateOrganism('ProducerA');
    ECOSYSTEM.addOrganism(organism);
 }
 
-for(let i = 0; i < 5; i++){
-   let organism = ECOSYSTEM.generateOrganism('SpecieA');
+for(let i = 0; i < 100; i++){
+
+   let organism = ECOSYSTEM.generateOrganism('ProducerB');
+   ECOSYSTEM.addOrganism(organism);
+}
+
+for(let i = 0; i < 3; i++){
+   let organism = ECOSYSTEM.generateOrganism('PrimaryConsumerA');
    ECOSYSTEM.addOrganism(organism);
 }
 
 
-for(let i = 0; i < 1; i++){
-   let organism = ECOSYSTEM.generateOrganism('SpecieB');
+for(let i = 0; i < 3; i++){
+   let organism = ECOSYSTEM.generateOrganism('PrimaryConsumerB');
+   ECOSYSTEM.addOrganism(organism);
+}
+
+for(let i = 0; i < 3; i++){
+   let organism = ECOSYSTEM.generateOrganism('PrimaryConsumerC');
    ECOSYSTEM.addOrganism(organism);
 }
 

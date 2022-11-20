@@ -67,7 +67,7 @@ class World {
     }
 
     removeAgent(agent){
-        this.#agentPool.removeAgent(agent);
+        this.#agentPool.storeToBeRemoved(agent);
     }
 
     registerEvent(eventName){
@@ -91,6 +91,7 @@ class World {
 
         requestAnimationFrame(() => { this.execute() });
 
+        this.#agentPool.removeAgents();
         this.#collectionManager.removeAgentsFromCollections();
         var services = this.getServices();
 
