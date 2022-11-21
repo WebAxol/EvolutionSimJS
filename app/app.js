@@ -38,8 +38,8 @@ app.use(apiRoutes);
 app.use(express.static(join(__dirname,'public')));
 
 /* --- Server connection --- */
-//mongoose.Promise = global.Promise;
-//mongoose.connect('mongodb://localhost:27017/evolutionsimjs')
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost:27017/evolutionsimjs')
 app.listen(CONFIG.port, () => {
     console.log('The server is listening on port', CONFIG.port);
 }); 
