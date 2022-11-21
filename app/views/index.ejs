@@ -4,52 +4,52 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/css/index.css" rel="stylesheet" >
+    <link href="/css/style.css" rel="stylesheet" >
     <title>Document</title>
 </head>
 <body>
     <p class="generationCounter" id="generationCounter">Generation: 1</p>
     <canvas width="3000px" height="1500px"></canvas>
    
-    <script src="js/framework/vanilla/Service.js"></script>
-    <script src="/js/framework/vanilla/AgentPool.js"></script>
-    <script src="/js/framework/vanilla/CollectionManager.js"></script>
-    <script src="/js/framework/vanilla/ServiceManager.js"></script>
-    <script src="/js/framework/vanilla/EventManager.js"></script>
-    <script src="/js/framework/vanilla/World.js"></script>
+    <script src="/js/simulator/layers/framework/Service.js"></script>
+    <script src="/js/simulator/layers/framework/AgentPool.js"></script>
+    <script src="/js/simulator/layers/framework/CollectionManager.js"></script>
+    <script src="/js/simulator/layers/framework/ServiceManager.js"></script>
+    <script src="/js/simulator/layers/framework/EventManager.js"></script>
+    <script src="/js/simulator/layers/framework/World.js"></script>
    
    <!-- <script src="/js/framework/vanilla/build/cases.min.js"></script> -->
 
     <!-- Modules -->
 
-    <script src="/js/utils/Vector2D.js"></script>
-    <script src="/js/services/Renderer.js"></script>
-    <script src="/js/services/Motion.js"></script>
-    <script src="/js/services/AgentBehaviour.js"></script>
-    <script src="/js/services/Generations.js"></script>
-    <script src="/js/services/Statistics.js"></script>
+    <script src="/js/simulator/utils/Vector2D.js"></script>
+    <script src="/js/simulator/services/Renderer.js"></script>
+    <script src="/js/simulator/services/Motion.js"></script>
+    <script src="/js/simulator/services/AgentBehaviour.js"></script>
+    <script src="/js/simulator/services/Generations.js"></script>
+    <script src="/js/simulator/services/Statistics.js"></script>
 
     <!--utils-->
 
-    <script src="/js/utils/TreeObject.js"></script>
+    <script src="/js/simulator/utils/TreeObject.js"></script>
 
     <!--Framework upper layers-->
 
-    <script src="/js/framework/Ecosystem/Mutator.js"></script>
-    <script src="/js/framework/Ecosystem/OrganismBuilder.js"></script>
-    <script src="/js/framework/Ecosystem/Ecosystem.js"></script>
+    <script src="/js/simulator/layers/Ecosystem/Mutator.js"></script>
+    <script src="/js/simulator/layers/Ecosystem/OrganismBuilder.js"></script>
+    <script src="/js/simulator/layers/Ecosystem/Ecosystem.js"></script>
 
 
     <!-- Integration -->
 
     <!--Init World-->
 
-    <script src="/js/init/initConstants.js"></script>
-    <script src="/js/init/initCollections.js"></script>
-    <script src="/js/init/initAgentTypes.js"></script>
-    <script src="/js/init/initServices.js"></script>
-    <SCRipt src="/js/init/initEvents.js"></SCRipt>
-    <script src="/js/init/index.js"></script>
+    <script src="/js/simulator/init/initConstants.js"></script>
+    <script src="/js/simulator/init/initCollections.js"></script>
+    <script src="/js/simulator/init/initAgentTypes.js"></script>
+    <script src="/js/simulator/init/initServices.js"></script>
+    <SCRipt src="/js/simulator/init/initEvents.js"></SCRipt>
+    <script src="/js/simulator/init/index.js"></script>
 
 </body>
 </html>

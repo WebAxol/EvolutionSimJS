@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/css/bootstrap/bootstrap.min.css" rel="stylesheet" >
+    <link rel="stylesheet" href="/css/style.css">
     <title>Document</title>
 </head>
 <body>
@@ -12,29 +13,56 @@
         <section class="row mx-auto">
             <div class="col-md-6 mx-auto">
                 <form class="p-5 border border-success">
-                        <h1>SetUp Ecosystem</h1>
-                        <hr>
+                        <h1 class="">SetUp Experiment</h1>
 
-                        <div class="border border-success p-3">
+                        <hr class="bg-success">
+                        
+                        <div id="buttons">
+                            <button class="btn btn-success mb-3" id="addSpecieButton">Create new specie</button>
+                            <button class="btn btn-primary mb-3 ml-3" id="addMutationButton">Create new mutation</button>
+                        </div>
+
+                        <div class="border border-success p-3 d-none" id="addSpecieInterface">
+
                             <input class="form-control mb-3" type="text" placeholder="Specie Name">
 
                             <label> Specie Speed </label>
 
-                            <div class="d-flex justify-content-between mb-3">
-                                <div><input class="form-control" type="text" placeholder="Min"></div>
-                                <div><input class="form-control" type="text" placeholder="Max"></div>
+                            <div class="d-flex mb-3">
+                                <div>
+                                    <input class="form-control" type="text" placeholder="Min">
+                                </div>
+                                <div class="mx-3">
+                                    <input class="form-control" type="text" placeholder="Max">
+                                </div>
                             </div>
 
                             <label> Specie Sensitivity </label>
 
-                            <div class="d-flex justify-content-between">
-                                <div><input class="form-control" type="number" placeholder="Min"></div>
-                                <div><input class="form-control" type="text" placeholder="Max"></div>
+                            <div class="d-flex mb-3">
+                                <div>
+                                    <input class="form-control" type="number" placeholder="Min">
+                                </div>
+                                <div  class="mx-3">
+                                    <input class="form-control" type="text" placeholder="Max">
+                                </div>
                             </div>
+
+                            <label> Population Limit </label>
+
+                            <input class="form-control mb-3" type="number" min="0" max ="1000" >
+
+                            <button class="btn btn-success">Add Specie</button>
+                            <button class="btn btn-danger ml-3" id="cancelAddSpecie"> Cancel</button>
                         </div>
+
+                        <hr class="bg-secondary">
                 </form>
             </div>
         </section>  
     </div>
+
+    <script src="/js/libraries/jquery-3.6.1.min.js"></script>
+    <script src="/js/animations/setUpForm.js"></script>
 </body>
 </html>
