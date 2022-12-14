@@ -11,8 +11,25 @@ canvas {
   font-size: 20px;
 }
 
+form {
+  border: solid #28a745 5px;
+  border-radius: 10px;
+}
+form #buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+form #buttons div {
+  margin: 0 10px;
+  width: auto;
+  min-width: 150px;
+}
+form #buttons div button {
+  width: auto;
+}
 form hr {
-  height: 5px;
+  height: 3px;
   border-radius: 15px;
 }
 

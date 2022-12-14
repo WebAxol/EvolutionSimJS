@@ -1,6 +1,6 @@
 'use strict';
 
-import EcosystemModel from '../models/Ecosystem.js';
+import ExperimentModel from '../models/Experiment.js';
 
 class Ecosystem {
    
@@ -12,25 +12,26 @@ class Ecosystem {
             });
         }
 
-        var newEcosystem = new EcosystemModel();
+        var newExperiment = new ExperimentModel();
 
-            newEcosystem.populationGrowth       = JSON.parse(req.body.populationGrowth);
-            newEcosystem.averageAttributeChange = JSON.parse(req.body.averageAttributeChange);
-            newEcosystem.initialVariables       = JSON.parse(req.body.initialVariables);
+            newExperiment.species   = JSON.parse(req.body.species);
+            newExperiment.mutations = JSON.parse(req.body.mutations);
+            newExperiment.foodweb   = JSON.parse(req.body.foodweb);
 
-        newEcosystem.save((err,ecosystemSaved) => {
+        newExperiment.save((err,experimentSaved) => {
             if(err){
                 return res.status(500).send({ 
                     error : 'Sorry, there has been an internal mistake' 
                 });
             }           
-            if(!ecosystemSaved){
+            if(!experimentSaved){
                 return res.status(500).send({ 
                     error : 'Sorry, we could not store your information' 
                 });
             } 
 
-            console.log(ecosystemSaved);
+            console.log(experimentSaved);
+
             res.status(200).send({
                 dataStored : true 
             });
@@ -39,9 +40,9 @@ class Ecosystem {
 
     checkInformation(body){
         
-        if(!body.populationGrowth       ) return false;
-        if(!body.averageAttributeChange ) return false;
-        if(!body.initialVariables       ) return false;
+        if(!body.species   ) return false;
+        if(!body.mutations ) return false;
+        if(!body.foodweb   ) return false;
 
         return true;
     }

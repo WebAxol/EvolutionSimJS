@@ -15,6 +15,16 @@ const ECOSYSTEM = new Ecosystem(WORLD,
                 "minSense" : 0,
                 "foodFee"  : 0
             },
+            "ProducerB": {
+                "populationLimit": 1000,
+                "lifespan": 3,
+                "colorA" : "yellow",
+                "maxSpeed" : 0,
+                "minSpeed" : 0,
+                "maxSense" : 0,
+                "minSense" : 0,
+                "foodFee"  : 0
+            },
             "PrimaryConsumerA": {
                 "lifespan" : 3,
                 "colorA" : "skyblue",
@@ -34,27 +44,25 @@ const ECOSYSTEM = new Ecosystem(WORLD,
                 "maxSense" : 100,
                 "minSense" : 100,
                 "foodFee"  : 1
+            },
+            "PrimaryConsumerC": {
+                "lifespan" : 3,
+                "colorA" : "orange",
+                "colorB" : "rgba(255,100,0,0.1)",
+                "maxSpeed" : 5,
+                "minSpeed" : 5,
+                "maxSense" : 100,
+                "minSense" : 100,
+                "foodFee"  : 1
             }
         },
     
-        "mutations" : {
-            "PrimaryConsumerA" : {
-                "sensitivity" : {
-                    "probability" : 0.3,
-                    "minChange"   : -20,
-                    "maxChange"   : 20
-                },
-                "maxSpeed" : {
-                    "probability" : 0.3,
-                    "minChange"   : -1,
-                    "maxChange"   : 1
-                }
-            }
-        }, 
+        "mutations" : {}, 
     
         "foodWeb" :  {
             "PrimaryConsumerA" : { "ProducerA" : 1 },
-            "PrimaryConsumerB" : { "ProducerA" : 1 },
+            "PrimaryConsumerB" : { "ProducerB" : 1 },
+            "PrimaryConsumerC" : { "ProducerB" : 1, "ProducerA" : 1 }
         },
     
     }

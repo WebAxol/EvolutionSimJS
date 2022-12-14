@@ -7,7 +7,7 @@ for(let i = 0; i < 100; i++){
    ECOSYSTEM.addOrganism(organism);
 }
 
-for(let i = 0; i < 0; i++){
+for(let i = 0; i < 100; i++){
 
    let organism = ECOSYSTEM.generateOrganism('ProducerB');
    ECOSYSTEM.addOrganism(organism);
@@ -24,7 +24,7 @@ for(let i = 0; i < 10; i++){
    ECOSYSTEM.addOrganism(organism);
 }
 
-for(let i = 0; i < 0; i++){
+for(let i = 0; i < 10; i++){
    let organism = ECOSYSTEM.generateOrganism('PrimaryConsumerC');
    ECOSYSTEM.addOrganism(organism);
 }

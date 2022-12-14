@@ -6,63 +6,115 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/css/bootstrap/bootstrap.min.css" rel="stylesheet" >
     <link rel="stylesheet" href="/css/style.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
     <title>Document</title>
 </head>
 <body>
     <div class="cointainer py-5">
         <section class="row mx-auto">
             <div class="col-md-6 mx-auto">
-                <form class="p-5 border border-success">
-                        <h1 class="">SetUp Experiment</h1>
+                <form class="p-5" id="setUpForm">
+                        <h1 class=""><i class="fa fa-solid fa-flask"></i> SetUp Experiment</h1>
 
                         <hr class="bg-success">
                         
                         <div id="buttons">
-                            <button class="btn btn-success mb-3" id="addSpecieButton">Create new specie</button>
-                            <button class="btn btn-primary mb-3 ml-3" id="addMutationButton">Create new mutation</button>
+                            <div><button class="btn btn-success mb-3" id="addSpecieButton"><i class="fa fa-regular fa-life-ring"></i> Create new specie </button></div>
+                            <div><button class="btn btn-primary mb-3" id="addMutationButton"><i class="fa fa-light fa-dice"></i> Create new mutation</button></div>
+                            <div><button class="btn btn-danger mb-3" id="addMutationButton"><i class="fa fa-solid fa-skull-crossbones"></i> Create new relationship</button></div>
                         </div>
 
-                        <div class="border border-success p-3 d-none" id="addSpecieInterface">
+                        <!--Specie Interface-->
 
-                            <input class="form-control mb-3" type="text" placeholder="Specie Name">
+                        <article class="border border-success p-3 d-none" id="addSpecieInterface">
+
+                            <input name="specieName" class="form-control mb-3" type="text" placeholder="Specie Name">
+
+                            <label> <i class="fa fa-solid fa-bolt"></i> Specie Speed </label>
+
+                            <div class="cointainer">
+                                <div class="row">
+                                    <div class="col-sm-6 mb-2"><input class="form-control" name="speedMinValue" type="text" placeholder="Min value"></div>
+                                    <div class="col-sm-6 mb-2"><input class="form-control" name="speedMaxValue" type="text" placeholder="Max value"></div>
+                                </div>
+                            </div>
+
+                            <label> <i class="fa fa-solid fa-satellite-dish"></i> Specie Sensitivity </label>
+
+                            <div class="cointainer">
+                                <div class="row">
+                                    <div class="col-sm-6 mb-2"><input class="form-control" name="sensitivityMinValue" type="text" placeholder="Min value"></div>
+                                    <div class="col-sm-6 mb-2"><input class="form-control" name="sensitivityMaxValue" type="text" placeholder="Max value"></div>
+                                </div>
+                            </div>
+
+                            <label> <i class="fa fa-solid fa-ruler"></i> LifeSpan </label>
+                            <input class="form-control mb-3" name="lifeSpan" type="number" min="0" max ="1000" >
+
+                            <label> <i class="fa fa-solid fa-carrot"></i> Food Fee </label>
+                            <input class="form-control mb-3" name="foodFee" type="number" min="0" max ="1000" >
+
+                            <label> <i class="fa fa-solid fa-ban"></i> Population Limit </label>
+                            <input class="form-control mb-3" name="populationLimit" type="number" min="0" max ="1000" >
+
+
+                            <button class="btn btn-success" id="executeAddSpecie">Add Specie</button>
+                            <button class="btn btn-danger ml-3" id="cancelAddSpecie"> Cancel</button>
+                        </article>
+                               
+                        <!--Mutation Interface-->
+
+                        <article class="border border-success p-3 d-none" id="addMutationInterface">
+
+                            <select class="form-control" name="specieToBeMutated" id="specieToBeMutated">
+                                <option value="SpecieA">SpecieA</option>
+                                <option value="SpecieB">SpecieB</option>
+                                <option value="SpecieC">SpecieC</option>
+                            </select>
 
                             <label> Specie Speed </label>
 
-                            <div class="d-flex mb-3">
-                                <div>
-                                    <input class="form-control" type="text" placeholder="Min">
-                                </div>
-                                <div class="mx-3">
-                                    <input class="form-control" type="text" placeholder="Max">
+
+                            <div class="cointainer">
+                                <div class="row">
+                                    <div class="col-sm-4 mb-2"><input class="form-control" name="speedChangeProbability" type="text" placeholder="Probability"></div>
+                                    <div class="col-sm-4 mb-2"><input class="form-control" name="speedMinChange" type="text" placeholder="Min change"></div>
+                                    <div class="col-sm-4 mb-2"><input class="form-control" name="speedMaxChange" type="text" placeholder="Max change"></div>
                                 </div>
                             </div>
 
                             <label> Specie Sensitivity </label>
 
-                            <div class="d-flex mb-3">
-                                <div>
-                                    <input class="form-control" type="number" placeholder="Min">
-                                </div>
-                                <div  class="mx-3">
-                                    <input class="form-control" type="text" placeholder="Max">
+                            <div class="cointainer">
+                                <div class="row">
+                                    <div class="col-sm-4 mb-2"><input class="form-control" name="sensitivityChangeProbability" type="text" placeholder="Probability"></div>
+                                    <div class="col-sm-4 mb-2"><input class="form-control" name="sensitivityMinChange" type="text" placeholder="Min change"></div>
+                                    <div class="col-sm-4 mb-2"><input class="form-control" name="sensitivityMaxChange" type="text" placeholder="Max change"></div>
                                 </div>
                             </div>
 
-                            <label> Population Limit </label>
-
-                            <input class="form-control mb-3" type="number" min="0" max ="1000" >
-
                             <button class="btn btn-success">Add Specie</button>
-                            <button class="btn btn-danger ml-3" id="cancelAddSpecie"> Cancel</button>
-                        </div>
+                            <button class="btn btn-danger ml-3" id="cancelAddMutation"> Cancel</button>
+                        </article>
 
                         <hr class="bg-secondary">
+
+                        <article class="species" id="species">
+                            <ul class="list-group">
+                                <li class="list-group-item">A</li>
+                                <li class="list-group-item">B</li>
+
+                            </ul>
+                        </article>
+
                 </form>
             </div>
         </section>  
     </div>
 
     <script src="/js/libraries/jquery-3.6.1.min.js"></script>
-    <script src="/js/animations/setUpForm.js"></script>
+    <script src="/js/setUpForm/animations.js"></script>
+    <script src="/js/setUpForm/buildConfigJSON.js"></script>
 </body>
 </html>
