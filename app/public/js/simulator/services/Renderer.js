@@ -54,7 +54,6 @@ class Renderer extends Service{
         }
 
         this.context.fill();
-        //this.context.closePath(); 
     }
 
     renderBox(box){

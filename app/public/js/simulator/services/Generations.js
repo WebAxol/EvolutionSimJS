@@ -80,7 +80,7 @@ class Generations extends Service{
         });
 
         if(empty){
-            // All consumers extinct - TODO : Trigger event onecosystemOver to stop simulation and send all data to server
+            // All consumers extinct - TODO : Trigger event onsimulationOver to stop simulation and send all data to server
         }
 
     }

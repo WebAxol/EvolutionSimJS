@@ -1,42 +1,90 @@
 'use strict';
 
+import { isObjectIdOrHexString } from 'mongoose';
+// Dependencies
+
 import ExperimentModel from '../models/Experiment.js';
+import ErrorHandler from '../utils/errorHandling.js';
 
-class Ecosystem {
+class Experiment {
    
-    storeStatistics(req,res){
 
-        if(!this.checkInformation(req.body)){
-            return res.status(400).send({
-                error : 'The information supplied is not valid, or is incomplete'
-            });
+    async getExperimentByID(experimentID){
+
+        // Is id valid?
+
+        if(!experimentID.match(/^[0-9a-fA-F]{24}$/)){
+            return false;
         }
 
-        var newExperiment = new ExperimentModel();
+        // Look for experiment with given id
 
-            newExperiment.species   = JSON.parse(req.body.species);
-            newExperiment.mutations = JSON.parse(req.body.mutations);
-            newExperiment.foodweb   = JSON.parse(req.body.foodweb);
+        let experiment = await ExperimentModel.findById(experimentID);
+        
+        return experiment;
+    }
 
-        newExperiment.save((err,experimentSaved) => {
-            if(err){
-                return res.status(500).send({ 
-                    error : 'Sorry, there has been an internal mistake' 
-                });
-            }           
-            if(!experimentSaved){
-                return res.status(500).send({ 
-                    error : 'Sorry, we could not store your information' 
-                });
-            } 
 
-            console.log(experimentSaved);
+    getAllExperiments(req,res){
+
+        if(!req || !res) return false;
+    
+        try{
+            let experiments = this._getAllExperiments();
 
             res.status(200).send({
-                dataStored : true 
+                experiments : experiments
             });
-        });
+
+        }catch(err){
+            return ErrorHandler.handleError('internalError',res);
+        }
     }
+
+    async _getAllExperiments(){
+        try{
+            let experiments = await ExperimentModel.find();
+            return experiments;
+        }catch(err){
+           return { error : err };
+        }
+    }
+
+
+    storeExperiment(req,res){
+
+        if(!req || !res) return false;
+
+        try{
+            if(!this.checkInformation(req.body)){
+                return ErrorHandler.handleError('invalidDataSupplied',res);
+            }
+    
+            var newExperiment = new ExperimentModel();
+    
+                newExperiment.species   = JSON.parse(req.body.species);
+                newExperiment.mutations = JSON.parse(req.body.mutations);
+                newExperiment.foodweb   = JSON.parse(req.body.foodweb);
+    
+            newExperiment.save((err,experimentSaved) => {
+                if(err){
+                    return ErrorHandler.handleError('internalError',res);
+                }           
+                if(!experimentSaved){
+                    return ErrorHandler.handleError('dataStorageError',res);
+                } 
+    
+                console.log(experimentSaved);
+    
+                res.status(200).send({
+                    dataStored : true 
+                });
+            });
+        }catch(err){
+            return ErrorHandler.handleError('internalError',res);
+        }
+    }
+
 
     checkInformation(body){
         
@@ -49,4 +97,4 @@ class Ecosystem {
 
 }
 
-export default new Ecosystem();
+export default new Experiment();

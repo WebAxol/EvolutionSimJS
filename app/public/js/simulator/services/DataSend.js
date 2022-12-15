@@ -9,12 +9,20 @@ class DataSend extends Service{
 
         var data = this.ecosystem.history;
 
-        var request = await fetch('/api/ecosystem' , {
+        var request = await fetch('/api/result' , {
             method  : 'POST',
             headers : {
                 'Content-Type' : 'application/json'
             },
-            body : JSON.stringify(data)
+            body : JSON.stringify({
+                experimentID : '1234',
+                results : data,
+                date : new Date()
+            })
         });
+    }
+
+    onsimulationOver(){
+        this.sendData();
     }
 }

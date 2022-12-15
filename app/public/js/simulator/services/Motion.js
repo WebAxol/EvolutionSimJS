@@ -9,7 +9,12 @@ class Motion extends Service{
         var outOfCanvas;
 
         kinetic.forEach( object => {
+
+            // Update object position
+
             object.pos.add(object.vel);
+
+            // Check if object went out of canvas, if so, notify as event
 
             outOfCanvas = false;
 
