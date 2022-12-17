@@ -8,7 +8,7 @@ var experimentSchema = Schema({
     name      : String,
     species   : Object,
     mutations : Object,
-    foodweb   : Object
+    foodWeb   : Object
 });
 
 export default mongoose.model('Experiment',experimentSchema);

@@ -21,8 +21,6 @@ class ErrorHandler {
 
         try{
             var errors = this.prototype.errors;
-
-            console.log(errors);
     
             if(errors[errorType]){
     

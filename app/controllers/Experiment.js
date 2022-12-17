@@ -22,15 +22,33 @@ class Experiment {
         let experiment = await ExperimentModel.findById(experimentID);
         
         return experiment;
-    }
+    }  
 
 
-    getAllExperiments(req,res){
+    async getExperiments(req,res){
+
+        console.log(req.query)
 
         if(!req || !res) return false;
-    
+     
         try{
-            let experiments = this._getAllExperiments();
+
+            let skip;
+            let limit;
+
+            // Data inputted by client for pagination
+
+            let page          = parseInt(req.query.page) | undefined;
+            let numberPerPage = parseInt(req.query.numberPerPage) | undefined;
+
+
+            if(numberPerPage > 0 && typeof page == 'number' && page >= 0){
+                
+                skip  = numberPerPage * page;
+                limit = numberPerPage;   
+            }
+
+            let experiments = await this._getExperiments(skip,limit);
 
             res.status(200).send({
                 experiments : experiments
@@ -40,10 +58,13 @@ class Experiment {
             return ErrorHandler.handleError('internalError',res);
         }
     }
+ 
+    async _getExperiments(skip = 0,limit = 999999999 ){
 
-    async _getAllExperiments(){
+        if(!(skip >= 0 && limit > 0)) return false;
+
         try{
-            let experiments = await ExperimentModel.find();
+            let experiments = await ExperimentModel.find().skip(skip).limit(limit);
             return experiments;
         }catch(err){
            return { error : err };
@@ -61,10 +82,11 @@ class Experiment {
             }
     
             var newExperiment = new ExperimentModel();
-    
-                newExperiment.species   = JSON.parse(req.body.species);
-                newExperiment.mutations = JSON.parse(req.body.mutations);
-                newExperiment.foodweb   = JSON.parse(req.body.foodweb);
+
+                newExperiment.name      = req.body.name;
+                newExperiment.species   = req.body.species;
+                newExperiment.mutations = req.body.mutations;
+                newExperiment.foodWeb   = req.body.foodWeb;
     
             newExperiment.save((err,experimentSaved) => {
                 if(err){
@@ -81,16 +103,20 @@ class Experiment {
                 });
             });
         }catch(err){
+            console.log(err);
             return ErrorHandler.handleError('internalError',res);
         }
     }
 
 
     checkInformation(body){
-        
+
+        console.log(body);
+
+        if(!body.name      ) return false;
         if(!body.species   ) return false;
         if(!body.mutations ) return false;
-        if(!body.foodweb   ) return false;
+        if(!body.foodWeb   ) return false;
 
         return true;
     }

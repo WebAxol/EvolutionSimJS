@@ -1,0 +1,20 @@
+.experimentSelection {
+  border: solid #28a745 5px;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+canvas {
+  background-color: black;
+  width: 100%;
+}
+
+#generationCounter {
+  position: absolute;
+  color: white;
+  margin: 50px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+}
+
+/*# sourceMappingURL=style.css.map */

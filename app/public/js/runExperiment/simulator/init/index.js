@@ -30,8 +30,8 @@ for(let i = 0; i < 10; i++){
 }
 
 
-WORLD.execute();
-
+//WORLD.execute();
+/*
 
 window.addEventListener('dblclick', () => {
    if(WORLD.pause){
@@ -42,3 +42,4 @@ window.addEventListener('dblclick', () => {
       WORLD.pauseExecution();
    }
 })
+*/
