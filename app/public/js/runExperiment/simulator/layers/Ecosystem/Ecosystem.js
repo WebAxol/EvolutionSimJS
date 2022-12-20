@@ -5,20 +5,37 @@ class Ecosystem {
     #organismBuilder;
     #mutator;
 
-    constructor(world, model){
+    constructor(world, setUp){
         
-        this.world   = world;
-        this.history = [];
+        if(!this.isSetUpValid(setUp)){
+            throw Error('The experiment setUp is not valid');
+        }
+        else{
+            this.world   = world;
+            this.history = [];
+    
+            this.#species = this.setUpSpecies(setUp.species);
+            this.#foodWeb = this.setUpFoodWeb(setUp.foodWeb);
+    
+            // subordinate modules
+    
+            this.#organismBuilder   = new OrganismBuilder(this);
+            this.#mutator           = new Mutator(this);
+    
+            this.#mutator.init(setUp.mutations);
 
-        this.#species = this.setUpSpecies(model.species);
-        this.#foodWeb = this.setUpFoodWeb(model.foodWeb);
+            this.generateInitialOrganisms();
+        }
+    }
 
-        // subordinate modules
+    isSetUpValid(setUp){
 
-        this.#organismBuilder   = new OrganismBuilder(this);
-        this.#mutator           = new Mutator(this);
+        console.log(setUp);
 
-        this.#mutator.init(model.mutations);
+        if(!setUp.species)   return false;
+        if(!setUp.foodWeb)   return false;
+
+        return true;
     }
 
     setUpSpecies(species){
@@ -126,4 +143,14 @@ class Ecosystem {
         this.#mutator.mutateOrganism(organism);
     }
 
+    generateInitialOrganisms(){
+        Object.keys(this.#species).forEach(specieName => {
+
+            for(let i = 0; i < (this.#species[specieName].initialPopulation | 10); i++){
+
+                let organism = this.generateOrganism(specieName);
+                this.addOrganism(organism);
+            }
+        });
+    }
 }

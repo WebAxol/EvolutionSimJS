@@ -1,11 +1,5 @@
 'use strict'
 
-const experimentPagination = {
-    page : 0,
-    numberPerPage : 5,
-    results : undefined
-};
-
 const getExperiments = () => {
     try{
         fetch(`/api/experiment?numberPerPage=${experimentPagination.numberPerPage }&page=${experimentPagination.page}`, {
@@ -31,8 +25,41 @@ const displayExperimentList = (experiments) => {
     document.getElementById('experimentList').innerHTML = '';
 
     experiments.forEach((exp, index) => {
-        document.getElementById('experimentList').innerHTML += `<li class='list-group-item' data-experiment-index='${index}'> ${exp.name} </li>`; 
+        document.getElementById('experimentList').innerHTML += `<li class='list-group-item experiment' data-experiment-index='${index}'>${exp.name}</li>`; 
     });
 }
 
-getExperiments();
+
+// Update experiment - EVENTS
+
+$('document').ready(() => {
+
+    nextPageBtn.click((e) => {
+
+        prevPageBtn.removeClass('d-none');
+    
+        experimentPagination.page++;
+        getExperiments();
+    
+        if(experimentPagination.page >= experimentPagination.maxPage){
+            nextPageBtn.addClass('d-none');
+        }
+    
+    });
+    
+    prevPageBtn.click((e) => {
+    
+        nextPageBtn.removeClass('d-none');
+        
+        experimentPagination.page--;
+        getExperiments();
+    
+        if(experimentPagination.page <= 0){
+            prevPageBtn.addClass('d-none');
+        }
+    
+    });
+
+    getExperiments();
+
+});

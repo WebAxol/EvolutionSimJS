@@ -2,6 +2,8 @@ const canvas = document.querySelector('canvas');
 const c = canvas.getContext('2d');
 
 const WORLD = new World();
+
+/*
 const ECOSYSTEM = new Ecosystem(WORLD, 
     {
         "species" :  {
@@ -67,5 +69,4 @@ const ECOSYSTEM = new Ecosystem(WORLD,
     
     }
 );
-
-console.log(ECOSYSTEM);
+*/

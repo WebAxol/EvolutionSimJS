@@ -10,27 +10,52 @@
 </head>
 <body>
 
-    <div class="container mt-5">
-        <section class="row mx-auto">
-            <div class="col-md-6 mx-auto">
-                <article class="experimentSelection">
-                    <h1>Select an Experiment</h1>
-
-                    <ul class="list-group" id="experimentList">
-                        <li class="list-group-item">ExperimentA</li> <!--Dummy element--> 
-                        <li class="list-group-item">ExperimentB</li> <!--Dummy element--> 
-                    </ul>
-                </article>
-            </div>
-        </section>
+    <div class="canvasContainer" id="canvasContainer">
+        <p id="generationCounter">Generation: 1</p>
+        <canvas width="3000px" height="1500px"></canvas>
     </div>
 
-    <p class="d-none" id="generationCounter">Generation: 1</p>
-    <canvas class="d-none" width="3000px" height="1500px"></canvas>
+    <div class="container mt-5" id="experimentSelectionContainer">
+        <div class="row mx-auto">
+            <div class="col-md-6 mx-auto">
+                <section class="experimentSelection">
+                    <h1>Select an Experiment</h1>
+
+                    <article id="selectExperimentInterface">
+                        <ul class="list-group" id="experimentList">
+                            <li class="list-group-item">ExperimentA</li> <!--Dummy element--> 
+                            <li class="list-group-item">ExperimentB</li> <!--Dummy element--> 
+                        </ul>
+    
+                        <hr>
+    
+                        <button class="btn btn-secondary d-none"id="prevPage">prevPage</button>
+                        <button class="btn btn-primary"id="nextPage">nextPage</button>
+    
+                    </article>
+
+                    <article id="experimentDetailsInterface">
+                        
+                        <p>Experiment: <span class="text-secondary"id="experimentName"></span></p>
+                        <p>SetUp: <span class="text-secondary"id="experimentName">--TODO: Implement "display setup" functionality--</span></p>
+
+                        <hr>
+
+                        <button class="btn btn-danger"  id="backToSelect">Back</button>
+                        <button class="btn btn-success" id="runExperiment">Run Experiment</button>
+                    </article>
+                </section>
+            </div>
+        </div>
+    </div>
 
     <!--PRE SIMULATION-->
 
+    <script src="/js/libraries/jquery-3.6.1.min.js"></script>
+    <script src="/js/runExperiment/preRun/init.js"></script>
     <script src="/js/runExperiment/preRun/getExperimentList.js"></script>
+    <script src="/js/runExperiment/preRun/selectExperiment.js"></script>
+
 
     <!--SIMULATION-->
    
