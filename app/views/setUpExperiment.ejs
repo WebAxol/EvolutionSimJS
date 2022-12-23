@@ -22,7 +22,7 @@
                         <div id="buttons">
                             <div><button class="btn btn-success mb-3" id="addSpecieButton"><i class="fa fa-regular fa-life-ring"></i> Create new specie </button></div>
                             <div><button class="btn btn-primary mb-3" id="addMutationButton"><i class="fa fa-light fa-dice"></i> Create new mutation</button></div>
-                            <div><button class="btn btn-danger mb-3" id="addMutationButton"><i class="fa fa-solid fa-skull-crossbones"></i> Create new relationship</button></div>
+                            <div><button class="btn btn-danger mb-3"  id="setRelationshipButton"><i class="fa fa-solid fa-skull-crossbones"></i> Create new relationship</button></div>
                         </div>
 
                         <!--Specie Interface-->
@@ -31,32 +31,46 @@
 
                             <input name="specieName" class="form-control mb-3" type="text" placeholder="Specie Name">
 
-                            <label> <i class="fa fa-solid fa-bolt"></i> Specie Speed </label>
+                            <label> <i class="fa fa-solid fa-bolt"></i> Specie Speed (min|max)</label>
 
                             <div class="cointainer">
                                 <div class="row">
-                                    <div class="col-sm-6 mb-2"><input class="form-control" name="speedMinValue" type="text" placeholder="Min value"></div>
-                                    <div class="col-sm-6 mb-2"><input class="form-control" name="speedMaxValue" type="text" placeholder="Max value"></div>
+                                    <div class="col-sm-6 mb-2">
+                                        <input class="form-control" name="speedMinValue" type="number" value="0" placeholder="Min value">
+                                    </div>
+                                    <div class="col-sm-6 mb-2">
+                                        <input class="form-control" name="speedMaxValue" type="number" value="5" placeholder="Max value">
+                                    </div>
                                 </div>
                             </div>
 
-                            <label> <i class="fa fa-solid fa-satellite-dish"></i> Specie Sensitivity </label>
+                            <label> <i class="fa fa-solid fa-satellite-dish"></i> Specie Sensitivity (min|max)</label>
 
                             <div class="cointainer">
                                 <div class="row">
-                                    <div class="col-sm-6 mb-2"><input class="form-control" name="sensitivityMinValue" type="text" placeholder="Min value"></div>
-                                    <div class="col-sm-6 mb-2"><input class="form-control" name="sensitivityMaxValue" type="text" placeholder="Max value"></div>
+                                    <div class="col-sm-6 mb-2">
+                                        <input class="form-control" name="sensitivityMinValue" type="number" value="0" placeholder="Min value">
+                                    </div>
+                                    <div class="col-sm-6 mb-2">
+                                        <input class="form-control" name="sensitivityMaxValue" type="number" value="50" placeholder="Max value">
+                                    </div>
                                 </div>
                             </div>
-
+                          
                             <label> <i class="fa fa-solid fa-ruler"></i> LifeSpan </label>
-                            <input class="form-control mb-3" name="lifeSpan" type="number" min="0" max ="1000" >
+                            <input class="form-control mb-3" name="lifeSpan" type="number" value="3" min="0" max ="100" >
+
 
                             <label> <i class="fa fa-solid fa-carrot"></i> Food Fee </label>
-                            <input class="form-control mb-3" name="foodFee" type="number" min="0" max ="1000" >
+                            <input class="form-control mb-3" name="foodFee" type="number" value="0" min="0" max ="100" >
+
+
+                            <label> <i class="fa fa-solid fa-flag-checkered"></i> Initial Population </label>
+                            <input class="form-control mb-3" name="initialPopulation" type="number"  value="10" min="1" max ="500" >
+                            
 
                             <label> <i class="fa fa-solid fa-ban"></i> Population Limit </label>
-                            <input class="form-control mb-3" name="populationLimit" type="number" min="0" max ="1000" >
+                            <input class="form-control mb-3" name="populationLimit" type="number" value="100" min="10" max ="2000" >
 
 
                             <button class="btn btn-success" id="executeAddSpecie">Add Specie</button>
@@ -67,20 +81,16 @@
 
                         <article class="border border-success p-3 d-none" id="addMutationInterface">
 
-                            <select class="form-control" name="specieToBeMutated" id="specieToBeMutated">
-                                <option value="SpecieA">SpecieA</option>
-                                <option value="SpecieB">SpecieB</option>
-                                <option value="SpecieC">SpecieC</option>
-                            </select>
+                            <select class="form-control" name="specieToBeMutated" id="specieToBeMutated"></select>
 
                             <label> Specie Speed </label>
 
 
                             <div class="cointainer">
                                 <div class="row">
-                                    <div class="col-sm-4 mb-2"><input class="form-control" name="speedChangeProbability" type="text" placeholder="Probability"></div>
-                                    <div class="col-sm-4 mb-2"><input class="form-control" name="speedMinChange" type="text" placeholder="Min change"></div>
-                                    <div class="col-sm-4 mb-2"><input class="form-control" name="speedMaxChange" type="text" placeholder="Max change"></div>
+                                    <div class="col-sm-4 mb-2"><input class="form-control" name="speedChangeProbability" type="number" placeholder="Probability"></div>
+                                    <div class="col-sm-4 mb-2"><input class="form-control" name="speedMinChange" type="number" placeholder="Min change"></div>
+                                    <div class="col-sm-4 mb-2"><input class="form-control" name="speedMaxChange" type="number" placeholder="Max change"></div>
                                 </div>
                             </div>
 
@@ -88,26 +98,75 @@
 
                             <div class="cointainer">
                                 <div class="row">
-                                    <div class="col-sm-4 mb-2"><input class="form-control" name="sensitivityChangeProbability" type="text" placeholder="Probability"></div>
-                                    <div class="col-sm-4 mb-2"><input class="form-control" name="sensitivityMinChange" type="text" placeholder="Min change"></div>
-                                    <div class="col-sm-4 mb-2"><input class="form-control" name="sensitivityMaxChange" type="text" placeholder="Max change"></div>
+                                    <div class="col-sm-4 mb-2"><input class="form-control" name="sensitivityChangeProbability" type="number" placeholder="Probability"></div>
+                                    <div class="col-sm-4 mb-2"><input class="form-control" name="sensitivityMinChange" type="number" placeholder="Min change"></div>
+                                    <div class="col-sm-4 mb-3"><input class="form-control" name="sensitivityMaxChange" type="number" placeholder="Max change"></div>
                                 </div>
                             </div>
 
-                            <button class="btn btn-success">Add Specie</button>
-                            <button class="btn btn-danger ml-3" id="cancelAddMutation"> Cancel</button>
+                            <button class="btn btn-success" id="executeSetMutations">Set Mutations</button>
+                            <button class="btn btn-danger ml-3" id="cancelSetMutations"> Cancel</button>
+
                         </article>
+
+                        <!--Relationship Interface-->
+
+                        <article class="border border-success p-3 d-none" id="setRelationshipInterface"> 
+                            
+                            <label for="prey"> Prey specie </label>
+                            <select class="form-control mb-2" name="prey" id="prey"></select>
+
+                            <label for="predator"> Predator specie </label>
+                            <select class="form-control mb-3" name="predator" id="predator"></select>
+
+                            <button class="btn btn-success" id="executeSetRelationship">Set Relationships</button>
+                            <button class="btn btn-danger ml-3" id="cancelSetRelationship">Cancel</button>
+
+                        </article>                       
 
                         <hr class="bg-secondary">
 
-                        <article class="species" id="species">
-                            <ul class="list-group">
-                                <li class="list-group-item">A</li>
-                                <li class="list-group-item">B</li>
+                        <article class="setupDetails" id="setupDetails">
+                            
+                            <h2 class="h5">Species</h2>
+                            <table class="mx-auto table table-responsive table-stripped" id="speciesTable">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Speed</th>
+                                        <th>Sensitivity</th>
+                                        <th>FoodFee</th>
+                                        <th>InitialPop</th>
+                                        <th>popLimit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>a</td>
+                                        <td>a</td>
+                                        <td>a</td>
+                                        <td>a</td>
+                                        <td>a</td>
+                                        <td>a</td>
+                                    </tr>
+                                    <tr>
+                                        <td>a</td>
+                                        <td>a</td>
+                                        <td>a</td>
+                                        <td>a</td>
+                                        <td>a</td>
+                                        <td>a</td>
+                                    </tr>
+                                </tbody>
+                            </table>
 
-                            </ul>
+                            <h2 class="h5">Mutations</h2>
+                            <table class="" id="mutationTable"></table>
+
+                            <h2 class="h5">Relationships</h2>
+                            <table class="" id="relationshipTable"></table>
+
                         </article>
-
                 </form>
             </div>
         </section>  

@@ -21,6 +21,7 @@ $('document').ready(() => {
 
     $('#addSpecieInterface').removeClass('d-none').slideUp(0);
     $('#addMutationInterface').removeClass('d-none').slideUp(0);
+    $('#setRelationshipInterface').removeClass('d-none').slideUp(0);
 
 
     //Species
@@ -42,9 +43,21 @@ $('document').ready(() => {
         showInterface('addMutationInterface');
     });
 
-    $('#cancelAddMutation').click((e) => {
+    $('#cancelSetMutations').click((e) => {
         e.preventDefault(); 
         hideInterface('addMutationInterface');
+    });
+
+    // Relationships
+
+    $('#setRelationshipButton').click((e) => {
+        e.preventDefault(); 
+        showInterface('setRelationshipInterface');
+    });
+
+    $('#cancelSetRelationship').click((e) => {
+        e.preventDefault(); 
+        hideInterface('setRelationshipInterface');
     });
 
 
