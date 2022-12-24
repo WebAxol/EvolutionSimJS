@@ -33,20 +33,23 @@ class Result {
         if(!req || !res) return false;
 
         try{
+
+            console.log('storing',req.body.results);
+
             var newResult = new ResultModel();
 
             newResult.experimentID = req.body.experimentID;
-            newResult.results = JSON.parse(req.body.results);
+            newResult.results = req.body.results;
             newResult.date = req.body.date;
-
-            console.log(newResult);
 
             newResult.save((err,resultSaved) => {
 
                 if(err){
+                    console.log('error');
                     return ErrorHandler.handleError('internalError',res);
                 }           
                 if(!resultSaved){
+                    console.log('not saved');
                     return ErrorHandler.handleError('dataStorageError',res);
                 } 
 
@@ -69,10 +72,13 @@ class Result {
             return ErrorHandler.handleError('invalidDataSupplied',res);
         }
 
-        
+
+        // An experiment with the given ID must exist to create results related to it
+
         const experimentExists = ExperimentController.getExperimentByID(req.body.experimentID);
 
         experimentExists.then((r) => {
+
             if(!r){
                 return ErrorHandler.handleError('internalError',res);
             }
@@ -82,7 +88,7 @@ class Result {
     }
 
     checkInformation(body){
-        
+    
         if(!body.experimentID) return false;
         if(!body.results )     return false;
         if(!body.date   )      return false;

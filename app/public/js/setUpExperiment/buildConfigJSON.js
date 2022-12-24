@@ -80,6 +80,41 @@ function parseToItsType(criteria,fieldName, value){
     throw Error(`The field '${fieldName}' does not have an explicit defined type at criteria '${criteria}'`);
 }
 
+
+function checkField(fieldName){
+
+    var criterias = Object.keys(fieldValidationRules),
+        formField = setUpForm.elements[fieldName].value,
+        requiredCriteria, requiredCriteriaName;
+
+    // find the criteria to be used against field
+
+    for(let criteria of criterias){
+        if(fieldValidationRules[criteria][fieldName]){
+            requiredCriteria = fieldValidationRules[criteria][fieldName];
+            requiredCriteriaName = criteria;
+            break;
+        }
+    }
+
+    console.log(requiredCriteria);
+    // check if criteria exists
+
+    if(requiredCriteria){
+
+        let isValid = requiredCriteria.test(parseToItsType(requiredCriteriaName,fieldName,formField));
+
+        if(isValid){
+            setUpForm.elements[fieldName].classList.remove('is-invalid');
+        }  
+
+        return isValid;
+    }
+    
+    return false;
+}
+
+
 function isFieldCriteriaMet(criteria){
     var fieldsToValidate = Object.keys(fieldValidationRules[criteria]);
     var meetsCriteria = true;
@@ -190,7 +225,9 @@ $('document').ready(() => {
 
         hideInterface('addSpecieInterface');
         updateSpeciesAsOptions();
+        displaySpeciesAtTable();
     });
+
 
     executeSetMutation.click((e) => {
         e.preventDefault();
@@ -200,6 +237,7 @@ $('document').ready(() => {
         hideInterface('addMutationInterface');
     });
 
+
     executeSetRelationship.click((e) => {
         e.preventDefault();
 
@@ -207,5 +245,14 @@ $('document').ready(() => {
 
         hideInterface('setRelationshipInterface');
     });
+    
 
+     setUpForm.addEventListener('focusout', (e) => {
+        let fieldName = e.target.name;
+
+        if(fieldName == '' || !setUpForm.elements[fieldName]) return;
+
+        checkField(fieldName);
+
+     });
 });

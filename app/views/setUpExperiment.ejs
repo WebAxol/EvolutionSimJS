@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/libraries/bootstrap-5.min.css" rel="stylesheet">
     <link href="/css/setUpExperiment/style.css"   rel="stylesheet">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
@@ -20,9 +20,9 @@
                         <hr class="bg-success">
                         
                         <div id="buttons">
-                            <div><button class="btn btn-success mb-3" id="addSpecieButton"><i class="fa fa-regular fa-life-ring"></i> Create new specie </button></div>
-                            <div><button class="btn btn-primary mb-3" id="addMutationButton"><i class="fa fa-light fa-dice"></i> Create new mutation</button></div>
-                            <div><button class="btn btn-danger mb-3"  id="setRelationshipButton"><i class="fa fa-solid fa-skull-crossbones"></i> Create new relationship</button></div>
+                            <button class="btn btn-outline-success mb-3" id="addSpecieButton"><i class="fa fa-regular fa-life-ring"></i> Create new specie </button>
+                            <button class="btn btn-outline-primary mb-3" id="addMutationButton"><i class="fa fa-light fa-dice"></i> Create new mutation</button>
+                            <button class="btn btn-outline-danger mb-3"  id="setRelationshipButton"><i class="fa fa-solid fa-skull-crossbones"></i> Create new relationship</button>
                         </div>
 
                         <!--Specie Interface-->
@@ -57,24 +57,25 @@
                                 </div>
                             </div>
                           
-                            <label> <i class="fa fa-solid fa-ruler"></i> LifeSpan </label>
-                            <input class="form-control mb-3" name="lifeSpan" type="number" value="3" min="0" max ="100" >
+                            <label for="lifeSpan"> <i class="fa fa-solid fa-ruler"></i> LifeSpan </label>
+                            <input id="lifeSpan" class="form-control mb-3" name="lifeSpan" type="number" value="3" min="0" max ="100" >
 
 
-                            <label> <i class="fa fa-solid fa-carrot"></i> Food Fee </label>
-                            <input class="form-control mb-3" name="foodFee" type="number" value="0" min="0" max ="100" >
+                            <label for="foodFee"> <i class="fa fa-solid fa-carrot"></i> Food Fee </label>
+                            <input id="foodFee" class="form-control mb-3" name="foodFee" type="number" value="0" min="0" max ="100" >
 
 
-                            <label> <i class="fa fa-solid fa-flag-checkered"></i> Initial Population </label>
-                            <input class="form-control mb-3" name="initialPopulation" type="number"  value="10" min="1" max ="500" >
+                            <label for="initialPop"> <i class="fa fa-solid fa-flag-checkered"></i> Initial Population </label>
+                            <input id="initialPop" class="form-control mb-3" name="initialPopulation" type="number"  value="10" min="1" max ="500" >
                             
 
-                            <label> <i class="fa fa-solid fa-ban"></i> Population Limit </label>
-                            <input class="form-control mb-3" name="populationLimit" type="number" value="100" min="10" max ="2000" >
+                            <label for="popLimit"> <i class="fa fa-solid fa-ban"></i> Population Limit </label>
+                            <input id="popLimit" class="form-control mb-3" name="populationLimit" type="number" value="100" min="10" max ="2000" >
 
-
-                            <button class="btn btn-success" id="executeAddSpecie">Add Specie</button>
-                            <button class="btn btn-danger ml-3" id="cancelAddSpecie"> Cancel</button>
+                            <div class="exitOptions">
+                                <div><button class="btn btn-success" id="executeAddSpecie">Add Specie</button></div>
+                                <div><button class="btn btn-danger ml-3" id="cancelAddSpecie"> Cancel</button></div>
+                            </div>
                         </article>
                                
                         <!--Mutation Interface-->
@@ -104,8 +105,10 @@
                                 </div>
                             </div>
 
-                            <button class="btn btn-success" id="executeSetMutations">Set Mutations</button>
-                            <button class="btn btn-danger ml-3" id="cancelSetMutations"> Cancel</button>
+                            <div class="exitOptions">
+                                <div><button class="btn btn-success" id="executeSetMutations">Set Mutations</button> </div>
+                                <div><button class="btn btn-danger ml-3" id="cancelSetMutations"> Cancel</button> </div>
+                            </div>
 
                         </article>
 
@@ -119,61 +122,96 @@
                             <label for="predator"> Predator specie </label>
                             <select class="form-control mb-3" name="predator" id="predator"></select>
 
-                            <button class="btn btn-success" id="executeSetRelationship">Set Relationships</button>
-                            <button class="btn btn-danger ml-3" id="cancelSetRelationship">Cancel</button>
-
+                            <div class="exitOptions">
+                                <div><button class="btn btn-success" id="executeSetRelationship">Set Relationships</button></div>
+                                <div><button class="btn btn-danger ml-3" id="cancelSetRelationship">Cancel</button></div>
+                            </div>
+                           
                         </article>                       
 
                         <hr class="bg-secondary">
 
                         <article class="setupDetails" id="setupDetails">
-                            
-                            <h2 class="h5">Species</h2>
-                            <table class="mx-auto table table-responsive table-stripped" id="speciesTable">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Speed</th>
-                                        <th>Sensitivity</th>
-                                        <th>FoodFee</th>
-                                        <th>InitialPop</th>
-                                        <th>popLimit</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>a</td>
-                                        <td>a</td>
-                                        <td>a</td>
-                                        <td>a</td>
-                                        <td>a</td>
-                                        <td>a</td>
-                                    </tr>
-                                    <tr>
-                                        <td>a</td>
-                                        <td>a</td>
-                                        <td>a</td>
-                                        <td>a</td>
-                                        <td>a</td>
-                                        <td>a</td>
-                                    </tr>
-                                </tbody>
-                            </table>
 
-                            <h2 class="h5">Mutations</h2>
-                            <table class="" id="mutationTable"></table>
+                            <div class="accordion" id="accordionExample">
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="headingSpecies">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpecies" aria-expanded="true" aria-controls="collapseSpecies">
+                                        Species
+                                    </button>
+                                  </h2>
+                                  <div id="collapseSpecies" class="overflow-scroll accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <table class="mx-auto table table-responsive table-striped" id="speciesTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Speed</th>
+                                                    <th>Sensitivity</th>
+                                                    <th>FoodFee</th>
+                                                    <th>InitialPop</th>
+                                                    <th>popLimit</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="speciesTableBody"></tbody>
+                                        </table>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="headingMutations">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMutations" aria-expanded="false" aria-controls="collapseMutations">
+                                      Mutations
+                                    </button>
+                                  </h2>
+                                  <div id="collapseMutations" class="overflow-scroll accordion-collapse collapse" aria-labelledby="headingMutations" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <table class="mx-auto table table-responsive table-stripped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>probability</th>
+                                                    <th>speedChange</th>
+                                                    <th>probability</th>
+                                                    <th>SensitivityChange</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="mutationsTable"></tbody>
+                                        </table>
+            
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="headingThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                      Relationships
+                                    </button>
+                                  </h2>
+                                  <div id="collapseThree" class="overflow-scroll accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <table class="" id="relationshipTable"></table>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                    </article>
 
-                            <h2 class="h5">Relationships</h2>
-                            <table class="" id="relationshipTable"></table>
+                    <hr class="bg-secondary">
 
-                        </article>
+                    <button class="btn btn-outline-success block" id="createExperimentBtn">Create experiment</button>
+
                 </form>
             </div>
         </section>  
     </div>
 
+
     <script src="/js/libraries/jquery-3.6.1.min.js"></script>
+    <script src="/js/libraries/bootstrap-5.min.js"></script>
     <script src="/js/setUpExperiment/animations.js"></script>
     <script src="/js/setUpExperiment/buildConfigJSON.js"></script>
+    <script src="/js/setUpExperiment/visualizeConfig.js"></script>
+
 </body>
 </html>

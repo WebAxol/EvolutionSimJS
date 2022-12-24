@@ -20,7 +20,7 @@ class Experiment {
         // Look for experiment with given id
 
         let experiment = await ExperimentModel.findById(experimentID);
-        
+
         return experiment;
     }  
 
