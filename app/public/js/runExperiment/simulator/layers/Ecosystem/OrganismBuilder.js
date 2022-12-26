@@ -40,11 +40,10 @@ class OrganismBuilder {
 
             TreeObject.addChild(organism,'sensitivityRange',sensitivityRange);
         }
+        
         // Has movement ?
 
-        if(organism.maxSpeed > 0){
-            this.world.addToCollection('Kinetics',organism);
-        }
+        if(organism.maxSpeed > 0) this.world.addToCollection('Kinetics',organism);
 
         // aspect
 
@@ -96,29 +95,10 @@ class OrganismBuilder {
 
         var specieAttributes = this.ecosystem.getSpecie(specieName);
 
-        if(specieAttributes.organismType == 'consumer'){
-            return this.generateConsumer(specieName, attributes);
-        }
-        if(specieAttributes.organismType == 'producer'){
-            return this.generateProducer(specieName);
-        }
+        if(specieAttributes.organismType == 'consumer') return this.generateConsumer(specieName, attributes);
+        if(specieAttributes.organismType == 'producer') return this.generateProducer(specieName);
 
-
-        // Organism aspect
-
-        let aspect = WORLD.createAgent('Circle', {
-            'info' : {
-               pos: organism.pos,
-               background : specieAttributes.colorA
-            }
-         });
-     
-        TreeObject.addChild(organism,'aspect',aspect);
-
-
-
-        organism.specie = specieName;
-        return organism;
+        throw Error(`An invalid organism type was specified for specie '${specieName}'; it is not either producer or consumer`);
     }
 
 

@@ -12,9 +12,7 @@ Init.prototype.initEvents = () => {
     WORLD.registerEvent('newGenerationReady');
     WORLD.registerServiceToEvent('AgentBehaviour','newGenerationReady');
 
-    WORLD.registerEvent('Test');
-    WORLD.registerServiceToEvent('AgentBehaviour','Test');
-
     WORLD.registerEvent('simulationOver');
+    WORLD.registerServiceToEvent('DataSend','simulationOver');
 }
 

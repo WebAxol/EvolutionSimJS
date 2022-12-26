@@ -15,7 +15,10 @@ class DataSend extends Service{
                 'Content-Type' : 'application/json'
             },
             body : JSON.stringify({
-                experimentID : '1234',
+
+                // NOTE: there is coupling between the Datasend module and EXPERIMENT_DETAILS
+
+                experimentID : EXPERIMENT_DETAILS.id,
                 results : data,
                 date : new Date()
             })
