@@ -42,7 +42,11 @@ class Ecosystem {
 
     setUpSpecies(species){
 
+        console.log(species);
+
         Object.keys(species).forEach(specieName => {
+
+         
             this.world.registerCollection(specieName);
             this.world.registerCollection('Active' + specieName);
         });
@@ -96,6 +100,7 @@ class Ecosystem {
         }
 
         let specieCollection = this.world.getCollection(specieName);
+        
         if(!specieCollection){
             throw Error(`System error, the specie named '${specieName}' is registered inside Ecosystem, but it's collections aren't present inside World`);
         }

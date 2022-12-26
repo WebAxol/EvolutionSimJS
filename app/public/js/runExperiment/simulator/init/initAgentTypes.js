@@ -1,6 +1,6 @@
 Init.prototype.initAgentTypes = () => {
     
-    WORLD.registerAgentType('Organism', {
+    WORLD.registerAgentType('Consumer', {
         info: {
             pos       : {x : 0, y : 0},
             vel       : {x : 0, y : 0},
@@ -9,12 +9,22 @@ Init.prototype.initAgentTypes = () => {
             active    :  true,
             wander    :  true,
             foodFee   : 1,  
-        foodCount : 0,
+            foodCount : 0,
 
-           maxEnergy   : 30000,
-           energy      : 30000,
-           maxSpeed    : 0,
+            maxEnergy   : 30000,
+            energy      : 30000,
+            maxSpeed    : 0,
             sensitivity : 0
+        },
+    })
+
+    WORLD.registerAgentType('Producer', {
+        info: {
+            pos       : {x : 0, y : 0},
+            age       : 0, 
+            lifespan  : 3,
+            active    :  true,
+
         },
     })
 

@@ -20,9 +20,11 @@ class Generations extends Service{
             var actualPopulation = this.ecosystem.getPopulationOf(specieName);
 
             for(let i = 0; i < specie.length; i++){
+                
                 let organism = specie[i];
+                let isProducer = this.ecosystem.getSpecie(specieName).organismType === 'producer';
 
-                if(organism.foodCount >= organism.foodFee * 2){
+                if(organism.foodCount >= organism.foodFee * 2 || isProducer){
 
                     if( actualPopulation + offspring.length >= populationLimit){
                         break;
@@ -31,8 +33,10 @@ class Generations extends Service{
                     offspring.push(this.ecosystem.generateOffSpring(organism));
                 }
 
-                organism.foodCount = 0;
-                organism.energy = organism.maxEnergy;
+                if(!isProducer){
+                    organism.foodCount = 0;
+                    organism.energy = organism.maxEnergy;   
+                }
             }
 
             while(offspring.length){
@@ -67,7 +71,7 @@ class Generations extends Service{
 
                 // In case that specie is not a producer
 
-                else if(this.ecosystem.getSpecie(specieName).foodFee > 0){ 
+                else if(this.ecosystem.getSpecie(specieName).organismType != 'producer'){ 
 
                     // Reactivate organism
 

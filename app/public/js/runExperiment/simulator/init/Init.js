@@ -5,11 +5,11 @@ const c = canvas.getContext('2d');
 const WORLD = new World();
 
 const colorPalettes = [
-   ['skyblue','rgba(0,0,255,0.1)'  ],
-   ['orange' ,'rgba(255,100,0,0.1)'],
+   ['skyblue','rgba(0,0,255,0.1)'      ],
+   ['orange' ,'rgba(255,100,0,0.1)'    ],
    ['lawngreen'  , 'rgba(0,255,0,0.1)' ],
-   ['violet'  , 'rgba(255,0,200,0.1)' ],
-   ['red'  , 'rgba(200,0,0,0.1)' ]
+   ['violet'  , 'rgba(255,0,200,0.1)'  ],
+   ['red'  , 'rgba(200,0,0,0.1)'       ]
 
 
 ];
@@ -43,10 +43,10 @@ class Init{
       this.initServices();
       this.initEvents();
 
-      this.prepareWorld();
+      this.startWorld();
    }
 
-   prepareWorld(){
+   startWorld(){
 
       // methods defined as prototypes at initEvents.js and initServices.js, etc.
 
