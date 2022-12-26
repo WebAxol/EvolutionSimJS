@@ -1,3 +1,5 @@
+// NOTE: Ecosystem is a layer built over the framework utilized: CASES, if there is a problem with the framework or it isn't present, the logic at Ecosystem wont work
+
 class Ecosystem {
     
     #species;

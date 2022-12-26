@@ -38,9 +38,7 @@ const runExperiment = () => {
     let experiments = experimentPagination.results;
     let experiment  = experiments[selectedExperimentIndex];
     
-    console.log(dummyConfiguration);
-
-    InitSimulation.prepareAndRunSimulation(dummyConfiguration);
+    InitSimulation.prepareAndRunSimulation(experiment);
 }
 
 // EVENTS
