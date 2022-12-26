@@ -1,4 +1,4 @@
-function InitServices(){
+Init.prototype.initServices = () => {
 
     WORLD.registerService('Renderer', new Renderer(c));
     WORLD.registerService('Motion', new Motion());

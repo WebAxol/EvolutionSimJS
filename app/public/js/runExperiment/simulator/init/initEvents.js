@@ -1,4 +1,4 @@
-function InitEvents(){
+Init.prototype.initEvents = () => {
     
     WORLD.registerEvent('agentOutOfCanvas');
     WORLD.registerServiceToEvent('AgentBehaviour','agentOutOfCanvas');
@@ -16,6 +16,5 @@ function InitEvents(){
     WORLD.registerServiceToEvent('AgentBehaviour','Test');
 
     WORLD.registerEvent('simulationOver');
-
 }
 

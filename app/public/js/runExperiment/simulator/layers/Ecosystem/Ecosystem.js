@@ -24,6 +24,8 @@ class Ecosystem {
     
             this.#mutator.init(setUp.mutations);
 
+            // WARNING: the methods to instance organisms depend on the existance of the agentTypes "Organism" and "Circle"
+
             this.generateInitialOrganisms();
         }
     }
@@ -40,7 +42,11 @@ class Ecosystem {
 
     setUpSpecies(species){
 
+        console.log(species);
+
         Object.keys(species).forEach(specieName => {
+
+         
             this.world.registerCollection(specieName);
             this.world.registerCollection('Active' + specieName);
         });
@@ -94,6 +100,7 @@ class Ecosystem {
         }
 
         let specieCollection = this.world.getCollection(specieName);
+        
         if(!specieCollection){
             throw Error(`System error, the specie named '${specieName}' is registered inside Ecosystem, but it's collections aren't present inside World`);
         }
@@ -145,7 +152,6 @@ class Ecosystem {
 
     generateInitialOrganisms(){
         Object.keys(this.#species).forEach(specieName => {
-
             for(let i = 0; i < (this.#species[specieName].initialPopulation | 10); i++){
 
                 let organism = this.generateOrganism(specieName);

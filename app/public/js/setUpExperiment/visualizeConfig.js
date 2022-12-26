@@ -39,7 +39,7 @@ function displayMutationsAtTable(){
 function displayRelationshipssAtTable(){
     let speciesRelationships = Object.keys(configurationJSON.relationships);
 
-    mutationsTable.innerHTML = '';
+    relationshipTable.innerHTML = '';
 
     speciesMutated.forEach((specie) => {
         mutationsTable.innerHTML += `<tr>

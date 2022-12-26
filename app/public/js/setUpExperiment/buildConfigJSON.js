@@ -2,7 +2,7 @@
 
 'use strict'
 
-const configurationJSON   = { species: {}, mutations: {}, foodWeb: {} };
+const configurationJSON   = { name : 'dummy', species: {}, mutations: {}, foodWeb: {} };
 const setUpForm           = document.getElementById('setUpForm');
 const executeAddSpecie    = $('#executeAddSpecie');
 const executeSetMutation  = $('#executeSetMutations');
@@ -80,6 +80,7 @@ function parseToItsType(criteria,fieldName, value){
     throw Error(`The field '${fieldName}' does not have an explicit defined type at criteria '${criteria}'`);
 }
 
+// All field values are obtained as strings; it is important to parse every field value to its type in order to test validity
 
 function checkField(fieldName){
 
