@@ -16,9 +16,13 @@
             <div class="col-md-6 mx-auto">
                 <form class="p-5" id="setUpForm">
                         <h1 class=""><i class="fa fa-solid fa-flask"></i> SetUp Experiment</h1>
-
+ . 
                         <hr class="bg-success">
                         
+                        <input class="form-control" type="text" name="experimentName" placeholder="Experiment name">
+
+                        <hr class="bg-success my-3">
+
                         <div id="buttons">
                             <button class="btn btn-outline-success mb-3" id="addSpecieButton"><i class="fa fa-regular fa-life-ring"></i> Create new specie </button>
                             <button class="btn btn-outline-primary mb-3" id="addMutationButton"><i class="fa fa-light fa-dice"></i> Create new mutation</button>
@@ -212,6 +216,7 @@
     <script src="/js/setUpExperiment/animations.js"></script>
     <script src="/js/setUpExperiment/buildConfigJSON.js"></script>
     <script src="/js/setUpExperiment/visualizeConfig.js"></script>
+    <script src="/js/setUpExperiment/sendConfig.js"></script>
 
 </body>
 </html>

@@ -24,6 +24,8 @@ class Ecosystem {
     
             this.#mutator.init(setUp.mutations);
 
+            // WARNING: the methods to instance organisms depend on the existance of the agentTypes "Organism" and "Circle"
+
             this.generateInitialOrganisms();
         }
     }
@@ -145,7 +147,6 @@ class Ecosystem {
 
     generateInitialOrganisms(){
         Object.keys(this.#species).forEach(specieName => {
-
             for(let i = 0; i < (this.#species[specieName].initialPopulation | 10); i++){
 
                 let organism = this.generateOrganism(specieName);
