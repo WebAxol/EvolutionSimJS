@@ -13,7 +13,7 @@ class Vector2D {
     }
 
     static add(v1,v2){
-        return { x : v1.x + v2.x , y : v1.y + v2.y };
+        return new Vector2D(v1.x + v2.x , v1.y + v2.y);
     }
 
     sub(v){
@@ -23,7 +23,7 @@ class Vector2D {
     }
 
     static sub(v1,v2){
-        return { x : v1.x - v2.x , y : v1.y - v2.y };
+        return new Vector2D(v1.x - v2.x ,v1.y - v2.y );
     }
 
     div(v){
@@ -33,7 +33,7 @@ class Vector2D {
     }
 
     static div(v1,v2){
-        return { x : v1.x / v2.x , y : v1.y / v2.y };
+        return new Vector2D(v1.x / v2.x ,v1.y / v2.y );
     }
 
     mult(v){
@@ -43,7 +43,7 @@ class Vector2D {
     }
 
     static mult(v1,v2){
-        return { x : v1.x * v2.x , y : v1.y * v2.y };
+        return new Vector2D(v1.x * v2.x ,v1.y * v2.y );
     }
 
     dot(v){
@@ -79,6 +79,16 @@ class Vector2D {
 
     static scale(v,s){
         return { x : v.x * s , y : v.y * s }
+    }
+
+    normalize(){
+
+        let mag = this.mag();
+
+        this.x /= mag; 
+        this.y /= mag;
+
+        return this;
     }
 
     static normalize(v){

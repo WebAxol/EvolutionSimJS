@@ -3,6 +3,9 @@
 const canvas = document.querySelector('canvas');
 const c = canvas.getContext('2d');
 const WORLD = new World();
+const EXPERIMENT_DETAILS = {
+   id : undefined, name : undefined
+};
 
 const colorPalettes = [
    ['skyblue','rgba(0,0,255,0.1)'      ],
@@ -10,8 +13,6 @@ const colorPalettes = [
    ['lawngreen'  , 'rgba(0,255,0,0.1)' ],
    ['violet'  , 'rgba(255,0,200,0.1)'  ],
    ['red'  , 'rgba(200,0,0,0.1)'       ]
-
-
 ];
 
 var ECOSYSTEM;
@@ -29,16 +30,23 @@ class Init{
 
    }
 
-   prepareAndRunSimulation(experimentSetUp){
+   prepareAndRunSimulation(experiment){
 
-      this.setColorToSpecies(experimentSetUp.species);
-      
-      console.log(experimentSetUp.species);
+      // Relevant details for identification
+
+      EXPERIMENT_DETAILS.id   = experiment._id;
+      EXPERIMENT_DETAILS.name = experiment.name;
+
+      this.setColorToSpecies(experiment.species);
+   
+      // Data models and schemas initialization
 
       this.initAgentTypes();
       this.initCollections();
 
-      ECOSYSTEM = new Ecosystem(WORLD, experimentSetUp);
+      ECOSYSTEM = new Ecosystem(WORLD, experiment);
+
+      // Functional modules and communication logic initialization
 
       this.initServices();
       this.initEvents();

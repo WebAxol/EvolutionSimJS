@@ -1,20 +1,26 @@
 Init.prototype.initEvents = () => {
     
+    // events
+
     WORLD.registerEvent('agentOutOfCanvas');
-    WORLD.registerServiceToEvent('AgentBehaviour','agentOutOfCanvas');
-
     WORLD.registerEvent('generationOver');
-    WORLD.registerServiceToEvent('Statistics','generationOver');
-
     WORLD.registerEvent('summaryCreated');
-    WORLD.registerServiceToEvent('Generations','summaryCreated');
-
     WORLD.registerEvent('newGenerationReady');
-    WORLD.registerServiceToEvent('AgentBehaviour','newGenerationReady');
-
-    WORLD.registerEvent('Test');
-    WORLD.registerServiceToEvent('AgentBehaviour','Test');
-
     WORLD.registerEvent('simulationOver');
+    WORLD.registerEvent('organismHunted');
+    WORLD.registerEvent('organismOutOfEnergy');
+
+
+    // event subscribers
+
+    WORLD.registerServiceToEvent('Organism'     ,'agentOutOfCanvas');
+    WORLD.registerServiceToEvent('Statistics'   ,'generationOver');
+    WORLD.registerServiceToEvent('Generations'  ,'summaryCreated');
+    WORLD.registerServiceToEvent('Organism'     ,'newGenerationReady');
+    WORLD.registerServiceToEvent('Organism'     ,'organismHunted');
+    WORLD.registerServiceToEvent('Organism'     ,'organismOutOfEnergy');
+    WORLD.registerServiceToEvent('DataSend'     ,'simulationOver');
+
+
 }
 

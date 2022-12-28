@@ -2,7 +2,7 @@
 
    
 var selectedExperimentIndex; // Used to access the experiment stored at experimentPagination.results
-var InitSimulation = {};
+var InitSimulation = {}; 
 
 experimentDetailsInterface.slideUp(0); // initial state
 
@@ -38,9 +38,7 @@ const runExperiment = () => {
     let experiments = experimentPagination.results;
     let experiment  = experiments[selectedExperimentIndex];
     
-    console.log(dummyConfiguration);
-
-    InitSimulation.prepareAndRunSimulation(dummyConfiguration);
+    InitSimulation.prepareAndRunSimulation(experiment);
 }
 
 // EVENTS
