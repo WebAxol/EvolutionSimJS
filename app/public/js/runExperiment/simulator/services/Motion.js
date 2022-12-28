@@ -5,6 +5,7 @@ class Motion extends Service{
     }
 
     execute(){
+
         var kinetic = this.world.getCollection('Kinetics');
         var outOfCanvas;
 
@@ -13,7 +14,6 @@ class Motion extends Service{
             // Update object position
 
             object.pos.add(object.vel);
-
             // Check if object went out of canvas, if so, notify as event
 
             outOfCanvas = false;

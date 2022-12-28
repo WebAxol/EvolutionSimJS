@@ -12,8 +12,7 @@ class CollectionManager {
     registerCollection(name){
 
         if(this.#collections[name]){
-            console.warn(`Collection named '${name}' already registered`);
-            return false;
+            throw Error(`Collection named '${name}' already registered`);
         }
 
         this.#collections[name] = [];
@@ -26,8 +25,7 @@ class CollectionManager {
             return this.#collections[collectionName];
         }
 
-        console.warn(`Cannot get unregistered collection '${collectionName}'`)
-        return false;
+        throw Error(`Cannot get unregistered collection '${collectionName}'`)
     }
 
     addToCollection(collectionName,object){
@@ -66,6 +64,8 @@ class CollectionManager {
     }
 
     removeFromCollection(collectionName,object){
+        
+        if(!this.#collections[collectionName]) throw Error(`Canot remove agent from collection ${collectionName} as the collection doesn't exist`);
 
         let index = this.#collections[collectionName].indexOf(object);
         this.#collections[collectionName].splice(index,1);

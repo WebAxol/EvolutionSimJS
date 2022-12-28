@@ -1,11 +1,19 @@
 // NOTE: Ecosystem is a layer built over the framework utilized: CASES, if there is a problem with the framework or it isn't present, the logic at Ecosystem wont work
 
-class Ecosystem {
+class Ecosystem { 
+    /* 
+        - Responsible of instancing and preparing organisms and their collections for their allocation at WORLD.
+        - Also responsible of storing the ecosystem relevant information to be available for other modules to consume it.
+    */
+        
     
     #species;
     #foodWeb;
-    #organismBuilder;
-    #mutator;
+
+    // subordinate modules
+
+    #organismBuilder; // the responsibility of instancing and preparing organisms is pawned to this module
+    #mutator;         // it is responsible of mutating organisms just after they are built by organismBuilder
 
     constructor(world, setUp){
         
@@ -13,19 +21,17 @@ class Ecosystem {
             throw Error('The experiment setUp is not valid');
         }
         else{
+
             this.world   = world;
             this.history = [];
+
+            this.#organismBuilder = new OrganismBuilder(this);
+            this.#mutator         = new Mutator(this);
+            this.#mutator.init(setUp.mutations);
     
             this.#species = this.setUpSpecies(setUp.species);
             this.#foodWeb = this.setUpFoodWeb(setUp.foodWeb);
     
-            // subordinate modules
-    
-            this.#organismBuilder   = new OrganismBuilder(this);
-            this.#mutator           = new Mutator(this);
-    
-            this.#mutator.init(setUp.mutations);
-
             // WARNING: the methods to instance organisms depend on the existance of the agentTypes "Organism" and "Circle"
 
             this.generateInitialOrganisms();
