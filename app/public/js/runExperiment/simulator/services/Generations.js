@@ -22,7 +22,7 @@ class Generations extends Service{
             for(let i = 0; i < specie.length; i++){
                 
                 let organism = specie[i];
-                let isProducer = this.ecosystem.getSpecie(specieName).organismType === 'producer';
+                let isProducer = organism.getType() == 'Producer';
 
                 if(organism.foodCount >= organism.foodFee * 2 || isProducer){
 
@@ -71,7 +71,7 @@ class Generations extends Service{
 
                 // In case that specie is not a producer
 
-                else if(this.ecosystem.getSpecie(specieName).organismType != 'producer'){ 
+                else if(organism.getType() != 'Producer'){ 
 
                     // Reactivate organism
 

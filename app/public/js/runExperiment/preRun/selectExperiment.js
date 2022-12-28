@@ -2,7 +2,7 @@
 
    
 var selectedExperimentIndex; // Used to access the experiment stored at experimentPagination.results
-var InitSimulation = {};
+var InitSimulation = {}; 
 
 experimentDetailsInterface.slideUp(0); // initial state
 

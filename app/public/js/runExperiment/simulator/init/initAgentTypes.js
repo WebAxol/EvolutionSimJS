@@ -4,27 +4,35 @@ Init.prototype.initAgentTypes = () => {
 
     WORLD.registerAgentType('Consumer', {
         info: {
-            pos       : {x : 0, y : 0},
-            vel       : {x : 0, y : 0},
+            pos       : new Vector2D(0,0),
+            vel       : new Vector2D(0,0),
             age       : 0, 
             lifespan  : 3,
             active    :  true,
             wander    :  true,
             foodFee   : 1,  
             foodCount : 0,
+            maxEnergy   : 30000,
+            energy      : 30000,
+
+            /* For movement algorithms */
 
             // used to choose which prey to chase
 
             targetPrey             : undefined,
             shortestDistanceToPrey : undefined,
+            shortestVectorToPrey   : undefined,
 
-            maxEnergy   : 30000,
-            energy      : 30000,
+            // used to choose which predator to escape from
+
+             targetPredator             : undefined,
+            shortestDistanceToPredator  : undefined,
+            shortestVectorToPredator    : undefined,
 
             // inheritable traits
 
-            maxSpeed    : 0,
-            sensitivity : 0
+                maxSpeed    : 0,
+                sensitivity : 0
         },
     })
 
