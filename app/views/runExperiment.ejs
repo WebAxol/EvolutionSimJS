@@ -15,49 +15,20 @@
         <canvas width="3000px" height="1500px"></canvas>
     </div>
 
-    <div class="container mt-5" id="experimentSelectionContainer">
-        <div class="row mx-auto">
-            <div class="col-md-6 mx-auto">
-                <section class="experimentSelection">
-                    <h1>Select an Experiment</h1>
+    <%- include('partials/experimentPagination.ejs') %>
 
-                    <article id="selectExperimentInterface">
-                        <ul class="list-group" id="experimentList">
-                            <li class="list-group-item">ExperimentA</li> <!--Dummy element--> 
-                            <li class="list-group-item">ExperimentB</li> <!--Dummy element--> 
-                        </ul>
-    
-                        <hr>
-    
-                        <button class="btn btn-secondary d-none"id="prevPage">prevPage</button>
-                        <button class="btn btn-primary"id="nextPage">nextPage</button>
-    
-                    </article>
+    <!--TODO: transform script tag blob into export import-->
 
-                    <article id="experimentDetailsInterface">
-                        
-                        <p>Experiment: <span class="text-secondary"id="experimentName"></span></p>
-                        <p>SetUp: <span class="text-secondary"id="experimentName">--TODO: Implement "display setup" functionality--</span></p>
-
-                        <hr>
-
-                        <button class="btn btn-danger"  id="backToSelect">Back</button>
-                        <button class="btn btn-success" id="runExperiment">Run Experiment</button>
-                    </article>
-                </section>
-            </div>
-        </div>
-    </div>
+    <!--Libraries-->
 
     <script src="/js/libraries/jquery-3.6.1.min.js"></script>
     <script src="/js/libraries/bootstrap-5.min.js"></script>
 
+    <!--experiment pagination-->
 
-    <!--PRE SIMULATION-->
-
-    <script src="/js/runExperiment/preRun/init.js"></script>
-    <script src="/js/runExperiment/preRun/getExperimentList.js"></script>
-    <script src="/js/runExperiment/preRun/selectExperiment.js"></script>
+    <script src="/js/experimentPagination/userInterfaceElements.js"></script>
+    <script src="/js/experimentPagination/getExperimentList.js"></script>
+    <script src="/js/experimentPagination/selectExperiment.js"></script>
 
 
     <!--Framework-->
