@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/css/runExperiment/style.css" rel="stylesheet">
+    <link href="/css/experimentPagination/style.css" rel="stylesheet">
     <link href="/css/libraries/bootstrap-5.min.css" rel="stylesheet">
     <title>Document</title>
 </head>
@@ -15,50 +16,19 @@
         <canvas width="3000px" height="1500px"></canvas>
     </div>
 
-    <div class="container mt-5" id="experimentSelectionContainer">
-        <div class="row mx-auto">
-            <div class="col-md-6 mx-auto">
-                <section class="experimentSelection">
-                    <h1>Select an Experiment</h1>
+    <%- include('partials/experimentPagination.ejs') %>
 
-                    <article id="selectExperimentInterface">
-                        <ul class="list-group" id="experimentList">
-                            <li class="list-group-item">ExperimentA</li> <!--Dummy element--> 
-                            <li class="list-group-item">ExperimentB</li> <!--Dummy element--> 
-                        </ul>
-    
-                        <hr>
-    
-                        <button class="btn btn-secondary d-none"id="prevPage">prevPage</button>
-                        <button class="btn btn-primary"id="nextPage">nextPage</button>
-    
-                    </article>
+    <!--TODO: transform script tag heap into ESM modules to be included as a single modular script tag-->
 
-                    <article id="experimentDetailsInterface">
-                        
-                        <p>Experiment: <span class="text-secondary"id="experimentName"></span></p>
-                        <p>SetUp: <span class="text-secondary"id="experimentName">--TODO: Implement "display setup" functionality--</span></p>
-
-                        <hr>
-
-                        <button class="btn btn-danger"  id="backToSelect">Back</button>
-                        <button class="btn btn-success" id="runExperiment">Run Experiment</button>
-                    </article>
-                </section>
-            </div>
-        </div>
-    </div>
+    <!--Libraries-->
 
     <script src="/js/libraries/jquery-3.6.1.min.js"></script>
     <script src="/js/libraries/bootstrap-5.min.js"></script>
 
 
-    <!--PRE SIMULATION-->
+    <!--experiment pagination-->
 
-    <script src="/js/runExperiment/preRun/init.js"></script>
-    <script src="/js/runExperiment/preRun/getExperimentList.js"></script>
-    <script src="/js/runExperiment/preRun/selectExperiment.js"></script>
-
+    <script type="module" src="/js/experimentPagination/experimentPagination.js"></script>
 
     <!--Framework-->
    
@@ -93,11 +63,16 @@
     <script src="/js/runExperiment/simulator/layers/Ecosystem/Ecosystem.js"></script>
 
     <!--Init World-->
+
     <script src="/js/runExperiment/simulator/init/Init.js"></script>
     <script src="/js/runExperiment/simulator/init/initCollections.js"></script>
     <script src="/js/runExperiment/simulator/init/initAgentTypes.js"></script>
     <script src="/js/runExperiment/simulator/init/initServices.js"></script>
-    <SCRipt src="/js/runExperiment/simulator/init/initEvents.js"></SCRipt>
+    <script src="/js/runExperiment/simulator/init/initEvents.js"></script>
+
+    <!--Initialization triggerer-->
+
+    <script src="/js/runExperiment/experimentChosenHandler.js"></script>
 
 </body>
 </html>

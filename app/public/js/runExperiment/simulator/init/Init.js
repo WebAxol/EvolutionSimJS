@@ -19,17 +19,6 @@ var ECOSYSTEM;
 
 class Init{
 
-   setColorToSpecies(species){
-
-      let specieNames = Object.keys(species);
-
-      specieNames.forEach((specieName, index) => {
-         species[specieName].colorA = colorPalettes[index % (colorPalettes.length)][0];
-         species[specieName].colorB = colorPalettes[index % (colorPalettes.length)][1];
-      });
-
-   }
-
    prepareAndRunSimulation(experiment){
 
       // Relevant details for identification
@@ -52,6 +41,16 @@ class Init{
       this.initEvents();
 
       this.startWorld();
+   }
+
+   setColorToSpecies(species){
+
+      let specieNames = Object.keys(species);
+
+      specieNames.forEach((specieName, index) => {
+         species[specieName].colorA = colorPalettes[index % (colorPalettes.length)][0];
+         species[specieName].colorB = colorPalettes[index % (colorPalettes.length)][1];
+      });
    }
 
    startWorld(){
