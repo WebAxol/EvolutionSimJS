@@ -3,15 +3,6 @@ body {
   margin: 0;
 }
 
-.experimentSelection {
-  border: solid #28a745 5px;
-  border-radius: 10px;
-  padding: 20px;
-}
-.experimentSelection .experiment {
-  cursor: pointer;
-}
-
 .canvasContainer {
   top: 0;
   position: absolute;

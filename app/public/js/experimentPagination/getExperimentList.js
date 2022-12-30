@@ -1,5 +1,7 @@
 'use strict'
 
+import UI from './userInterface.js';
+
 class ExperimentRetriever {
 
     #experimentPagination
@@ -11,6 +13,31 @@ class ExperimentRetriever {
             numberPerPage : 5,
             results : undefined
         };
+    }
+
+    nextPage(){
+
+        UI.prevPageBtn.removeClass('d-none');
+        this.#experimentPagination.page++;
+        
+        this.getExperiments();
+
+        if(this.#experimentPagination.page >= this.#experimentPagination.maxPage){
+            UI.nextPageBtn.addClass('d-none');
+        }
+    }
+
+    prevPage(){
+
+        UI.nextPageBtn.removeClass('d-none');
+        
+        this.#experimentPagination.page--;
+        this.getExperiments();
+
+        if(this.#experimentPagination.page <= 0){
+            UI.prevPageBtn.addClass('d-none');
+        }
+
     }
 
     getPaginationResults(){
@@ -30,7 +57,7 @@ class ExperimentRetriever {
             }).then((json) => {
                 let experiments = json.experiments;
                 this.#experimentPagination.results = experiments;
-                displayExperimentList(experiments);
+                this.displayExperimentList(experiments);
             });
         }catch(err){
     
@@ -47,38 +74,6 @@ class ExperimentRetriever {
     }
 }
 
+var retriever = new ExperimentRetriever();
 
-
-// Update experiment - EVENTS
-
-$('document').ready(() => {
-
-    nextPageBtn.click((e) => {
-
-        prevPageBtn.removeClass('d-none');
-    
-        experimentPagination.page++;
-        getExperiments();
-    
-        if(experimentPagination.page >= experimentPagination.maxPage){
-            nextPageBtn.addClass('d-none');
-        }
-    
-    });
-    
-    prevPageBtn.click((e) => {
-    
-        nextPageBtn.removeClass('d-none');
-        
-        experimentPagination.page--;
-        getExperiments();
-    
-        if(experimentPagination.page <= 0){
-            prevPageBtn.addClass('d-none');
-        }
-    
-    });
-
-    getExperiments();
-
-});
+export default retriever;

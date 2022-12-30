@@ -1,66 +1,54 @@
 'use strict'
 
-   
-var selectedExperimentIndex; // Used to access the experiment stored at experimentPagination.results
-var InitSimulation = {}; 
+import ExperimentRetriever  from './getExperimentList.js'; // Coupled module, it would be better to 
+import UI from './userInterface.js';
 
-experimentDetailsInterface.slideUp(0); // initial state
 
-// Experiment selected
+class ExperimentSelection{
 
-const displayExperimentDetails = () => {
+    constructor(){
+        this.selectedExperimentIndex; // Used to access the experiment stored at experimentPagination.results
+    }
 
-    selectExperimentInterface.slideUp();
-    experimentDetailsInterface.slideDown();
+    // Experiment selected
 
-    let experiments = experimentPagination.results;
-    let experiment  = experiments[selectedExperimentIndex];
+    displayExperimentDetails = () => {
 
-    $('#experimentName').html(experiment.name);
+        UI.selectExperimentInterface.slideUp();
+        UI.experimentDetailsInterface.slideDown();
+
+        let experiments = ExperimentRetriever.getPaginationResults();
+        let experiment  = experiments[this.selectedExperimentIndex];
+
+        $('#experimentName').html(experiment.name);
 }
 
-// Experiment unselected
+    // Experiment unselected
 
-const backToSelectionInterface = () => {
+    backToSelectionInterface = () => {
 
-    selectExperimentInterface.slideDown();
-    experimentDetailsInterface.slideUp();
-};
+        UI.selectExperimentInterface.slideDown();
+        UI.experimentDetailsInterface.slideUp();
+    };
 
-// Confirm selection
+    // Confirm selection
 
-const runExperiment = () => {
+    confirmSelection = () => {
 
-    canvasContainer.show(500);
-    experimentSelectionContainer.hide(500);
+        let experiments = ExperimentRetriever.getPaginationResults();
+        let experiment  = experiments[this.selectedExperimentIndex];
 
-    
-    let experiments = experimentPagination.results;
-    let experiment  = experiments[selectedExperimentIndex];
-    
-    InitSimulation.prepareAndRunSimulation(experiment);
+
+        if(!__experimentChosenHandler__){
+            throw Error('An __experimentChosenHandler__ function needs to be implemented, to trigger the processes that come after the experiment has been chosen');
+        }
+        
+        // Ugly antipattern is being provisionally used as it is the simplest way of making modules work with non-modular scripts, as they are not fully compatible - IT MUST BE CORRECTED AS SOON AS POSSIBLE
+        // For this antipattern to be corrected, all scripts must be changed to ESM, which import and export their modules to work together
+        __experimentChosenHandler__(experiment);
+
+
+    }
 }
 
-// EVENTS
-
-$('document').ready(() => {
-
-    InitSimulation = new Init();
-
-    experimentList.click((e) => {
-
-        var experimentIndex = e.target.getAttribute('data-experiment-index');
-        selectedExperimentIndex = experimentIndex;
-        displayExperimentDetails();
-    });
-    
-    backToSelectBtn.click(() => {
-        selectedExperimentIndex = undefined;
-        backToSelectionInterface();
-    });
-    
-    runExperimentBtn.click(() => {
-        runExperiment();
-    });
-
-});
+export default new ExperimentSelection();
