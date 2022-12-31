@@ -1,0 +1,22 @@
+body .general-interfaceContainer {
+  border: solid #28a745 5px;
+  border-radius: 10px;
+  padding: 20px;
+}
+body .general-interfaceContainer button {
+  border: double 5px;
+  width: 100%;
+}
+body .general-interfaceContainer .general-interface .general-exitOptions {
+  display: flex;
+  flex-wrap: no-wrap;
+}
+body .general-interfaceContainer .general-interface .general-exitOptions div {
+  width: 100%;
+  padding: 10px;
+}
+body .general-interfaceContainer .general-interface .general-exitOptions div button {
+  width: 100%;
+}
+
+/*# sourceMappingURL=general.css.map */

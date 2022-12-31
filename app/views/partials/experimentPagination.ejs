@@ -3,15 +3,17 @@
 <div class="container mt-5" id="experimentSelectionContainer">
     <div class="row mx-auto">
         <div class="col-md-6 mx-auto">
-            <section class="experimentSelection">
+
+            <section class="general-interfaceContainer experimentSelection">
                 <h1>Select an Experiment</h1>
 
-                <article id="selectExperimentInterface">
-                    <ul class="list-group" id="experimentList">
-                        <li class="list-group-item">Dummy experiment A</li> <!--Dummy element--> 
-                        <li class="list-group-item">Dummy experiment B</li> <!--Dummy element--> 
-                    </ul>
+                <hr>
+                
+                <article class="general-interface" id="selectExperimentInterface">
 
+                    <ul class="list-group" id="experimentList">
+                        <li class="list-group-item">Sorry, we couldn't retrieve the</li>                     
+                    </ul>
                     <hr>
 
                     <button class="btn btn-secondary d-none"id="prevPage">prevPage</button>
@@ -19,15 +21,16 @@
 
                 </article>
 
-                <article id="experimentDetailsInterface">
+                <article class="general-interface" id="experimentDetailsInterface">
                     
                     <p>Experiment: <span class="text-secondary"id="experimentName"></span></p>
                     <p>SetUp: <span class="text-secondary"id="experimentName">--TODO: Implement "display setup" functionality--</span></p>
 
                     <hr>
-
-                    <button class="btn btn-danger"  id="backToSelect">Back</button>
-                    <button class="btn btn-success" id="runExperiment">Run Experiment</button>
+                    <div class="general-exitOptions">
+                        <div><button class="btn btn-danger"  id="backToSelect">Back</button></div>
+                        <div><button class="btn btn-success" id="runExperiment">Confirm</button></div>
+                    </div>
                 </article>
             </section>
         </div>

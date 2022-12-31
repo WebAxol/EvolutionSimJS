@@ -18,19 +18,21 @@
         Proporsal: Creating an system of events, implementing a central communication module: an EventManager
 */
 
-
 // Dependencies
 
 import ExperimentController from './Experiment.js';
 import ResultModel from '../models/Result.js';
 import ErrorHandler from '../utils/errorHandling.js';
+import { Error } from 'mongoose';
 
 
 class Result {
    
+    // TODO: restructure code so that the controller classes dont handle requests directly, but just return or post data
+
     #_storeResult(req,res){
 
-        if(!req || !res) return false;
+        if(!req || !res) return false;    
 
         try{
 
@@ -65,27 +67,64 @@ class Result {
     }
 
     storeResult(req,res){
+        try{
+            if(!req || !res) return false;
 
-        if(!req || !res) return false;
+            if(!this.checkInformation(req.body)){
+                return ErrorHandler.handleError('invalidDataSupplied',res);
+            }
+    
+            // An experiment with the given ID must exist to create results related to it
+    
+            const experimentExists = ExperimentController.getExperimentByID(req.body.experimentID);
+    
+            experimentExists.then((r) => {
+    
+                if(!r){
+                    return ErrorHandler.handleError('internalError',res);
+                }
+                
+                this.#_storeResult(req,res);
+            });
+        }catch(err){
+            return ErrorHandler.handleError('internalError',res);
+        }
+    }   
 
-        if(!this.checkInformation(req.body)){
-            return ErrorHandler.handleError('invalidDataSupplied',res);
+    getResultsOfExperiment(req,res){
+        try{
+
+            if(!req || !res) return false;
+
+            if(!req.query.experimentID) return ErrorHandler.handleError('invalidDataSupplied', res);
+
+            const experimentID = req.query.experimentID;
+            const experimentExists = ExperimentController.getExperimentByID(experimentID);
+
+            experimentExists.then((r) => {
+
+                if(!r){
+                    return res.status(404).send({
+                        error : 'The experiment passed as a parameter does not exist'
+                    });
+                }
+                
+                ResultModel.find({ "experimentID" : experimentID }).then(results => {
+                    return res.status(200).send({
+                        results : results
+                    });
+                });
+            
+            })
+        
+        }catch(err){
+            console.log(err);
+            return ErrorHandler.handleError('internalError',res);
         }
 
-
-        // An experiment with the given ID must exist to create results related to it
-
-        const experimentExists = ExperimentController.getExperimentByID(req.body.experimentID);
-
-        experimentExists.then((r) => {
-
-            if(!r){
-                return ErrorHandler.handleError('internalError',res);
-            }
-            
-            this.#_storeResult(req,res);
-        });
     }
+
+    // TODO: implement better data validator system
 
     checkInformation(body){
     

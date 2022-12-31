@@ -45,23 +45,24 @@ class ExperimentRetriever {
     }
 
     getExperiments = () => {
-        try{
-            fetch(`/api/experiment?numberPerPage=${this.#experimentPagination.numberPerPage }&page=${this.#experimentPagination.page}`, {
-                method: 'GET'
         
-            }).then((res) => {
+        fetch(`/api/experiment?numberPerPage=${this.#experimentPagination.numberPerPage }&page=${this.#experimentPagination.page}`, {
+            method: 'GET'
+        
+        }).then((res) => {
     
-                let json = res.json();
-                return json;
+            let json = res.json();
+            return json;
     
-            }).then((json) => {
-                let experiments = json.experiments;
-                this.#experimentPagination.results = experiments;
-                this.displayExperimentList(experiments);
-            });
-        }catch(err){
-    
-        }
+        }).then((json) => {
+            
+            let experiments = json.experiments;
+            this.#experimentPagination.results = experiments;
+            this.displayExperimentList(experiments);
+
+        }).catch(err => {
+            console.error(err);  
+        });
     }
     
     displayExperimentList = (experiments) => {
