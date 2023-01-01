@@ -12,6 +12,9 @@ class Renderer extends Service{
     }
 
     execute(){
+
+        if(this.world.frame % 2 == 0) return;
+
         this.context.fillStyle = 'rgba(0,0,0,0.3)';
         this.context.fillRect(0,0,canvas.width,canvas.height);
 

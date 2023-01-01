@@ -120,7 +120,7 @@ class OrganismBehaviour extends Service{ // once set the targets of each organis
     }
 
     spendEnergy(organism){
-        organism.energy -= (organism.vel.x * organism.vel.x) + (organism.vel.y * organism.vel.y) + (organism.sensitivity * 1.5);
+        organism.energy -= (organism.vel.x * organism.vel.x) + (organism.vel.y * organism.vel.y) + (organism.sensitivity * 1.5) * 2;
         if(organism.energy <= 0) this.#chief.world.notifyEvent('organismOutOfEnergy', { organism : organism });
 
     }
