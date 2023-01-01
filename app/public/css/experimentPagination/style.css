@@ -6,6 +6,7 @@ body {
 .experimentSelection {
   border: solid #28a745 5px;
   border-radius: 10px;
+  min-height: 250px;
   padding: 20px;
 }
 .experimentSelection .experiment {

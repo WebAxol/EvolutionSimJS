@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/experimentPagination/style.css">
+    <link rel="stylesheet" href="/css/analyseResults/style.css">
+    <link rel="stylesheet" href="/css/libraries/bootstrap/bootstrap-5.min.css">
+    <link rel="stylesheet" href="/css/libraries/general/general.css">
+    <title>Document</title>
+</head>
+<body>
+   
+    <%- include('partials/experimentPagination.ejs') %>
+
+    <div class="container mt-5" id="resultSelectionContainer">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <section class="mx-auto general-interfaceContainer">
+
+                    <h2>Select result to be analysed</h2>
+
+                    <hr>
+
+                    <ul class="list-group" id="resultList">
+                        <li class="list-group-item">Sorry, we couldn't retrieve the Results</li>                  
+                    </ul>
+
+                    <button class="mt-3 btn btn-outline-danger">Back</button>
+
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5" id="canvasContainer" >
+        <div class="row mx-auto">
+            <div class="col-md-8 mx-auto">
+                <canvas class="mx-auto border border-success" id="chartCanvas"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!--Libraries-->
+
+    <script src="/js/libraries/jquery/jquery-3.6.1.min.js"></script>
+    <script src="/js/libraries/bootstrap/bootstrap-5.min.js"></script>
+    <script src="/js/libraries/chartjs/chart.umd.js"></script>
+  
+    <!---->
+
+    <script src="/js/analyseResults/userInterface.js"></script>
+    <script src="/js/analyseResults/getExperimentResults.js"></script>
+    <script src="/js/analyseResults/resultSelection.js"></script>
+    <script src="/js/analyseResults/graphResults.js"></script>
+    <script src="/js/analyseResults/experimentChosenHandler.js"></script>
+
+    <!--module Integration-->
+
+    <script type="module" src="/js/experimentPagination/experimentPagination.js"></script>
+
+</body>
+</html>
