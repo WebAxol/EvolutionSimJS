@@ -23,6 +23,9 @@ class Organism extends Service{
 
     execute(){
 
+
+        if(this.world.frame % 2 == 0) return;
+        
         if(this.isGenerationOver === true){
           
           if(this.hasNotifiedGenOver === false){

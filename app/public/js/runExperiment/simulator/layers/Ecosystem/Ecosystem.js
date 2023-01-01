@@ -25,12 +25,13 @@ class Ecosystem {
             this.world   = world;
             this.history = [];
 
+            this.#species = this.setUpSpecies(setUp.species);
+            this.#foodWeb = this.setUpFoodWeb(setUp.foodWeb);
+
             this.#organismBuilder = new OrganismBuilder(this);
             this.#mutator         = new Mutator(this);
             this.#mutator.init(setUp.mutations);
     
-            this.#species = this.setUpSpecies(setUp.species);
-            this.#foodWeb = this.setUpFoodWeb(setUp.foodWeb);
     
             // WARNING: the methods to instance organisms depend on the existance of the agentTypes "Organism" and "Circle"
 
@@ -40,8 +41,6 @@ class Ecosystem {
 
     isSetUpValid(setUp){
 
-        console.log(setUp);
-
         if(!setUp.species)   return false;
         if(!setUp.foodWeb)   return false;
 
@@ -49,8 +48,6 @@ class Ecosystem {
     }
 
     setUpSpecies(species){
-
-        console.log(species);
 
         Object.keys(species).forEach(specieName => {
 

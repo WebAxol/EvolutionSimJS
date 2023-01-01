@@ -9,6 +9,7 @@ class Mutator {
     }
 
     init(mutationDetails){
+        console.log(this.ecosystem);
         this.mutations = this.setUpMutations(mutationDetails);
     }
 
@@ -17,7 +18,7 @@ class Mutator {
         if(!mutationDetails){
             return; // No mutations
         }
-        
+
         var species = Object.keys(this.ecosystem.getAllSpecies());
         var mutations = {};
 
