@@ -1,14 +1,18 @@
 'use strict'
 
+var results;
+
 const getExperimentResults = (experimentID) => {
 
     fetch(`/api/result?experimentID=${experimentID}`, {
         method: 'GET'
 
     }).then(res => {
-        return res.json();
+        let json = res.json();
+        return json;
 
     }).then(res => {
+        results = res.results;
         displayResultList(res);
 
     }).catch(err => {
@@ -18,18 +22,17 @@ const getExperimentResults = (experimentID) => {
 };
 
 const displayResultList = (records) => {
-    console.table(records.results[2].results);
 
     $('#experimentSelectionContainer').hide(300);
-    retrieveResultsUI.resultSelectionContainer.show(300);
+    analyseResultsUI.resultSelectionContainer.show(300);
 
     var html = ``;
 
     // TODO, format date in a user friendly way
 
-    records.results.forEach(result => {
-        html += `<li class='list-group-item'> ${result.date} </li>`
+    records.results.forEach((result, index) => {
+        html += `<li class='list-group-item' data-result-index='${index}'> ${result.date} </li>`
     });
 
-    retrieveResultsUI.resultList.html(html);
+    analyseResultsUI.resultList.html(html);
 };

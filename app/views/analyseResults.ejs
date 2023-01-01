@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/experimentPagination/style.css">
+    <link rel="stylesheet" href="/css/analyseResults/style.css">
     <link rel="stylesheet" href="/css/libraries/bootstrap/bootstrap-5.min.css">
     <link rel="stylesheet" href="/css/libraries/general/general.css">
     <title>Document</title>
@@ -33,21 +34,27 @@
         </div>
     </div>
 
-    <div id="canvasContainer">
-        <canvas id="resultsCanvas"></canvas>
+    <div class="container mt-5" id="canvasContainer" >
+        <div class="row mx-auto">
+            <div class="col-md-8 mx-auto">
+                <canvas class="mx-auto border border-success" id="chartCanvas"></canvas>
+            </div>
+        </div>
     </div>
 
     <!--Libraries-->
 
     <script src="/js/libraries/jquery/jquery-3.6.1.min.js"></script>
     <script src="/js/libraries/bootstrap/bootstrap-5.min.js"></script>
-    <script src="/js/libraries/chartjs/chart.umd.js"></script>>
+    <script src="/js/libraries/chartjs/chart.umd.js"></script>
   
     <!---->
 
-    <script src="/js/retrieveResults/userInterface.js"></script>
-    <script src="/js/retrieveResults/getExperimentResults.js"></script>
-    <script src="/js/retrieveResults/experimentChosenHandler.js"></script>
+    <script src="/js/analyseResults/userInterface.js"></script>
+    <script src="/js/analyseResults/getExperimentResults.js"></script>
+    <script src="/js/analyseResults/resultSelection.js"></script>
+    <script src="/js/analyseResults/graphResults.js"></script>
+    <script src="/js/analyseResults/experimentChosenHandler.js"></script>
 
     <!--module Integration-->
 

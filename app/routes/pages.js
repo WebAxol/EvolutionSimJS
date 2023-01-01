@@ -16,8 +16,8 @@ router.get('/setUpExperiment', (req,res) => {
     res.status(200).render('../views/setUpExperiment.ejs')
 });
 
-router.get('/retrieveResults', (req,res) => {
-    res.status(200).render('../views/retrieveResults.ejs')
+router.get('/analyseResults', (req,res) => {
+    res.status(200).render('../views/analyseResults.ejs')
 });
 
 export default router;
