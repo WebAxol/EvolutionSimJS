@@ -2,6 +2,11 @@
 
 This is an academic project that has the intention of understanding how communities inside ecosystems can change and evolve depending on specific conditions.
 
+![alt text](https://github.com/WebAxol/EvolutionSimJS/blob/master/img/simulator.png)
+
+![alt text](https://github.com/WebAxol/EvolutionSimJS/blob/master/img/results.png)
+
+
   <h2><b>Main Features:</b></h2>
 
   - <b>Interface to set up experiments:</b>  The final user can establish the variables as he requires, so there is enough flexibility to run different kinds of experiments.
