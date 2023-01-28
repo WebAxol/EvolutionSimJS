@@ -2,9 +2,9 @@
 
 This is an academic project that has the intention of understanding how communities inside ecosystems can change and evolve depending on specific conditions.
 
-![alt text](https://github.com/WebAxol/EvolutionSimJS/blob/master/img/simulator.png)
+![EvolutionSimJS - Simulator in action](https://github.com/WebAxol/EvolutionSimJS/blob/master/img/simulator.png)
 
-![alt text](https://github.com/WebAxol/EvolutionSimJS/blob/master/img/results.png)
+![EvolutionSimJS - Results graphed](https://github.com/WebAxol/EvolutionSimJS/blob/master/img/results.png)
 
 
   <h2><b>Main Features:</b></h2>
