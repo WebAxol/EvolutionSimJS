@@ -48,13 +48,11 @@ class Generations extends Service{
     reactivateOrganisms(){
 
         var specieNames = Object.keys(this.ecosystem.getAllSpecies()),
-            empty = true;
+            remain = false;
         
         specieNames.forEach(specieName => {
 
             var specie = this.world.getCollection(specieName);
-
-            empty = specie.length <= 0;
 
             for(let i = 0; i < specie.length; i++){
 
@@ -76,6 +74,7 @@ class Generations extends Service{
                     // Reactivate organism
 
                     organism.active = true;
+                    remain = true;
                     this.world.addToCollection(`Active${specieName}`,organism);   
                 }
 
@@ -83,10 +82,7 @@ class Generations extends Service{
             }
         });
 
-        if(empty){
-            // All consumers extinct - TODO : Trigger event onsimulationOver to stop simulation and send all data to server
-        }
-
+        return remain;
     }
 
 
@@ -100,9 +96,15 @@ class Generations extends Service{
 
         document.getElementById('generationCounter').innerHTML = `Generation: ${this.generation}`;
 
-        // Prepare for next generation
+        // Prepare for next generation... or end simulation
 
-        this.reactivateOrganisms();
+        let remain = this.reactivateOrganisms();
+        
+        if(!remain){
+            this.world.notifyEvent('simulationOver');
+            return false;
+        }   
+        
         this.createOffspring();
 
         // Trigger next generation

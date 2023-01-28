@@ -27,5 +27,6 @@ class DataSend extends Service{
 
     onsimulationOver(){
         this.sendData();
+        this.world.pauseExecution();
     }
 }

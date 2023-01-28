@@ -70,8 +70,12 @@ class OrganismBehaviour extends Service{ // once set the targets of each organis
 
     fleeFromTargetPredator(prey){
 
+        try{
+
         if(prey.organismType == 'producer') return; // wont flee
               
+        console.log(prey);
+
         var normalized = prey.shortestVectorToPredator.normalize();
 
         prey.wander = false;   
@@ -81,6 +85,11 @@ class OrganismBehaviour extends Service{ // once set the targets of each organis
         if(Vector2D.magSq(prey.vel) > (prey.maxSpeed  * prey.maxSpeed)){
             prey.vel.x *= 0.8; 
             prey.vel.y *= 0.8; 
+        }
+
+        }catch(err){
+            console.log(normalized,prey.shortestDistanceToPredator);
+            this.#chief.world.pauseExecution();
         }
     }
 

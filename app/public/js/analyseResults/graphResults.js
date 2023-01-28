@@ -16,14 +16,17 @@ const formatResult = (result) => {
     
     console.log(result.results);
 
-    result.results.forEach(currentGeneration => {
+    const n = result.results.length; 
+
+    for(let i = 0; i < ((n < 200) ? n : 200); i++){
+
+        let currentGeneration = result.results[i];
 
         species.forEach(specie => {
             let data = currentGeneration[specie];
             formatted[specie].push(data); 
         });
-        
-    });
+    }
 
     return formatted;
 }
@@ -35,7 +38,12 @@ const createChart = (formattedResult) => {
     const labels = Array(generationNumber).fill(0);
     const datasets = [];
 
+    for(let i = 0; i < generationNumber ; i++){
+        labels[i] = i;
+    }
+
     species.forEach((specieName, index) => {
+
         datasets.push({
             label: specieName,
             data: formattedResult[specieName],
@@ -50,9 +58,17 @@ const createChart = (formattedResult) => {
         datasets: datasets
     };
 
+    const options = {
+        scales: {
+            x: { title: { display: true, text: 'generations' }},
+            y: { title: { display: true, text: 'population (organisms per specie)' }}
+        }
+      }
+
     const config = {
         type : 'line',
-        data : data
+        data : data,
+        options: options
     }
 
     new Chart(c,config);
