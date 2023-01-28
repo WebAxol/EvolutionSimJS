@@ -17,6 +17,7 @@ This is an academic project that has the intention of understanding how communit
 
 <h2>Missing technical requirements for deployment</h2>
 
+  - Index web page with links to the rest of frontend interfaces
   - Perform security tests on back-end controllers
   - Further test and optimize simulation; it must run at least at 30fps having a load of 500(consumers)x1000(producers)
   - Finish user interfaces and test UX
