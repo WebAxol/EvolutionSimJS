@@ -37,11 +37,12 @@ class OrganismTargeter extends Service { // sets the prey and predator targets o
 
         if(prey.getType() == 'Producer') return; // producers won't flee from predators: they are inert (alive but inactive)
 
-        console.warn('Test failed', prey);
-
         if(squareDistance < prey.shortestDistanceToPredator){
             prey.shortestDistanceToPredator = squareDistance;
-            prey.shortestVectorToPrey = predatorToPrey.scale(-1);
+            prey.shortestVectorToPrey = predatorToPrey;
+            prey.shortestVectorToPrey.x *= -1;
+            prey.shortestVectorToPrey.y *= -1;
+
             prey.targetPredator = predator;
         }
     }
