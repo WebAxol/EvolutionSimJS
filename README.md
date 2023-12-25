@@ -1,6 +1,8 @@
 # EvolutionSimJS
 
-This is an academic project that has the intention of understanding how communities inside ecosystems can change and evolve depending on specific conditions.
+This is an academic project that intends to understand how communities inside ecosystems can change and evolve depending on specific conditions.
+
+<b>Warning</b> This code is not ready for production and lacks some good practices: it was specifically made for academic research
 
 ![EvolutionSimJS - Simulator in action](https://github.com/WebAxol/EvolutionSimJS/blob/master/img/simulator.png)
 
